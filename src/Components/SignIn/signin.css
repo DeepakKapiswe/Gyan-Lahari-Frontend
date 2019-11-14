@@ -1,0 +1,8 @@
+.incImg {
+    background-image: url("./Flowers.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-height: 100%; 
+    background-color: #FFF100;
+    background-position-y:-12vmax;
+}
