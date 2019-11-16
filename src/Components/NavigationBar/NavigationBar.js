@@ -2,7 +2,6 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import MyButton from './Button';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,9 +27,18 @@ const useStyles2 = makeStyles({
   },
 });
 
+export function NavHead ({children}) {
+  return (
+    <Grid item xs={9}
+          textAlign="end"
+          alignContent="flex-start"
+          position="static">
+            {children}
+        </Grid>
+  );
+}
 
-
-const NavigationBar = () => {
+const NavigationBar = (props) => {
   const classes = useStyles();
   const classes2 = useStyles2();
   return (
@@ -43,13 +51,8 @@ const NavigationBar = () => {
         alignItems="center"
         className={classes2.root}
       >
-        <Grid item xs={9}
-          textAlign="end"
-          alignContent="flex-start"
-          position="static">
-          <h1>Sri Kabir Gyan Prakashan Kendra</h1>
-        </Grid>
-        <MyButton />
+        {props.navHead}
+        {props.children}
       </Grid>
     </Paper>
 

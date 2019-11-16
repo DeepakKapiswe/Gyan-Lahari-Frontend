@@ -13,12 +13,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import './signin.css';
 import custImg from './lotus.png';
+import {navigate} from '@reach/router';
 
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
+            <Link color="inherit" href="https://kabirgyan.com/">
                 KabirGyan.com
       </Link>{' '}
             {new Date().getFullYear()}
@@ -79,7 +80,13 @@ export default function SignIn(props) {
                         <Typography >
                             Details
           </Typography>
-                        <form className={classes.form} noValidate>
+                        <form
+                          className={classes.form}
+                          noValidate
+                          onSubmit={event => {
+                            event.preventDefault()
+                            navigate('user/' + `${event.target.email.value}`)}}
+                        >
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -112,10 +119,9 @@ export default function SignIn(props) {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                // onClick=
                             >
                                 Sign In
-            </Button>
+                            </Button>
                             <Grid container>
                                 <Grid item xs>
                                     <Link href="#" variant="body2">

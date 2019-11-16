@@ -9,19 +9,14 @@ const useStyles = makeStyles(theme => ({
     color:'#FFFF20'
 }));
 
-const MyButton = () => {
+const MyButton = (props) => {
     const classes = useStyles();
 
     return (
-            <Fab color="primary" variant="extended" aria-label="signOut" className={classes.fab}>
-                SignOut
+            <Fab color="primary" variant="extended" aria-label={props.label} className={classes.fab}>
+                {props.label}
         </Fab>
     );
 }
-
-// const MyButton = styled(FloatingActionButtons)({
-//     // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-//     color: 'white',
-// });
 
 export default MyButton;
