@@ -85,7 +85,7 @@ export default function SignIn(props) {
                           noValidate
                           onSubmit={event => {
                             event.preventDefault()
-                            navigate('user/' + `${event.target.email.value}`)}}
+                            navigate(`user/${event.target.email.value}`)}}
                         >
                             <TextField
                                 variant="outlined"

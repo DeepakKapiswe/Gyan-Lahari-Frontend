@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import './App.css';
 import { ThemeProvider } from '@material-ui/core/styles';
 import NavigationBar, { NavHead } from './Components/NavigationBar/NavigationBar';
@@ -12,21 +12,21 @@ const User = React.lazy(() => import('./Components/User/User'));
 const ButtonRouter = React.lazy(() => import('./Common/ButtonRouter'));
 const ContactUs = React.lazy(() => import('./Components/ContactUs/ContactUs'));
 
-function Example() {
-  const [count, setCount] = useState(0);
+// function Example() {
+//   const [count, setCount] = useState(0);
 
-  useEffect(() => {
-  });
+//   useEffect(() => {
+//   });
 
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <p>You clicked {count} times</p>
+//       <button onClick={() => setCount(count + 1)}>
+//         Click me
+//       </button>
+//     </div>
+//   );
+// }
 
 
 
@@ -54,7 +54,7 @@ function App() {
         </Suspense>
 
         <Suspense
-          fallback={<p1> Loading...</p1>}
+          fallback={<p> Loading...</p>}
         >
           <Router>
             <Login path="login" />
