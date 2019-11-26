@@ -9,6 +9,7 @@ import { Router, Link} from "@reach/router";
 const Home = React.lazy(() => import('./Components/Home/Home'));
 const Login = React.lazy(() => import('./Components/Login/Login'));
 const User = React.lazy(() => import('./Components/User/User'));
+const AddUser = React.lazy(() => import('./Components/User/AddUser'));
 const ButtonRouter = React.lazy(() => import('./Common/ButtonRouter'));
 const ContactUs = React.lazy(() => import('./Components/ContactUs/ContactUs'));
 
@@ -46,6 +47,9 @@ function App() {
             <Link to="/">Home</Link>
             <Link to="contactus">ContactUs</Link>
             <Router>
+              <ButtonRouter route="/user/addNew" label="Add New User" path="/*" />
+            </Router>
+            <Router>
               <ButtonRouter route="login" label="Sign In" path="/*" />
               <ButtonRouter route="/" label="Sign Out" path="user/*" />
             </Router>
@@ -61,6 +65,7 @@ function App() {
             <Home path="/" />
             <ContactUs path="contactus" />
             <User path="user/:userId" />
+            <AddUser path="user/addNew" message="this is a new message"/>
           </Router>
         </Suspense>
       </>
