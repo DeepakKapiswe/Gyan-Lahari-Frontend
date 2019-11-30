@@ -4,15 +4,18 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import NavigationBar, { NavHead } from './Components/NavigationBar/NavigationBar';
 import theme from './Theme';
 
+//  import SubscriberForm from './Components/SubscriberForm/SubscriberForm' ;
+
 import { Router, Link} from "@reach/router";
 
 const Home = React.lazy(() => import('./Components/Home/Home'));
 const Login = React.lazy(() => import('./Components/Login/Login'));
 const User = React.lazy(() => import('./Components/User/User'));
-const AddUser = React.lazy(() => import('./Components/User/AddUser'));
+// const AddUser = React.lazy(() => import('./Components/User/AddUser'));
 const ButtonRouter = React.lazy(() => import('./Common/ButtonRouter'));
 const ContactUs = React.lazy(() => import('./Components/ContactUs/ContactUs'));
 
+const SubscriberForm = React.lazy(() => import('./Components/SubscriberForm/SubscriberForm'));
 // function Example() {
 //   const [count, setCount] = useState(0);
 
@@ -45,10 +48,11 @@ function App() {
               <h1>Sri Kabir Gyan Prakashan Kendra</h1>
             </NavHead>
             <Link to="/">Home</Link>
+            <Link to="addNew">Add new</Link>
             <Link to="contactus">ContactUs</Link>
-            <Router>
-              <ButtonRouter route="/user/addNew" label="Add New User" path="/*" />
-            </Router>
+            {/* <Router>
+              <ButtonRouter route="/user/addNew1" label="Add New User" path="/*" onClick={}/>
+            </Router> */}
             <Router>
               <ButtonRouter route="login" label="Sign In" path="/*" />
               <ButtonRouter route="/" label="Sign Out" path="user/*" />
@@ -64,8 +68,9 @@ function App() {
             <Login path="login" />
             <Home path="/" />
             <ContactUs path="contactus" />
+            <SubscriberForm path="addNew" />
             <User path="user/:userId" />
-            <AddUser path="user/addNew" message="this is a new message"/>
+            {/* <AddUser path="user/addNew1" payload={{m : "JAI GURU MAA"}}>User Added</AddUser> */}
           </Router>
         </Suspense>
       </>

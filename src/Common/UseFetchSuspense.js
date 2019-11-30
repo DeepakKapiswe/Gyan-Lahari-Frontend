@@ -6,12 +6,10 @@ if (process.env.NODE_ENV === "development") {
   window.useFetchCache = cache;
 }
 
-const defaultProcessResponse = response => response.json();
-
 const useFetch = (
   url,
   fetchOptions = {},
-  processResponse = defaultProcessResponse
+  processResponse = handleResponse
 ) => {
   // Generate cache key
   const key = `${url}.${md5(JSON.stringify(fetchOptions))}`;
@@ -22,17 +20,61 @@ const useFetch = (
     return value.data;
   }
 
-  const promise = fetch(url, fetchOptions).then(response =>
-    processResponse(response)
+  const promise = fetch(url, fetchOptions)
+    .then(response =>
+      processResponse(response)
   );
 
-  promise.then(data => {
-    value.status = "resolved";
-    value.data = data;
-    cache.set(key, value);
-  });
+  promise
+    .then(data => {
+      value.status = "resolved";
+      value.data = data;
+      cache.set(key, value);
+     })
+    .catch(error => {return error;} );
 
   throw promise;
 };
 
 export default useFetch;
+
+function handleResponse (response) {
+  let contentType = response.headers.get('content-type')
+  if (contentType.includes('application/json')) {
+    return handleJSONResponse(response)
+  } else if (contentType.includes('text/html')) {
+    return handleTextResponse(response)
+  } else {
+    // Other response types as necessary. I haven't found a need for them yet though.
+    throw new Error(`Sorry, content-type ${contentType} not supported`)
+  }
+}
+
+function handleJSONResponse (response) {
+  return response.json()
+    .then(json => {
+      if (response.ok) {
+        return json
+      } else {
+        return Promise.reject(Object.assign({}, json, {
+          status: response.status,
+          statusText: response.statusText
+        }))
+      }
+    })
+}
+
+function handleTextResponse (response) {
+  return response.text()
+    .then(text => {
+      if (response.ok) {
+        return text
+      } else {
+        return Promise.reject({
+          status: response.status,
+          statusText: response.statusText,
+          err: text
+        })
+      }
+    })
+}
