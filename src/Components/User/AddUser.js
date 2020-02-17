@@ -2,7 +2,7 @@ import React from 'react';
 import useFetch from '../../Common/UseFetchSuspense';
 
 export default function AddUserResult (props) {
-  let url = 'http://localhost:7000/addUser/';
+  let url = 'http://192.168.43.28:7000/addUser/';
   const result = useFetch(url, {
     method: 'post',
     headers: {
@@ -10,10 +10,10 @@ export default function AddUserResult (props) {
     },
     body:JSON.stringify(props.payload)
   });
-  if (props.payload.m === '') {return null;}
+  if (props.payload.custFname === '') {return null;}
   return (
     <>
       <h1>New USER Added </h1>
-      <h1> {result.m} </h1>
+      <h1> {result} </h1>
     </> );
 }

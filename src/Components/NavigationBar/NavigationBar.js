@@ -46,9 +46,8 @@ const NavigationBar = (props) => {
       <Grid container spacing={3}
         direction="row"
         position="static"
-        bgcolor="#D8FFE9"
         justify="space-between"
-        alignItems="center"
+        alignItems="baseline"
         className={classes2.root}
       >
         {props.navHead}
