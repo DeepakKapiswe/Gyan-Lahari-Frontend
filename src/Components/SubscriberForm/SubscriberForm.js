@@ -16,7 +16,6 @@ import AddUserResult from '../User/AddUser';
 const useStyles = makeStyles(theme => (
   {
     root: {
-      height: '70vh',
     },
     paper: {
       margin: theme.spacing(0, 0, 2, 0),
@@ -28,6 +27,7 @@ const useStyles = makeStyles(theme => (
       margin: theme.spacing(0, 0, 0, 1),
     },
     bgColor: {
+      height: '60vh',
       backgroundColor: '#f0f5ce'
     },
     form: {
