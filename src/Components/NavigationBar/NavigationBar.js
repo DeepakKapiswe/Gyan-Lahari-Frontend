@@ -50,8 +50,12 @@ const NavigationBar = (props) => {
         alignItems="baseline"
         className={classes2.root}
       >
-        {props.navHead}
+      <Grid item>
+              <h1>Sri Kabir Gyan Prakashan Kendra</h1>
+      </Grid>
+      <Grid>
         {props.children}
+      </Grid>
       </Grid>
     </Paper>
 
