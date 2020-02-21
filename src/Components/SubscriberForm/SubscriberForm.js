@@ -8,6 +8,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import NativeSelect from '@material-ui/core/NativeSelect';
 
 
 import AddUserResult from '../User/AddUser';
@@ -40,6 +42,9 @@ const useStyles = makeStyles(theme => (
   }));
 
 
+
+
+
 export default function SubscriberForm() {
   const { register, handleSubmit } = useForm();
   const [user, setUser] = useState('');
@@ -64,9 +69,8 @@ export default function SubscriberForm() {
     }
     return (
       <Container maxWidth="xl" className={classes.paper}  >
-
         <Typography variant="h4" color="textPrimary" align="center">
-          Subscriber Address Details | सदस्य पता विवरण
+          Subscription Details | सदस्य विवरण
     </Typography>
       </Container>
     );
@@ -74,7 +78,6 @@ export default function SubscriberForm() {
 
   return (
     <Container maxWidth="xl" className={classes.bgColor} >
-
       <Container maxWidth='xl' className={classes.paper}  >
         <CssBaseline>
           <>
@@ -92,6 +95,54 @@ export default function SubscriberForm() {
                     <TextField
                       inputRef={register}
                       required
+                      id="subStartVol"
+                      name="subStartVol"
+                      label="Starting Volume"
+                      autoComplete="subStartVol"
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <NativeSelect
+                      native
+                      inputRef={register}
+                      id="subSubscriptionType"
+                      name="subSubscriptionType"
+                      required
+                      label="Subscription Type"
+                    >
+                      <option value="" />
+                      <option value={1}>1 Year</option>
+                      <option value={3}>3 Years</option>
+                      <option value={5}>5 Years</option>
+                      <option value={10}>10 Years</option>
+                    </NativeSelect>
+                    <FormHelperText>Subscription Type</FormHelperText>
+
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <TextField
+                      inputRef={register}
+                      required
+                      id="subSlipNum"
+                      name="subSlipNum"
+                      label="Slip Number"
+                      autoComplete="subSlipNum"
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <TextField
+                      inputRef={register}
+                      required
+                      id="subDistributorId"
+                      name="subDistributorId"
+                      label="Distributor Id"
+                      autoComplete="subDistributorId"
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <TextField
+                      inputRef={register}
+                      required
                       id="custSaluation"
                       name="custSaluation"
                       label="Saluation"
@@ -102,7 +153,6 @@ export default function SubscriberForm() {
                   <Grid container
                     spacing={2}
                     className={classes.names}
-                    // component={Paper} // elevation={6}
                     direction="row"
                     justify="flex-start"
                     alignItems="stretch" >
@@ -113,7 +163,7 @@ export default function SubscriberForm() {
                         required
                         id="custFname"
                         name="custFname"
-                        label="First name"
+                        label="First Name"
                         fullWidth
                         autoComplete="custFname"
                       />
@@ -123,7 +173,7 @@ export default function SubscriberForm() {
                         inputRef={register}
                         id="custMname"
                         name="custMname"
-                        label="Middle name"
+                        label="Middle Name"
                         fullWidth
                         autoComplete="custMname"
                       />
@@ -134,7 +184,7 @@ export default function SubscriberForm() {
                         required
                         id="custLname"
                         name="custLname"
-                        label="Last name"
+                        label="Last Name"
                         fullWidth
                         autoComplete="custLname"
                       />
@@ -244,7 +294,7 @@ export default function SubscriberForm() {
                       color="primary"
                       className={classes.submit}
                     >
-                      Create New Customer
+                      Create New Subscriber
                   </Button>
                   </Grid>
                 </Grid>
