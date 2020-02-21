@@ -41,10 +41,6 @@ const useStyles = makeStyles(theme => (
     },
   }));
 
-
-
-
-
 export default function SubscriberForm() {
   const { register, handleSubmit } = useForm();
   const [user, setUser] = useState('');
@@ -143,11 +139,11 @@ export default function SubscriberForm() {
                     <TextField
                       inputRef={register}
                       required
-                      id="custSaluation"
-                      name="custSaluation"
+                      id="subSaluation"
+                      name="subSaluation"
                       label="Saluation"
                       fullWidth
-                      autoComplete="custSaluation"
+                      autoComplete="subSaluation"
                     />
                   </Grid>
                   <Grid container
@@ -161,32 +157,32 @@ export default function SubscriberForm() {
                       <TextField
                         inputRef={register}
                         required
-                        id="custFname"
-                        name="custFname"
+                        id="subFname"
+                        name="subFname"
                         label="First Name"
                         fullWidth
-                        autoComplete="custFname"
+                        autoComplete="subFname"
                       />
                     </Grid>
                     <Grid item xs={9} sm={3}>
                       <TextField
                         inputRef={register}
-                        id="custMname"
-                        name="custMname"
+                        id="subMname"
+                        name="subMname"
                         label="Middle Name"
                         fullWidth
-                        autoComplete="custMname"
+                        autoComplete="subMname"
                       />
                     </Grid>
                     <Grid item xs={9} sm={3}>
                       <TextField
                         inputRef={register}
                         required
-                        id="custLname"
-                        name="custLname"
+                        id="subLname"
+                        name="subLname"
                         label="Last Name"
                         fullWidth
-                        autoComplete="custLname"
+                        autoComplete="subLname"
                       />
                     </Grid>
                   </Grid>
@@ -201,32 +197,32 @@ export default function SubscriberForm() {
                       <TextField
                         inputRef={register}
                         required
-                        id="custAbout"
-                        name="custAbout"
+                        id="subAbout"
+                        name="subAbout"
                         label="About"
                         fullWidth
-                        autoComplete="custAbout"
+                        autoComplete="subAbout"
                       />
                     </Grid>
                     <Grid item xs={12} sm={4}>
                       <TextField
                         inputRef={register}
                         required
-                        id="custAdd1"
-                        name="custAdd1"
+                        id="subAdd1"
+                        name="subAdd1"
                         label="Address line 1"
                         fullWidth
-                        autoComplete="custAdd1"
+                        autoComplete="subAdd1"
                       />
                     </Grid>
                     <Grid item xs={12} sm={4}>
                       <TextField
                         inputRef={register}
-                        id="custAdd2"
-                        name="custAdd2"
+                        id="subAdd2"
+                        name="subAdd2"
                         label="Address line 2"
                         fullWidth
-                        autoComplete="custAdd2"
+                        autoComplete="subAdd2"
                       />
                     </Grid>
                   </Grid>
@@ -234,54 +230,54 @@ export default function SubscriberForm() {
                     <TextField
                       inputRef={register}
                       required
-                      id="custPost"
-                      name="custPost"
+                      id="subPost"
+                      name="subPost"
                       label="Post"
                       fullWidth
-                      autoComplete="custPost"
+                      autoComplete="subPost"
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
                       inputRef={register}
                       required
-                      id="custCity"
-                      name="custCity"
+                      id="subCity"
+                      name="subCity"
                       label="City"
                       fullWidth
-                      autoComplete="custCity"
+                      autoComplete="subCity"
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       inputRef={register}
                       required
-                      id="custState"
-                      name="custState"
+                      id="subState"
+                      name="subState"
                       label="State"
                       fullWidth
-                      autoComplete="custState"
+                      autoComplete="subState"
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       required
                       inputRef={register}
-                      id="custPincode"
-                      name="custPincode"
+                      id="subPincode"
+                      name="subPincode"
                       label="Postal code"
                       fullWidth
-                      autoComplete="custPincode"
+                      autoComplete="subPincode"
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       inputRef={register}
-                      id="custPhone"
-                      name="custPhone"
+                      id="subPhone"
+                      name="subPhone"
                       label="Phone"
                       fullWidth
-                      autoComplete="custPhone"
+                      autoComplete="subPhone"
                     />
                   </Grid>
 

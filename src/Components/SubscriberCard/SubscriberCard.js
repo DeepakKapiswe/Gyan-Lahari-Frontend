@@ -23,7 +23,7 @@ export default function SubscriberCard(props) {
       component={Paper} elevation={6}>
       <CardContent>
         <Typography variant="h6" component="p">
-          {sD.custSaluation}{sp}{sD.custFname}{sp}{sD.custMname}{sp}{sD.custLname}
+          {sD.subSaluation}{sp}{sD.subFname}{sp}{sD.subMname}{sp}{sD.subLname}
         </Typography>
         <Grid container
           component={Typography}
@@ -33,25 +33,25 @@ export default function SubscriberCard(props) {
           alignItems="baseline"
         >
           <Grid item >
-            {sD.custAdd1}
+            {sD.subAdd1}
           </Grid>
           <Grid item>
-            {sD.custAdd2}
+            {sD.subAdd2}
           </Grid>
           <Grid item>
-            {sD.custPost}
+            {sD.subPost}
           </Grid>
           <Grid item>
-            {sD.custCity}
+            {sD.subCity}
           </Grid>
           <Grid item>
-            {sD.custState}
+            {sD.subState}
           </Grid>
           <Grid item>
-            {sD.custPincode}
+            {sD.subPincode}
           </Grid>
           <Grid item>
-            {sD.custPhone}
+            {sD.subPhone}
           </Grid>
         </Grid>
       </CardContent>
