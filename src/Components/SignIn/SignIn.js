@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import './signin.css';
 import custImg from './lotus.png';
-import {navigate} from '@reach/router';
+import { navigate } from '@reach/router';
 
 function Copyright() {
     return (
@@ -31,41 +31,41 @@ function Copyright() {
 
 const useStyles = makeStyles(theme => (
     {
-    root: {
-        height: '70vh',
-    },
-    image: {
-        backgroundImage:`url(${ custImg })`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundColor: '#FFFF22',
-        backgroundHeight: '100%',
-        zIndex:'-1',
-    },
-    paper: {
-        margin: theme.spacing(8, 4),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '70%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-}));
+        root: {
+            height: '70vh',
+        },
+        image: {
+            backgroundImage: `url(${custImg})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundColor: '#FFFF22',
+            backgroundHeight: '100%',
+            zIndex: '-1',
+        },
+        paper: {
+            margin: theme.spacing(8, 4),
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        },
+        avatar: {
+            margin: theme.spacing(1),
+            backgroundColor: theme.palette.secondary.main,
+        },
+        form: {
+            width: '70%', // Fix IE 11 issue.
+            marginTop: theme.spacing(1),
+        },
+        submit: {
+            margin: theme.spacing(3, 0, 2),
+        },
+    }));
 
 export default function SignIn(props) {
     const classes = useStyles();
 
-    useEffect (()=> {} )
+    useEffect(() => { })
 
     return (
         <Container maxWidth="lg">
@@ -74,18 +74,19 @@ export default function SignIn(props) {
                 <Grid item xs={false} sm={4} md={7} className={classes.image} />
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <div className={classes.paper}>
-                    <Typography component="h2" variant="h4">
-                        {props.user}
-                    </Typography>
+                        <Typography component="h2" variant="h4">
+                            {props.user}
+                        </Typography>
                         <Typography >
                             Details
           </Typography>
                         <form
-                          className={classes.form}
-                          noValidate
-                          onSubmit={event => {
-                            event.preventDefault()
-                            navigate(`user/${event.target.email.value}`)}}
+                            className={classes.form}
+                            noValidate
+                            onSubmit={event => {
+                                event.preventDefault()
+                                navigate(`user/${event.target.email.value}`)
+                            }}
                         >
                             <TextField
                                 variant="outlined"
