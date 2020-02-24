@@ -14,10 +14,10 @@ import ButtonLink from './Common/ButtonLink';
 
 const Home = React.lazy(() => import('./Components/Home/Home'));
 const Login = React.lazy(() => import('./Components/Login/Login'));
-const Users = React.lazy(() => import('./Components/User/User'));
+const Users = React.lazy(() => import('./Components/AddSubscriber/User'));
 const ContactUs = React.lazy(() => import('./Components/ContactUs/ContactUs'));
 const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
-
+const SubscriberDetails = React.lazy(() => import('./Components/SubscriberDetails/SubscriberDetails'));
 const SubscriberForm = React.lazy(() => import('./Components/SubscriberForm/SubscriberForm'));
 
 const useStyles = makeStyles(theme => ({
@@ -31,8 +31,6 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
     alignItems: 'flex-start',
-    // paddingTop: theme.spacing(1),
-    //  paddingBottom: theme.spacing(1),
   },
   title: {
     flexGrow: 1,
@@ -44,16 +42,6 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     paddingTop: theme.spacing(1),
-  },
-  appBar1: {
-    //background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    border: 0,
-    // background: 'rgb(207,223,118)',
-    background: 'linear-gradient(90deg, rgba(207,223,118,0.6110819327731092) 0%, rgba(217,237,166,0.5970763305322129) 38%, rgba(235,246,192,0.6306897759103641) 83%)',
-    borderRadius: 0,
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: 'Black',
-    padding: '0 30px',
   },
 }));
 
@@ -100,7 +88,7 @@ function App() {
 
         <AppBar
           color="default"
-          position="">
+          position="static" >
           <Suspense
             fallback={<p> Loading...</p>}>
 
@@ -111,12 +99,10 @@ function App() {
               justify="space-between"
               alignItems="baseline"
             >
-
-
               <ButtonLink to="/" label="Home" />
-
               <ButtonLink to="addNew" label="Add New Subscriber" />
               <ButtonLink to="allsubscribers" label="View All Subscribers" />
+              <ButtonLink to="onesubscriber" label="View Subscriber" />
               <ButtonLink to="contactus" label="Contact Us" />
               <Router>
                 <ButtonLink to="login" label="Sign In" path="/*" />
@@ -132,6 +118,7 @@ function App() {
             <Home path="/" />
             <ContactUs path="contactus" />
             <SubscriberForm path="addNew" />
+            <SubscriberDetails path="onesubscriber"/>
             <Users path="user/:userId" />
             <ViewAllSubscribers path="allsubscribers" />
           </Router>

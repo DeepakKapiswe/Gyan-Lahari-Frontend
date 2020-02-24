@@ -12,7 +12,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
 
-import AddUserResult from '../User/AddUser';
+import AddSubscriberResult from '../AddSubscriber/AddSubscriber';
 
 
 const useStyles = makeStyles(theme => (
@@ -51,7 +51,7 @@ export default function SubscriberForm() {
   };
   useEffect(() => {
     if (user !== '') {
-      setUserResult(<AddUserResult payload={user} />);
+      setUserResult(<AddSubscriberResult payload={user} />);
       setUser('');
     }
   }, [user]);

@@ -1,7 +1,7 @@
 import React from 'react';
 import useFetch from '../../Common/UseFetchSuspense';
 
-export default function AddUserResult (props) {
+export default function AddSubscriberResult (props) {
   let url = 'http://192.168.43.28:7000/addUser/';
   const result = useFetch(url, {
     method: 'post',
