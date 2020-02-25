@@ -3,16 +3,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import CardMedia from '@material-ui/core/CardMedia';
 import Container from '@material-ui/core/Container';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   card: {
     width: '100%',
-    maxWidth: 500,
+    maxWidth: 540,
     borderRadius: spacing(2), // 16px
     transition: '0.3s',
     boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
@@ -21,7 +21,6 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'space-around',
-    // textAlign: 'center',
     paddingLeft: 3,
     paddingRight: 3,
     background:
@@ -42,28 +41,17 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     overflow: 'initial',
     display: 'flex',
     flexDirection: 'column',
-    // alignItems: 'center',
     justify: 'center',
     textAlign: 'center',
     paddingLeft: 0,
     paddingRight: 0,
     paddingTop: 1,
     paddingBottom: 1,
-    background: 'rgb(248,255,16)',
+    // background: 'rgb(248,255,16)',
     background:
       'linear-gradient(146deg, rgba(248,255,16,0.7077205882352942) 1%, rgba(254,255,254,1) 20%, rgba(194,247,143,1) 65%)',
     [breakpoints.up('sm')]: {
       textAlign: 'center',
-    },
-  },
-  media: {
-    flexShrink: 0,
-    width: '30%',
-    paddingTop: '30%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    [breakpoints.up('sm')]: {
-      marginRight: 'initial',
     },
   },
   overline: {
@@ -93,22 +81,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   },
   button: {
     backgroundColor: 'rgba(255, 255, 255, 0.15)',
-    borderRadius: 100,
-    paddingLeft: 10,
-    paddingRight: 10,
-    color: '#ffffff',
-    textTransform: 'none',
-    width: '100%',
-    '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.32)',
-    },
-    [breakpoints.up('sm')]: {
-      width: 'auto',
-    },
-  },
-  button1: {
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
-    borderRadius: 100,
+    borderRadius: 9,
     paddingLeft: 10,
     paddingRight: 10,
     color: '#ffffff',
@@ -127,6 +100,11 @@ export default function SubscriberDetails(props) {
   const sD = sample;
   const sp = " ";
   const styles = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
   return (
     <Container maxWidth="sm">
       <Card className={styles.card}>
@@ -145,47 +123,48 @@ export default function SubscriberDetails(props) {
                 alignItems="baseline"
               >
                 <Grid item>
-                  <Typography className={styles.heading} variant={'h6'} gutterBottom>
+                  <Typography variant="h5" component="h2"
+                    className={styles.heading} gutterBottom>
                     {sD.subSaluation}{sp}{sD.subFname}{sp}{sD.subMname}{sp}{sD.subLname}
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.overline} variant={'overline'}>
+                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
                     {sD.subAbout}
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.overline} variant={'overline'}>
+                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
                     {sD.subAdd1}
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.overline} variant={'overline'}>
+                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
                     {sD.subAdd2}
                   </Typography>
                 </Grid>
                 <Grid item >
-                  <Typography className={styles.overline} variant={'overline'}>
+                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
                     {sD.subPost}
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.overline} variant={'overline'}>
+                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
                     {sD.subCity}
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.overline} variant={'overline'}>
+                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
                     {sD.subState}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography className={styles.overline} variant={'overline'}>
+                  </Typography>{sp}{sp}{sp}{sp}
+                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
                     {sD.subPincode}
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.overline} variant={'overline'}>
+                </Grid>
+                <Grid item>
+                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
                     {sD.subPhone}
                   </Typography>
                 </Grid>
@@ -202,7 +181,7 @@ export default function SubscriberDetails(props) {
                 <Grid item>
                   <Card className={styles.cardSmall}>
                     <CardContent className={styles.cardcontent}>
-                      <Typography variant={'subtitle'}>
+                      <Typography variant={'subtitle'} gutterBottom>
                         SN : ABCD
                   </Typography>
                     </CardContent>
@@ -211,7 +190,7 @@ export default function SubscriberDetails(props) {
                 <Grid item>
                   <Card className={styles.cardSmall}>
                     <CardContent className={styles.cardcontent}>
-                      <Typography variant={'subtitle'}>
+                      <Typography variant={'subtitle'} gutterBottom>
                         Dist: 312
                   </Typography>
                     </CardContent>
@@ -220,8 +199,9 @@ export default function SubscriberDetails(props) {
                 <Grid item>
                   <Card className={styles.cardSmall}>
                     <CardContent className={styles.cardcontent}>
-                      <Typography variant={'subtitle'}>
-                        Vol:<br /> 178 -> 192
+                      <Typography variant={'subtitle'} gutterBottom >
+                      {sD.subSubscriptionType} Year <br/>
+                      172 -> 198
                   </Typography>
                     </CardContent>
                   </Card>
@@ -229,18 +209,45 @@ export default function SubscriberDetails(props) {
               </Grid>
             </Grid>
           </Grid>
-          <Button className={styles.button1}>Edit Details</Button>
         </CardContent>
+        <CardActions disableSpacing>
+          <Grid container
+           justify="space-around"
+           >
+           <Grid item>
+          <Button size="small" color="primary" className={styles.button}>
+            Edit
+        </Button>
+           </Grid>
+           <Grid item>
+          <Button size="small" color="primary" className={styles.button}
+            onClick={handleExpandClick}>
+            Show More
+        </Button>
+            </Grid>
+            </Grid>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Grid item>
+              <Typography className={styles.overline} gutterBottom variant={'body1'}>
+                Subscription Status: <br /> Expiry here
+                  </Typography>
+            </Grid>
+            <Typography paragraph className={styles.overline} gutterBottom variant={'body1'}>
+              Contact Person: <br />Distributor Name And Number Here
+                  </Typography>
+          </CardContent>
+        </Collapse>
       </Card>
     </Container>
   );
 };
 
-
 const sample =
 {
   subStartVol: "1",
-  subSubscriptionType: "3 Year",
+  subSubscriptionType: "3",
   subSlipNum: "1234",
   subSaluation: "Sri",
   subFname: "Sadguru",

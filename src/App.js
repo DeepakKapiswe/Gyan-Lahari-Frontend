@@ -118,7 +118,7 @@ function App() {
             <Home path="/" />
             <ContactUs path="contactus" />
             <SubscriberForm path="addNew" />
-            <SubscriberDetails path="onesubscriber"/>
+            <SubscriberDetails path="onesubscriber" />
             <Users path="user/:userId" />
             <ViewAllSubscribers path="allsubscribers" />
           </Router>

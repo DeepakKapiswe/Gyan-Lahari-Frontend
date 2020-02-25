@@ -1,9 +1,9 @@
 import React from 'react';
-import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -12,13 +12,11 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden',
         padding: theme.spacing(2, 4, 2, 4),
     },
-    gridList: {
-        justifyContent: 'space-around',
-        maxHeight: 640,
-        alignItems: 'baseline',
-        backgroundColor: '#f0f5ce',
-        padding: theme.spacing(2, 4, 2, 4),
+    color: {
+        // backgroundColor: '#f0f5ce',
+        background: 'linear-gradient(to bottom, #ffff99 62%, #ccff99 100%)',
     },
+
     title: {
         backgroundColor: '#e1c2ed',
         padding: theme.spacing(2, 4, 2, 4),
@@ -29,8 +27,10 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: '#f5f2f2',
-        height: '80vh',
     },
+    gridCard: {
+        flexGrow: 1,
+    }
 }));
 
 export default function SubscriberCardList(props) {
@@ -38,21 +38,34 @@ export default function SubscriberCardList(props) {
     const cards = props.cards;
 
     return (
-        <Paper className={classes.paper}>
-            <Paper className={classes.title}>
-                <Typography variant="h4"
-                    align="center"
-                    noWrap="true">
-                    All Subscribers
+        <>
+            <Paper className={classes.paper}
+            >
+                <Paper className={classes.title}>
+                    <Typography variant="h4"
+                        align="center"
+                        noWrap="true">
+                        All Subscribers
                 </Typography>
+                </Paper>
             </Paper>
-            <Container className={classes.root}>
-                <GridList cellHeight="auto" className={classes.gridList}>
-                    {cards.map(card => (
-                        card
-                    ))}
-                </GridList>
-            </Container>
-        </Paper>
+
+            <Grid
+                container
+                className={classes.color}
+                alignItems="flex-start"
+                alignContent="flex-start"
+                justifyContent="center"
+            >
+                {cards.map(card => (
+                    <Grid item
+                        md={6} lg={4}
+                        className={classes.gridCard}
+                    >
+                        {card}
+                    </Grid>
+                ))}
+            </Grid>
+        </>
     );
 }
