@@ -11,6 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Router } from "@reach/router";
 
 import ButtonLink from './Common/ButtonLink';
+import LinearProgress from './Components/Progress/LinearProgressBar';
+import LinearProgressBar from './Components/Progress/LinearProgressBar';
 
 const Home = React.lazy(() => import('./Components/Home/Home'));
 const Login = React.lazy(() => import('./Components/Login/Login'));
@@ -55,7 +57,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <>
-
         <AppBar
           position="sticky"
           color="primary"
@@ -69,28 +70,26 @@ function App() {
             alignItems="baseline"
           >
             <Grid item>
-
               <Typography variant="h3"
                 className={classes.title}
               >
                 ज्ञान लहरी
-    </Typography>
+              </Typography>
             </Grid>
-            <Grid item>
+            {/* <Grid item>
               <Typography variant="h4"
                 className={classes.title}>
                 श्री कबीर ज्ञान प्रकाशन केंद्र
-    </Typography>
-            </Grid>
+              </Typography>
+            </Grid> */}
           </Grid>
-
         </AppBar>
-
         <AppBar
           color="default"
-          position="static" >
+          position="static"
+        >
           <Suspense
-            fallback={<p> Loading...</p>}>
+            fallback={<LinearProgress />}>
 
             <Grid container
               component={Typography}
@@ -105,14 +104,14 @@ function App() {
               <ButtonLink to="onesubscriber" label="View Subscriber" />
               <ButtonLink to="contactus" label="Contact Us" />
               <Router>
-                <ButtonLink to="login" label="Sign In" path="/*" />
+                <ButtonLink to="login" label="Sign In" path="/*"  />
                 <ButtonLink to="/" label="Sign Out" path="user/*" />
               </Router>
             </Grid>
           </Suspense>
         </AppBar>
         <Suspense
-          fallback={<p> Loading...</p>}>
+          fallback={<LinearProgressBar />}>
           <Router>
             <Login path="login" />
             <Home path="/" />

@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   card: {
@@ -232,6 +233,7 @@ export default function SubscriberCard(props) {
               <Typography className={styles.overline} gutterBottom variant={'body1'}>
                 Subscription Status: <br/> Expiry here
                   </Typography>
+                    <Divider variant="middle" /> 
             </Grid>
             <Typography paragraph className={styles.overline} gutterBottom variant={'body1'}>
               Contact Person: <br/>Distributor Name And Number Here
