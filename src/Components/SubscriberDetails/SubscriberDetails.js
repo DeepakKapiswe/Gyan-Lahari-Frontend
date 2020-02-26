@@ -19,6 +19,12 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   },
   heading: {
     color: '#ffffff',
+    [breakpoints.down('md')]: {
+      fontSize: '3rem',
+    },
+    [breakpoints.down('sm')]: {
+      fontSize: '2rem',
+    },
   },
   gridContent:{
     textAlign:'center',
@@ -38,13 +44,12 @@ export default function SubscriberDetails() {
       <Grid item alignItems="center" className={styles.gridContent}>
 
         <Typography variant="h2" component="h3"
-          // gutterBottom
+          
           className={styles.heading}>
           Subscription Details
               </Typography>
 
         <Typography variant="h2" component="h3"
-          // gutterBottom
           className={styles.heading}>
           सदस्यता विवरण
               </Typography>
