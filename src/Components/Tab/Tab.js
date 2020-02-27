@@ -8,8 +8,21 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+   background: 'linear-gradient(to right, #190A05, #870000)',
+    flexGrow: 1,
+  },
+  tab: {
+    [theme.breakpoints.up('md')]: {
+    padding:theme.spacing(10),},
+  },
+}));
+
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  const classes = useStyles();
 
   return (
     <Typography
@@ -20,7 +33,7 @@ function TabPanel(props) {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      <Box p={10}>{children}</Box>
+      <Box className={classes.tab}>{children}</Box>
     </Typography>
   );
 }
@@ -38,13 +51,6 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    // width: 500,
-    flexGrow: 1,
-  },
-}));
 
 export function FullWidthTabs(props) {
   const classes = useStyles();

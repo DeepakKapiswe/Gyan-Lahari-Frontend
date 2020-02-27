@@ -32,7 +32,6 @@ paper: {
     // background: '#870000',   /* fallback for old browsers */
     // background: '-webkit-linear-gradient(to right, #190A05, #870000)',  /* Chrome 10-25, Safari 5.1-6 */
     background: 'linear-gradient(to right, #190A05, #870000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    //backgroundColor: '#f5f2f2',
 },
 gridCard: {
         flexGrow: 1,
@@ -45,17 +44,15 @@ export default function SubscriberCardList(props) {
 
     return (
         <>
-            <Paper 
-            className={classes.paper}
-            >
+            <Grid className={classes.paper}>
                 <Paper className={classes.title}>
                     <Typography variant="h4"
                         align="center"
                         noWrap="true">
                         All Subscribers
-                </Typography>
+                    </Typography>
                 </Paper>
-            </Paper>
+            </Grid>
 
             <Grid
                 container
@@ -66,10 +63,10 @@ export default function SubscriberCardList(props) {
             >
                 {cards.map(card => (
                     <Grid item
-                        md={6} lg={4}
-                        className={classes.gridCard}
+                      md={6} lg={4}
+                      className={classes.gridCard}
                     >
-                        {card}
+                      {card}
                     </Grid>
                 ))}
             </Grid>

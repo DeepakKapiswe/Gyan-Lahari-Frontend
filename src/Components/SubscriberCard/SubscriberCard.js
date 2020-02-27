@@ -125,7 +125,7 @@ export default function SubscriberCard(props) {
                 <Grid item>
                   <Typography variant="h5" component="h2"
                     className={styles.heading} gutterBottom>
-                    {sD.subSaluation}{sp}{sD.subFname}{sp}{sD.subMname}{sp}{sD.subLname}
+                    {sD.subName}
                   </Typography>
                 </Grid>
                 <Grid item>
@@ -182,7 +182,7 @@ export default function SubscriberCard(props) {
                   <Card className={styles.cardSmall}>
                     <CardContent className={styles.cardcontent}>
                       <Typography variant={'subtitle'} gutterBottom>
-                        SN : ABCD
+                        SC : ABCD
                   </Typography>
                     </CardContent>
                   </Card>
@@ -191,8 +191,8 @@ export default function SubscriberCard(props) {
                   <Card className={styles.cardSmall}>
                     <CardContent className={styles.cardcontent}>
                       <Typography variant={'subtitle'} gutterBottom>
-                        Dist: 312
-                  </Typography>
+                        DC : 312
+                      </Typography>
                     </CardContent>
                   </Card>
                 </Grid>
@@ -202,7 +202,7 @@ export default function SubscriberCard(props) {
                       <Typography variant={'subtitle'} gutterBottom >
                         {sD.subSubscriptionType} Year <br/> 
                         178 -> 192
-                  </Typography>
+                      </Typography>
                     </CardContent>
                   </Card>
                 </Grid>
@@ -232,12 +232,12 @@ export default function SubscriberCard(props) {
             <Grid item>
               <Typography className={styles.overline} gutterBottom variant={'body1'}>
                 Subscription Status: <br/> Expiry here
-                  </Typography>
-                    <Divider variant="middle" /> 
+              </Typography>
+              <Divider variant="middle" /> 
             </Grid>
             <Typography paragraph className={styles.overline} gutterBottom variant={'body1'}>
               Contact Person: <br/>Distributor Name And Number Here
-                  </Typography>
+            </Typography>
           </CardContent>
         </Collapse>
       </Card>

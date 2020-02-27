@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -10,7 +10,6 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import './signin.css';
 import custImg from './lotus.png';
 import { navigate } from '@reach/router';
@@ -35,6 +34,7 @@ const useStyles = makeStyles(theme => (
             height: '70vh',
         },
         image: {
+            [theme.breakpoints.up('md')]: {
             backgroundImage: `url(${custImg})`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
@@ -42,19 +42,28 @@ const useStyles = makeStyles(theme => (
             backgroundColor: '#FFFF22',
             backgroundHeight: '100%',
             zIndex: '-1',
+              },
         },
+        bgColor: {
+            flexGrow: 1,
+          },
         paper: {
+            // width: '100%',
             margin: theme.spacing(8, 4),
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            [theme.breakpoints.down('md')]: {
+              padding:theme.spacing(0),},
         },
         avatar: {
             margin: theme.spacing(1),
             backgroundColor: theme.palette.secondary.main,
         },
         form: {
-            width: '70%', // Fix IE 11 issue.
+            [theme.breakpoints.up('md')]: {
+            width: '70%',
+            },
             marginTop: theme.spacing(1),
         },
         submit: {
@@ -64,15 +73,19 @@ const useStyles = makeStyles(theme => (
 
 export default function SignIn(props) {
     const classes = useStyles();
-
-    useEffect(() => { })
-
     return (
-        <Container maxWidth="lg">
+            <Grid
+      container xs
+      className={classes.bgColor}
+      direction="row-reverse"
+      justify="center"
+      alignItems="center"
+    >
+
             <Grid container component="main" className={classes.root}>
                 <CssBaseline />
-                <Grid item xs={false} sm={4} md={7} className={classes.image} />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <Grid item xs={false} sm={false} md={7} className={classes.image} />
+                <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>
                     <div className={classes.paper}>
                         <Typography component="h2" variant="h4">
                             {props.user}
@@ -142,7 +155,7 @@ export default function SignIn(props) {
                     </div>
                 </Grid>
             </Grid>
+            </Grid>
 
-        </Container>
     );
 }

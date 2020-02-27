@@ -29,11 +29,23 @@ const useStyles = makeStyles(theme => (
       margin: theme.spacing(0, 0, 0, 1),
     },
     bgColor: {
-      height: '60vh',
-      backgroundColor: '#f0f5ce'
+      flexGrow: 1,
+      [theme.breakpoints.up('md')]: {
+        padding:theme.spacing(15),},
+      // backgroundColor: '#f0f5ce'
+      background: 'linear-gradient(to right, #190A05, #870000)'
+      
+    },
+    heading: {
+      color: '#ffffff',
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '3rem',
+      },
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '2rem',
+      },
     },
     form: {
-      // width: '100%', // Fix IE 11 issue.
       marginTop: theme.spacing(1),
     },
     submit: {
@@ -64,16 +76,30 @@ export default function SubscriberForm() {
       return <>{userResult}</>
     }
     return (
-      <Container maxWidth="xl" className={classes.paper}  >
-        <Typography variant="h4" color="textPrimary" align="center">
-          Subscription Details | सदस्य विवरण
-    </Typography>
-      </Container>
+      <Grid item alignItems="center" >
+
+      <Typography variant="h2" component="h3"
+        
+        className={classes.heading} align="center">
+        Subscription Details
+            </Typography>
+
+      <Typography variant="h2" component="h3"
+        className={classes.heading} align="center">
+        सदस्यता विवरण
+            </Typography>
+    </Grid>
     );
   }
 
   return (
-    <Container maxWidth="xl" className={classes.bgColor} >
+      <Grid
+      container xs
+      className={classes.bgColor}
+      direction="row-reverse"
+      justify="center"
+      alignItems="center"
+    >
       <Container maxWidth='xl' className={classes.paper}  >
         <CssBaseline>
           <>
@@ -86,8 +112,8 @@ export default function SubscriberForm() {
                   direction="row"
                   justify="flex-start"
                   alignItems="center"
-                >
-                  <Grid item xs={6} sm={4}>
+                  >
+                  <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
                       required
@@ -95,9 +121,9 @@ export default function SubscriberForm() {
                       name="subStartVol"
                       label="Starting Volume"
                       autoComplete="subStartVol"
-                    />
+                      />
                   </Grid>
-                  <Grid item xs={6} sm={4}>
+                  <Grid item xs={6} sm={4} lg={3}>
                     <NativeSelect
                       native
                       inputRef={register}
@@ -105,7 +131,7 @@ export default function SubscriberForm() {
                       name="subSubscriptionType"
                       required
                       label="Subscription Type"
-                    >
+                      >
                       <option value="" />
                       <option value={1}>1 Year</option>
                       <option value={3}>3 Years</option>
@@ -115,7 +141,7 @@ export default function SubscriberForm() {
                     <FormHelperText>Subscription Type</FormHelperText>
 
                   </Grid>
-                  <Grid item xs={6} sm={4}>
+                  <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
                       required
@@ -123,9 +149,9 @@ export default function SubscriberForm() {
                       name="subSlipNum"
                       label="Slip Number"
                       autoComplete="subSlipNum"
-                    />
+                      />
                   </Grid>
-                  <Grid item xs={6} sm={4}>
+                  <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
                       required
@@ -133,59 +159,20 @@ export default function SubscriberForm() {
                       name="subDistributorId"
                       label="Distributor Id"
                       autoComplete="subDistributorId"
-                    />
+                      />
                   </Grid>
-                  <Grid item xs={6} sm={4}>
-                    <TextField
-                      inputRef={register}
-                      required
-                      id="subSaluation"
-                      name="subSaluation"
-                      label="Saluation"
-                      fullWidth
-                      autoComplete="subSaluation"
-                    />
-                  </Grid>
-                  <Grid container
-                    spacing={2}
-                    className={classes.names}
-                    direction="row"
-                    justify="flex-start"
-                    alignItems="stretch" >
-
-                    <Grid item xs={9} sm={3}>
+                    <Grid item xs={12} sm={4} >
                       <TextField
                         inputRef={register}
                         required
-                        id="subFname"
-                        name="subFname"
-                        label="First Name"
+                        id="subName"
+                        name="subName"
+                        label="Name"
                         fullWidth
-                        autoComplete="subFname"
-                      />
+                        autoComplete="subName"
+                        />
                     </Grid>
-                    <Grid item xs={9} sm={3}>
-                      <TextField
-                        inputRef={register}
-                        id="subMname"
-                        name="subMname"
-                        label="Middle Name"
-                        fullWidth
-                        autoComplete="subMname"
-                      />
-                    </Grid>
-                    <Grid item xs={9} sm={3}>
-                      <TextField
-                        inputRef={register}
-                        required
-                        id="subLname"
-                        name="subLname"
-                        label="Last Name"
-                        fullWidth
-                        autoComplete="subLname"
-                      />
-                    </Grid>
-                  </Grid>
+                   
                   <Grid container
                     spacing={2}
                     className={classes.names}
@@ -202,7 +189,7 @@ export default function SubscriberForm() {
                         label="About"
                         fullWidth
                         autoComplete="subAbout"
-                      />
+                        />
                     </Grid>
                     <Grid item xs={12} sm={4}>
                       <TextField
@@ -213,7 +200,7 @@ export default function SubscriberForm() {
                         label="Address line 1"
                         fullWidth
                         autoComplete="subAdd1"
-                      />
+                        />
                     </Grid>
                     <Grid item xs={12} sm={4}>
                       <TextField
@@ -223,7 +210,7 @@ export default function SubscriberForm() {
                         label="Address line 2"
                         fullWidth
                         autoComplete="subAdd2"
-                      />
+                        />
                     </Grid>
                   </Grid>
                   <Grid item xs={6}>
@@ -235,7 +222,7 @@ export default function SubscriberForm() {
                       label="Post"
                       fullWidth
                       autoComplete="subPost"
-                    />
+                      />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
@@ -246,7 +233,7 @@ export default function SubscriberForm() {
                       label="City"
                       fullWidth
                       autoComplete="subCity"
-                    />
+                      />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -257,7 +244,7 @@ export default function SubscriberForm() {
                       label="State"
                       fullWidth
                       autoComplete="subState"
-                    />
+                      />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -268,7 +255,7 @@ export default function SubscriberForm() {
                       label="Postal code"
                       fullWidth
                       autoComplete="subPincode"
-                    />
+                      />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -278,8 +265,19 @@ export default function SubscriberForm() {
                       label="Phone"
                       fullWidth
                       autoComplete="subPhone"
-                    />
+                      />
                   </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      inputRef={register}
+                      id="subRemark"
+                      name="subRemark"
+                      label="Remark"
+                      fullWidth
+                      autoComplete="subRemark"
+                      />
+                  </Grid>
+                  <Grid container justify="center">
 
                   <Grid item xs={12} sm={6} >
                     <Button
@@ -289,9 +287,10 @@ export default function SubscriberForm() {
                       variant="contained"
                       color="primary"
                       className={classes.submit}
-                    >
+                      >
                       Create New Subscriber
                   </Button>
+                      </Grid>
                   </Grid>
                 </Grid>
               </React.Fragment>
@@ -299,6 +298,6 @@ export default function SubscriberForm() {
           </>
         </CssBaseline>
       </Container>
-    </Container>
+  </Grid>
   );
 }
