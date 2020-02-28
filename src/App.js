@@ -17,10 +17,12 @@ import LinearProgressBar from './Components/Progress/LinearProgressBar';
 const Home = React.lazy(() => import('./Components/Home/Home'));
 const Login = React.lazy(() => import('./Components/Login/Login'));
 const Users = React.lazy(() => import('./Components/AddSubscriber/User'));
-const ContactUs = React.lazy(() => import('./Components/ContactUs/ContactUs'));
 const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
+const ViewAllDistributors = React.lazy(() => import('./Components/ViewDistributor/ViewAllDistributors'));
 const SubscriberDetails = React.lazy(() => import('./Components/SubscriberDetails/SubscriberDetails'));
+const DistributorDetails = React.lazy(() => import('./Components/DistributorDetails/DistributorDetails'));
 const SubscriberForm = React.lazy(() => import('./Components/SubscriberForm/SubscriberForm'));
+const DistributorForm = React.lazy(() => import('./Components/DistributorForm/DistributorForm'));
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -76,12 +78,6 @@ function App() {
                 ज्ञान लहरी
               </Typography>
             </Grid>
-            {/* <Grid item>
-              <Typography variant="h4"
-                className={classes.title}>
-                श्री कबीर ज्ञान प्रकाशन केंद्र
-              </Typography>
-            </Grid> */}
           </Grid>
         </AppBar>
         <AppBar
@@ -99,10 +95,12 @@ function App() {
               alignItems="baseline"
             >
               <ButtonLink to="/" label="Home" />
-              <ButtonLink to="addNew" label="Add New Subscriber" />
-              <ButtonLink to="allsubscribers" label="View All Subscribers" />
-              <ButtonLink to="onesubscriber" label="View Subscriber" />
-              <ButtonLink to="contactus" label="Contact Us" />
+              <ButtonLink to="addNewSubscriber" label="Add Subscriber" />
+              <ButtonLink to="addNewDistributor" label="Add Distributor" />
+              <ButtonLink to="allSubscribers" label="All Subscribers" />
+              <ButtonLink to="allDistributors" label="All Distributors" />
+              <ButtonLink to="viewSubscriber" label="View Subscriber" />
+              <ButtonLink to="viewDistributor" label="View Distributor" />
               <Router>
                 <ButtonLink to="login" label="Sign In" path="/*"  />
                 <ButtonLink to="/" label="Sign Out" path="user/*" />
@@ -114,12 +112,14 @@ function App() {
           fallback={<LinearProgressBar />}>
           <Router>
             <Login path="login" />
-            <Home path="/" />
-            <ContactUs path="contactus" />
-            <SubscriberForm path="addNew" />
-            <SubscriberDetails path="onesubscriber" />
+            <Home path="/"/>
+            <SubscriberForm path="addNewSubscriber" />
+            <DistributorForm path="addNewDistributor" />
+            <SubscriberDetails path="viewSubscriber" />
+            <DistributorDetails path="viewDistributor" />
             <Users path="user/:userId" />
-            <ViewAllSubscribers path="allsubscribers" />
+            <ViewAllSubscribers path="allSubscribers" />
+            <ViewAllDistributors path="allDistributors" />
           </Router>
         </Suspense>
       </>

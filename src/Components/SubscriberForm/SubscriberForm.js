@@ -117,6 +117,7 @@ export default function SubscriberForm() {
                     <TextField
                       inputRef={register}
                       required
+                      type="number"
                       id="subStartVol"
                       name="subStartVol"
                       label="Starting Volume"
@@ -155,10 +156,11 @@ export default function SubscriberForm() {
                     <TextField
                       inputRef={register}
                       required
-                      id="subDistributorId"
-                      name="subDistributorId"
+                      type="number"
+                      id="subDistId"
+                      name="subDistId"
                       label="Distributor Id"
-                      autoComplete="subDistributorId"
+                      autoComplete="subDistId"
                       />
                   </Grid>
                     <Grid item xs={12} sm={4} >

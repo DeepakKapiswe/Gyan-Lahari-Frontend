@@ -46,8 +46,8 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     textAlign: 'center',
     paddingLeft: 0,
     paddingRight: 0,
-    paddingTop: 1,
-    paddingBottom: 1,
+    paddingTop: 0,
+    paddingBottom: 0,
     // background: 'rgb(248,255,16)',
     background:
       'linear-gradient(146deg, rgba(248,255,16,0.7077205882352942) 1%, rgba(254,255,254,1) 20%, rgba(194,247,143,1) 65%)',
@@ -109,6 +109,12 @@ export default function SubscriberCard(props) {
     <Container maxWidth="sm">
       <Card className={styles.card}>
         <CardContent className={styles.content}>
+          <Grid item>
+                  <Typography variant="h5" component="h2"
+                    className={styles.heading} gutterBottom>
+                    {sD.subName}
+                  </Typography>
+                </Grid>
           <Grid container
             spacing={1}
             direction="row"
@@ -122,12 +128,7 @@ export default function SubscriberCard(props) {
                 justify="flex-start"
                 alignItems="baseline"
               >
-                <Grid item>
-                  <Typography variant="h5" component="h2"
-                    className={styles.heading} gutterBottom>
-                    {sD.subName}
-                  </Typography>
-                </Grid>
+                
                 <Grid item>
                   <Typography className={styles.overline} gutterBottom variant={'overline'}>
                     {sD.subAbout}
@@ -191,7 +192,7 @@ export default function SubscriberCard(props) {
                   <Card className={styles.cardSmall}>
                     <CardContent className={styles.cardcontent}>
                       <Typography variant={'subtitle'} gutterBottom>
-                        DC : 312
+                        DC : {sD.subDistId}
                       </Typography>
                     </CardContent>
                   </Card>
