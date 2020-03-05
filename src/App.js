@@ -14,7 +14,6 @@ import ButtonLink from './Common/ButtonLink';
 import LinearProgress from './Components/Progress/LinearProgressBar';
 import LinearProgressBar from './Components/Progress/LinearProgressBar';
 
-const Home = React.lazy(() => import('./Components/Home/Home'));
 const Login = React.lazy(() => import('./Components/Login/Login'));
 const Users = React.lazy(() => import('./Components/AddSubscriber/User'));
 const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
@@ -23,6 +22,7 @@ const SubscriberDetails = React.lazy(() => import('./Components/SubscriberDetail
 const DistributorDetails = React.lazy(() => import('./Components/DistributorDetails/DistributorDetails'));
 const SubscriberForm = React.lazy(() => import('./Components/SubscriberForm/SubscriberForm'));
 const DistributorForm = React.lazy(() => import('./Components/DistributorForm/DistributorForm'));
+const SearchForm = React.lazy(() => import ('./Components/SearchForm/SearchForm'));
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -49,6 +49,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function Home(){
+  return <h1> Dummy Home</h1>;
+}
 
 function App() {
   const classes = useStyles();
@@ -101,6 +104,7 @@ function App() {
               <ButtonLink to="allDistributors" label="All Distributors" />
               <ButtonLink to="viewSubscriber" label="View Subscriber" />
               <ButtonLink to="viewDistributor" label="View Distributor" />
+              <ButtonLink to="searchSubscriber" label="Search Subscriber" />
               <Router>
                 <ButtonLink to="login" label="Sign In" path="/*"  />
                 <ButtonLink to="/" label="Sign Out" path="user/*" />
@@ -117,6 +121,7 @@ function App() {
             <DistributorForm path="addNewDistributor" />
             <SubscriberDetails path="viewSubscriber" />
             <DistributorDetails path="viewDistributor" />
+            <SearchForm path="searchSubscriber" />
             <Users path="user/:userId" />
             <ViewAllSubscribers path="allSubscribers" />
             <ViewAllDistributors path="allDistributors" />
