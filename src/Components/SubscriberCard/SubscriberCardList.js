@@ -41,6 +41,7 @@ gridCard: {
 export default function SubscriberCardList(props) {
     const classes = useStyles();
     const cards = props.cards;
+    const header = props.header;
 
     return (
         <>
@@ -49,7 +50,7 @@ export default function SubscriberCardList(props) {
                     <Typography variant="h4"
                         align="center"
                         noWrap="true">
-                        All Subscribers
+                        {header}
                     </Typography>
                 </Paper>
             </Grid>

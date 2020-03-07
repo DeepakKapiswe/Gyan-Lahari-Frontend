@@ -28,10 +28,11 @@ const useStyles = makeStyles(theme => (
     bgColor: {
       flexGrow: 1,
       [theme.breakpoints.up('md')]: {
-        padding:theme.spacing(15),},
+        padding: theme.spacing(15),
+      },
       // backgroundColor: '#f0f5ce'
       background: 'linear-gradient(to right, #190A05, #870000)'
-      
+
     },
     heading: {
       color: '#ffffff',
@@ -68,145 +69,100 @@ export default function SearchForm() {
   const classes = useStyles();
 
   function RenderResult(props) {
-    // conditionally render result
-    if (props.result !== null) {
-      return <>{queryResult}</>
-    }
-    return (
-      <Grid item alignItems="center" >
-
-      <Typography variant="h2" component="h3"
-        
-        className={classes.heading} align="center">
-        Search Details
-            </Typography>
-
-      <Typography variant="h2" component="h3"
-        className={classes.heading} align="center">
-        खोज विवरण
-            </Typography>
-    </Grid>
-    );
+    return <>{queryResult}</>
   }
 
+  function RenderHeading(props) {
+    return (
+      <Grid item alignItems="center" >
+        <Typography variant="h2" component="h3"
+          className={classes.heading} align="center">
+          Search Details
+            </Typography>
+        <Typography variant="h2" component="h3"
+          className={classes.heading} align="center">
+          खोज विवरण
+            </Typography>
+      </Grid>)
+  }
+
+  function RenderForm() {
+    return (
+      <Container maxWidth='sm'>
+        <form onSubmit={handleSubmit(onSubmit)} >
+          <Grid container spacing={3}
+            className={classes.form}
+            component={Paper} elevation={6}
+            direction="column"
+            justify="flex-start"
+            alignItems="stretch"
+          >
+            <Grid item>
+              <TextField
+                inputRef={register}
+                required
+                id="sqSubName"
+                name="sqSubName"
+                label="Name"
+                fullWidth
+                autoComplete="sqSubName"
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                inputRef={register}
+                // required
+                hidden
+                type="number"
+                id="sqLimit"
+                name="sqLimit"
+                value="20"
+                label="Max Result Items"
+                autoComplete="sqLimit"
+              />
+            </Grid>
+            <Grid container justify="center">
+              <Grid item >
+                <Button
+                  type="submit"
+                  name="searchSubscriber"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Search Subscriber
+                  </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </form>
+      </Container>
+    )
+  }
   return (
-      <Grid
+    <Grid
       container xs
       className={classes.bgColor}
       direction="row-reverse"
       justify="center"
       alignItems="center"
     >
-      <Grid  className={classes.paper} >
+      <Grid className={classes.paper} >
         <CssBaseline>
           <>
-            <RenderResult result={queryResult} />
-            <Container maxWidth='sm'>
-            <form onSubmit={handleSubmit(onSubmit)} >
-                <Grid container spacing={3}
-                  className={classes.form}
-                  component={Paper} elevation={6}
-                  direction="column"
-                  justify="flex-start"
-                  alignItems="stretch"
-                  >
-                  <Grid item>
-                    <TextField
-                      inputRef={register}
-                    //   required
-                      type="number"
-                      id="sqDistId"
-                      name="sqDistId"
-                      label="Distributor Id"
-                      autoComplete="distId"
-                      />
-                  </Grid>
-                    <Grid item>
-                      <TextField
-                        inputRef={register}
-                        required
-                        id="sqSubName"
-                        name="sqSubName"
-                        label="Name"
-                        fullWidth
-                        autoComplete="sqSubName"
-                        />
-                    </Grid>
-                    <Grid item>
-                      <TextField
-                        inputRef={register}
-                        // required
-                        id="sqQuery"
-                        name="sqQuery"
-                        label="query"
-                        fullWidth
-                        autoComplete="sqQuery"
-                        />
-                    </Grid>
-                    <Grid item>
-                    <TextField
-                      inputRef={register}
-                      required
-                      type="number"
-                      id="sqLimit"
-                      name="sqLimit"
-                      label="Max Result Items"
-                      autoComplete="sqLimit"
-                      />
-                  </Grid>
-
-                    {/* <Grid item>
-                      <TextField
-                        inputRef={register}
-                        id="distAdd"
-                        name="distAdd"
-                        label="Address"
-                        fullWidth
-                        autoComplete="distAdd"
-                        />
-                    </Grid>
-                  <Grid item >
-                    <TextField
-                      inputRef={register}
-                      required
-                      id="distCity"
-                      name="distCity"
-                      label="City"
-                      fullWidth
-                      autoComplete="distCity"
-                      />
-                  </Grid>
-                  <Grid item>
-                    <TextField
-                      inputRef={register}
-                      id="distPhone"
-                      name="distPhone"
-                      label="Phone"
-                      fullWidth
-                      autoComplete="distPhone"
-                      />
-                  </Grid> */}
-                  <Grid container justify="center">
-
-                    <Grid item >
-                    <Button
-                      type="submit"
-                      name="searchSubscriber"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
-                      >
-                      Search Subscriber
-                  </Button>
-                      </Grid>
-                  </Grid>
-                </Grid>
-            </form>
-                </Container>
+            {(queryResult !== null) ?
+              (<RenderResult result={queryResult} />)
+              : (
+                <>
+                  <RenderHeading result={queryResult} />
+                  <RenderForm />
+                </>
+              )
+            }
           </>
         </CssBaseline>
-  </Grid>
-  </Grid>
+      </Grid>
+    </Grid>
   );
 }

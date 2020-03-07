@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 
 import { Router } from "@reach/router";
@@ -13,6 +15,7 @@ import { Router } from "@reach/router";
 import ButtonLink from './Common/ButtonLink';
 import LinearProgress from './Components/Progress/LinearProgressBar';
 import LinearProgressBar from './Components/Progress/LinearProgressBar';
+import Footer from './Components/Footer/Footer';
 
 const Login = React.lazy(() => import('./Components/Login/Login'));
 const Users = React.lazy(() => import('./Components/AddSubscriber/User'));
@@ -47,7 +50,11 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     paddingTop: theme.spacing(1),
   },
+  
 }));
+
+
+
 
 function Home(){
   return <h1> Dummy Home</h1>;
@@ -61,7 +68,9 @@ function App() {
   });
   return (
     <ThemeProvider theme={theme}>
-      <>
+      {/* <> */}
+      <div className={classes.main}>
+      <CssBaseline />
         <AppBar
           position="sticky"
           color="primary"
@@ -127,7 +136,8 @@ function App() {
             <ViewAllDistributors path="allDistributors" />
           </Router>
         </Suspense>
-      </>
+      </div>
+      <Footer/>
     </ThemeProvider >
   );
 }
