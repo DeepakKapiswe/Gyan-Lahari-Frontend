@@ -21,7 +21,6 @@ const Login = React.lazy(() => import('./Components/Login/Login'));
 const Users = React.lazy(() => import('./Components/AddSubscriber/User'));
 const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
 const ViewAllDistributors = React.lazy(() => import('./Components/ViewDistributor/ViewAllDistributors'));
-const SubscriberDetails = React.lazy(() => import('./Components/SubscriberDetails/SubscriberDetails'));
 const DistributorDetails = React.lazy(() => import('./Components/DistributorDetails/DistributorDetails'));
 const SubscriberForm = React.lazy(() => import('./Components/SubscriberForm/SubscriberForm'));
 const DistributorForm = React.lazy(() => import('./Components/DistributorForm/DistributorForm'));
@@ -111,7 +110,6 @@ function App() {
               <ButtonLink to="addNewDistributor" label="Add Distributor" />
               <ButtonLink to="allSubscribers" label="All Subscribers" />
               <ButtonLink to="allDistributors" label="All Distributors" />
-              <ButtonLink to="viewSubscriber" label="View Subscriber" />
               <ButtonLink to="viewDistributor" label="View Distributor" />
               <ButtonLink to="searchSubscriber" label="Search Subscriber" />
               <Router>
@@ -128,7 +126,6 @@ function App() {
             <Home path="/"/>
             <SubscriberForm path="addNewSubscriber" />
             <DistributorForm path="addNewDistributor" />
-            <SubscriberDetails path="viewSubscriber" />
             <DistributorDetails path="viewDistributor" />
             <SearchForm path="searchSubscriber" />
             <Users path="user/:userId" />

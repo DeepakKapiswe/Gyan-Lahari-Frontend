@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Fab from '@material-ui/core/Fab';
 
 
 import FindSubscriberResult from '../FindSubscriber/FindSubscriber';
@@ -28,7 +29,7 @@ const useStyles = makeStyles(theme => (
     bgColor: {
       flexGrow: 1,
       [theme.breakpoints.up('md')]: {
-        padding: theme.spacing(15),
+        padding: theme.spacing(5),
       },
       // backgroundColor: '#f0f5ce'
       background: 'linear-gradient(to right, #190A05, #870000)'
@@ -57,7 +58,9 @@ export default function SearchForm() {
   const [queryResult, setQueryResult] = useState(null);
   const onSubmit = data => {
     setQuery(data);
-    console.log(data);
+  };
+  const onReset = () => {
+    setQueryResult(null);
   };
   useEffect(() => {
     if (query !== '') {
@@ -68,8 +71,26 @@ export default function SearchForm() {
 
   const classes = useStyles();
 
+  function RefreshButton() {
+    return (
+      <Fab 
+        color="primary" 
+        variant="extended"
+        type="reset"
+        name="RefreshButton"
+        fullWidth
+        onClick={onReset}
+      >
+      <Typography variant="Button">Reset</Typography>
+      </Fab>
+    )
+  }
+
   function RenderResult(props) {
-    return <>{queryResult}</>
+    const result = props.result;
+    return (
+     <> {result}</>
+    )
   }
 
   function RenderHeading(props) {
@@ -152,8 +173,13 @@ export default function SearchForm() {
         <CssBaseline>
           <>
             {(queryResult !== null) ?
-              (<RenderResult result={queryResult} />)
-              : (
+              (<>
+                <RenderResult result={queryResult} />
+                <RefreshButton/>
+                </>
+              )
+              : 
+              (
                 <>
                   <RenderHeading result={queryResult} />
                   <RenderForm />

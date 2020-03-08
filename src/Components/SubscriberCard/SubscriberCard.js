@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,8 +9,15 @@ import Container from '@material-ui/core/Container';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
-const useStyles = makeStyles(({ breakpoints, spacing }) => ({
+
+
+import SubscriberDetails from '../SubscriberDetails/SubscriberDetails';
+
+const useStyles = makeStyles(({ breakpoints, spacing, shadows }) => ({
   card: {
     width: '100%',
     maxWidth: 500,
@@ -95,153 +102,204 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
       width: 'auto',
     },
   },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: '#E6FFC4',
+    border: '2px solid #000',
+    boxShadow: shadows[5],
+   // padding: spacing(2, 4, 3),
+  },
 }));
+
 export default function SubscriberCard(props) {
   const styles = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
   const sp = " ";
   const sD = props.subscriberDetails;
 
-  return (
-    <Container maxWidth="sm">
-      <Card className={styles.card}>
-        <CardContent className={styles.content}>
-          <Grid item>
-                  <Typography variant="h5" component="h2"
-                    className={styles.heading} gutterBottom>
-                    {sD.subName}
-                  </Typography>
-                </Grid>
-          <Grid container
-            spacing={1}
-            direction="row"
-            alignItems="flex-end"
-          >
-            <Grid item xs container>
-              <Grid container
-                component={Typography}
-                spacing={0}
-                direction="column"
-                justify="flex-start"
-                alignItems="baseline"
-              >
-                
-                <Grid item>
-                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
-                    {sD.subAbout}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
-                    {sD.subAdd1}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
-                    {sD.subAdd2}
-                  </Typography>
-                </Grid>
-                <Grid item >
-                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
-                    {sD.subPost}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
-                    {sD.subCity}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
-                    {sD.subState}
-                  </Typography>{sp}{sp}{sp}{sp}
-                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
-                    {sD.subPincode}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                </Grid>
-                <Grid item>
-                  <Typography className={styles.overline} gutterBottom variant={'overline'}>
-                    {sD.subPhone}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={3}>
-              <Grid
-                container
-                spacing={1}
-                direction="column"
-                justify="flex-start"
-                alignItems="strech"
-              >
-                <Grid item>
-                  <Card className={styles.cardSmall}>
-                    <CardContent className={styles.cardcontent}>
-                      <Typography variant={'subtitle'} gutterBottom>
-                        SC : ABCD
-                  </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item>
-                  <Card className={styles.cardSmall}>
-                    <CardContent className={styles.cardcontent}>
-                      <Typography variant={'subtitle'} gutterBottom>
-                        DC : {sD.subDistId}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item>
-                  <Card className={styles.cardSmall}>
-                    <CardContent className={styles.cardcontent}>
-                      <Typography variant={'subtitle'} gutterBottom >
-                        {sD.subSubscriptionType} Year <br/> 
-                        {sD.subStartVol}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </CardContent>
-        <CardActions disableSpacing>
-          <Grid container
-           justify="space-around"
-           >
-           <Grid item>
-          <Button size="small" color="primary" className={styles.button}>
-            Edit
-        </Button>
-           </Grid>
-           <Grid item>
-          <Button size="small" color="primary" className={styles.button}
-            onClick={handleExpandClick}>
-            Show More
-        </Button>
-            </Grid>
-            </Grid>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
+    return (
+      <>
+      <Container maxWidth="sm">
+        <Card className={styles.card}>
+          <CardContent className={styles.content}>
             <Grid item>
-              <Typography className={styles.overline} gutterBottom variant={'body1'}>
-                Subscription Status: <br/> Expiry here
+              <Typography variant="h5" component="h2"
+                className={styles.heading} gutterBottom>
+                {sD.subName}
               </Typography>
-              <Divider variant="middle" /> 
             </Grid>
-            <Typography paragraph className={styles.overline} gutterBottom variant={'body1'}>
-              Contact Person: <br/>Distributor Name And Number Here
-            </Typography>
+            <Grid container
+              spacing={1}
+              direction="row"
+              alignItems="flex-end"
+            >
+              <Grid item xs container>
+                <Grid container
+                  component={Typography}
+                  spacing={0}
+                  direction="column"
+                  justify="flex-start"
+                  alignItems="baseline"
+                >
+
+                  <Grid item>
+                    <Typography className={styles.overline} gutterBottom variant={'overline'}>
+                      {sD.subAbout}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography className={styles.overline} gutterBottom variant={'overline'}>
+                      {sD.subAdd1}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography className={styles.overline} gutterBottom variant={'overline'}>
+                      {sD.subAdd2}
+                    </Typography>
+                  </Grid>
+                  <Grid item >
+                    <Typography className={styles.overline} gutterBottom variant={'overline'}>
+                      {sD.subPost}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography className={styles.overline} gutterBottom variant={'overline'}>
+                      {sD.subCity}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography className={styles.overline} gutterBottom variant={'overline'}>
+                      {sD.subState}
+                    </Typography>{sp}{sp}{sp}{sp}
+                    <Typography className={styles.overline} gutterBottom variant={'overline'}>
+                      {sD.subPincode}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                  </Grid>
+                  <Grid item>
+                    <Typography className={styles.overline} gutterBottom variant={'overline'}>
+                      {sD.subPhone}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={3}>
+                <Grid
+                  container
+                  spacing={1}
+                  direction="column"
+                  justify="flex-start"
+                  alignItems="strech"
+                >
+                  <Grid item>
+                    <Card className={styles.cardSmall}>
+                      <CardContent className={styles.cardcontent}>
+                        <Typography variant={'subtitle'} gutterBottom>
+                          SC : ABCD
+                  </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item>
+                    <Card className={styles.cardSmall}>
+                      <CardContent className={styles.cardcontent}>
+                        <Typography variant={'subtitle'} gutterBottom>
+                          DC : {sD.subDistId}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item>
+                    <Card className={styles.cardSmall}>
+                      <CardContent className={styles.cardcontent}>
+                        <Typography variant={'subtitle'} gutterBottom >
+                          {sD.subSubscriptionType} Year <br />
+                          {sD.subStartVol}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
           </CardContent>
-        </Collapse>
-      </Card>
-    </Container>
-  );
-};
+          <CardActions disableSpacing>
+            <Grid container
+              justify="space-around"
+            >
+              <Grid item>
+                <Button size="small" color="primary"
+                  className={styles.button}
+                  // onClick={handleEditViewClick}
+                  onClick={handleOpen}>
+                  Edit
+        </Button>
+              </Grid>
+              <Grid item>
+                <Button size="small" color="primary" className={styles.button}
+                  onClick={handleExpandClick}>
+                  Show More
+        </Button>
+              </Grid>
+            </Grid>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Grid item>
+                <Typography className={styles.overline} gutterBottom variant={'body1'}>
+                  Subscription Status: <br /> Expiry here
+              </Typography>
+                <Divider variant="middle" />
+              </Grid>
+              <Typography paragraph className={styles.overline} gutterBottom variant={'body1'}>
+                Contact Person: <br />Distributor Name And Number Here
+            </Typography>
+            </CardContent>
+          </Collapse>
+        </Card>
+      </Container>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={styles.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        disableBackdropClick
+        disableScrollLock
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={styles.paper}>
+            {/* <h2 id="transition-modal-title">Transition modal</h2> */}
+            <SubscriberDetails subscriber={sD} />
+            {/* <p id="transition-modal-description">react-transition-group animates me.</p> */}
+          </div>
+        </Fade>
+      </Modal>
+      </>
+    )
+  };

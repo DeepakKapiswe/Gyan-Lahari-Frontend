@@ -18,6 +18,9 @@ const useStyles = makeStyles(theme => ({
     //     background: '#870000',   /* fallback for old browsers */
     // background: '-webkit-linear-gradient(to right, #190A05, #870000)',  /* Chrome 10-25, Safari 5.1-6 */
     background: 'linear-gradient(to right, #190A05, #870000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    height: '68vh',
+    overflow: 'scroll',
+    border: '5px solid #B6DBCB',
 },
 
 title: {

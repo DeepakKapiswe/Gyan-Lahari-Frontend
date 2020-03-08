@@ -5,35 +5,39 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(({spacing, shadows})=> ({
     root: {
         display: 'flex',
         justifyContent: 'space-around',
         overflow: 'hidden',
-        padding: theme.spacing(2, 4, 2, 4),
+        padding: spacing(2, 4, 2, 4),
     },
     color: {
         // backgroundColor: '#f0f5ce',
-       // background: 'linear-gradient(to bottom, #ffff99 62%, #ccff99 100%)',
-    //     background: '#870000',   /* fallback for old browsers */
-    // background: '-webkit-linear-gradient(to right, #190A05, #870000)',  /* Chrome 10-25, Safari 5.1-6 */
-    background: 'linear-gradient(to right, #190A05, #870000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-},
+        // background: 'linear-gradient(to bottom, #ffff99 62%, #ccff99 100%)',
+        //     background: '#870000',   /* fallback for old browsers */
+        // background: '-webkit-linear-gradient(to right, #190A05, #870000)',  /* Chrome 10-25, Safari 5.1-6 */
+        background: 'linear-gradient(to right, #190A05, #870000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        height: '65vh',
+        overflow: 'scroll',
+        border: '5px solid #B6DBCB',
+        boxShadow: shadows[5],
+    },
 
-title: {
-     backgroundColor: '#e1c2ed',
-    padding: theme.spacing(2, 4, 2, 4),
-    alignItems: 'center',
-},
-paper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    // background: '#870000',   /* fallback for old browsers */
-    // background: '-webkit-linear-gradient(to right, #190A05, #870000)',  /* Chrome 10-25, Safari 5.1-6 */
-    background: 'linear-gradient(to right, #190A05, #870000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-},
-gridCard: {
+    title: {
+        backgroundColor: '#e1c2ed',
+        padding: spacing(2, 4, 2, 4),
+        alignItems: 'center',
+    },
+    paper: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        // background: '#870000',   /* fallback for old browsers */
+        // background: '-webkit-linear-gradient(to right, #190A05, #870000)',  /* Chrome 10-25, Safari 5.1-6 */
+         background: 'linear-gradient(to right, #190A05, #870000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    },
+    gridCard: {
         flexGrow: 1,
     }
 }));
@@ -64,10 +68,10 @@ export default function SubscriberCardList(props) {
             >
                 {cards.map(card => (
                     <Grid item
-                      md={6} lg={4}
-                      className={classes.gridCard}
+                        md={6} lg={4}
+                        className={classes.gridCard}
                     >
-                      {card}
+                        {card}
                     </Grid>
                 ))}
             </Grid>

@@ -8,17 +8,20 @@ import SubscriberCard from '../SubscriberCard/SubscriberCard';
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   card: {
     flexGrow: 1,
+    backgroundColor: '#E6FFC4',
     // background: '#870000',   /* fallback for old browsers */
     // background: '-webkit-linear-gradient(to right, #190A05, #870000)',  /* Chrome 10-25, Safari 5.1-6 */
-    background: 'linear-gradient(to right, #190A05, #870000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    // background: 'linear-gradient(to right, #190A05, #870000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
    [breakpoints.up('md')]: {
-    padding:spacing(25),
-  },},
+    padding:spacing(23),
+    },
+  },
   title: {
     flexGrow: 1,
   },
   heading: {
-    color: '#ffffff',
+    // color: '#ffffff',
+    color: '#110F4C',
     [breakpoints.down('md')]: {
       fontSize: '3rem',
     },
@@ -31,7 +34,8 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   },
 }));
 
-export default function SubscriberDetails() {
+export default function SubscriberDetails(props) {
+  const subscriber = props.subscriber;
   const styles = useStyles();
   return (
     <Grid
@@ -46,7 +50,7 @@ export default function SubscriberDetails() {
         <Typography variant="h2" component="h3"
           
           className={styles.heading}>
-          Subscription Details
+          Edit Subscription Details
               </Typography>
 
         <Typography variant="h2" component="h3"
@@ -56,26 +60,8 @@ export default function SubscriberDetails() {
       </Grid>
 
       <Grid item className={styles.title}>
-        <SubscriberCard subscriberDetails={sample} />
+        <SubscriberCard subscriberDetails={subscriber} />
       </Grid>
     </Grid>
   );
-}
-
-const sample =
-{
-  subStartVol: "1",
-  subSubscriptionType: "3",
-  subSlipNum: "1234",
-  subName: "Sri Sadguru Kabir Prabhu",
-  subAbout: "Sri Kabir Gyan Mandir",
-  subAdd1: "संत कबीर ज्ञान मार्ग",
-  subAdd2: "Sirsia",
-  subPost: "Sihodih",
-  subCity: "Giridih",
-  subState: "Jharkhand",
-  subPincode: "815301",
-  subPhone: "9155950505",
-  subRemark: "Guru Maa k charno mein barambar Naman",
-  subDistId: "213"
 }
