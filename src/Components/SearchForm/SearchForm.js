@@ -137,7 +137,7 @@ export default function SearchForm() {
                 type="number"
                 id="sqLimit"
                 name="sqLimit"
-                value="20"
+                defaultValue="20"
                 label="Max Result Items"
                 autoComplete="sqLimit"
               />

@@ -14,8 +14,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
 
-
-import SubscriberDetails from '../SubscriberDetails/SubscriberDetails';
+const SubscriberEditForm = React.lazy(() => import('../SubscriberEditForm/SubscriberEditForm'));
 
 const useStyles = makeStyles(({ breakpoints, spacing, shadows }) => ({
   card: {
@@ -113,6 +112,7 @@ const useStyles = makeStyles(({ breakpoints, spacing, shadows }) => ({
     boxShadow: shadows[5],
    // padding: spacing(2, 4, 3),
   },
+  
 }));
 
 export default function SubscriberCard(props) {
@@ -293,11 +293,28 @@ export default function SubscriberCard(props) {
         }}
       >
         <Fade in={open}>
-          <div className={styles.paper}>
+          <Grid container 
+            className={styles.paper }
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
+
+          <Grid item>
             {/* <h2 id="transition-modal-title">Transition modal</h2> */}
-            <SubscriberDetails subscriber={sD} />
+            {/* <SubscriberDetails subscriber={sD} /> */}
+            <SubscriberEditForm subscriberDetails={sD} />
             {/* <p id="transition-modal-description">react-transition-group animates me.</p> */}
-          </div>
+            
+              
+            </Grid>
+            <Grid item>
+                <Button size="large" color="primary" variant="contained"
+                  onClick={handleClose}>
+                  Exit
+                </Button>
+                  </Grid>
+                  </Grid>
         </Fade>
       </Modal>
       </>

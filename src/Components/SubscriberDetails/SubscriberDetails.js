@@ -21,6 +21,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   },
   heading: {
     // color: '#ffffff',
+    fontSize: '3rem',
     color: '#110F4C',
     [breakpoints.down('md')]: {
       fontSize: '3rem',
@@ -41,7 +42,7 @@ export default function SubscriberDetails(props) {
     <Grid
       container xs
       className={styles.card}
-      direction="row-reverse"
+      direction="column"
       justify="center"
       alignItems="center"
     >
