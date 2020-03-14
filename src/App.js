@@ -22,6 +22,7 @@ const ViewAllDistributors = React.lazy(() => import('./Components/ViewDistributo
 const DistributorDetails = React.lazy(() => import('./Components/DistributorDetails/DistributorDetails'));
 const SubscriberForm = React.lazy(() => import('./Components/SubscriberForm/SubscriberForm'));
 const SubscriberEditForm = React.lazy(() => import('./Components/SubscriberEditForm/SubscriberEditForm'));
+const DistributorEditForm = React.lazy(() => import('./Components/DistributorEditForm/DistributorEditForm'));
 const DistributorForm = React.lazy(() => import('./Components/DistributorForm/DistributorForm'));
 const SearchForm = React.lazy(() => import ('./Components/SearchForm/SearchForm'));
 const SearchResult = React.lazy(() => import('./Components/SearchResult/SearchResult'));
@@ -135,6 +136,7 @@ function App() {
             <SearchResult path="searchResult" />
             {/* Both ^ V requires state object */}
             <SubscriberEditForm path="editSubscriber" /> 
+            <DistributorEditForm path="editDistributor" /> 
           </Router>
         </Suspense>
       </div>

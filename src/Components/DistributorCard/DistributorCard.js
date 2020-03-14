@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
+import { navigate } from '@reach/router';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     card: {
@@ -162,6 +163,13 @@ export default function DistributorCard(props) {
                         <Grid item>
                             <Button size="small" color="primary" className={styles.button}>
                                 Distribution Analysis
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button size="small" color="primary" className={styles.button}
+                            onClick={ e => navigate("editDistributor/", {state:{distributor:dD}})}
+                             >
+                               Edit
                             </Button>
                         </Grid>
                         <Grid item>

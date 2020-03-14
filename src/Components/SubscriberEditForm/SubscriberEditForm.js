@@ -329,8 +329,6 @@ export default function SubscriberEditForm(props) {
                       Update Subscriber
                   </Button>
                       </Grid>
-                      {/* </Grid>
-                                <Grid container justify="center" alignItems="center"> */}
                   </Grid>
                 </Grid>
               </React.Fragment>
