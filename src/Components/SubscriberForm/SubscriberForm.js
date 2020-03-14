@@ -136,6 +136,7 @@ export default function SubscriberForm() {
                       <option value="" />
                       <option value={1}>1 Year</option>
                       <option value={3}>3 Years</option>
+                      <option value={4}>4 Years</option>
                       <option value={5}>5 Years</option>
                       <option value={10}>10 Years</option>
                     </NativeSelect>

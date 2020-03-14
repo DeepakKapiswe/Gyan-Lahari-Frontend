@@ -7,9 +7,6 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-const onReset = () => {
-    navigate(-1);
-};
 
 const useStyles = makeStyles(theme => (
     {
@@ -21,6 +18,10 @@ const useStyles = makeStyles(theme => (
 
 export default function BackButton(props) {
     const classes = useStyles();
+    const onReset = () => {
+       props.path == null ? navigate(-1) : navigate(props.path)
+    };
+    
     return (
         <Grid
           container

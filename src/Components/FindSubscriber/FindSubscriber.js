@@ -15,10 +15,10 @@ export default function FindSubscriberResult(props) {
   }).then(res => res.json())
 
   const { data, error} = useSWR(url, fetcher, { suspense: true });
-  if (error) return <div>failed to load</div>
+  if (props.payload.sqSubName === '') { return null; }
+  if (error) return <div>Failed to Load in Find Subscriber</div>
   if (!data) return <div>loading...</div>
   const items = data.map((item) => <SubscriberCard subscriberDetails={item} />);
-  if (props.payload.sqSubName === '') { return null; }
   return (
     <SubscriberCardList cards={items} header="Search Result" />
   );

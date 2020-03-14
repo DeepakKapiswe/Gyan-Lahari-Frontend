@@ -59,7 +59,8 @@ const useStyles = makeStyles(theme => (
   }));
 
 export default function SubscriberEditForm(props) {
-  const oldDetails = props.location.state.subscriber;
+  const oldDetails = 
+    (props.location.state !== null ) ? props.location.state.subscriber : null;
   const [sD, setSD]                = useState(oldDetails);
   const { register, handleSubmit } = useForm();
   const [userResult, setUserResult] = useState(null);
@@ -96,9 +97,10 @@ export default function SubscriberEditForm(props) {
     </Grid>
     );
   }
-
+  
+  if (sD == null) {return <h1>Bad Request</h1>}
   return (
-      <Grid
+    <Grid
       container xs
       className={classes.bgColor}
       direction="row-reverse"
@@ -142,6 +144,7 @@ export default function SubscriberEditForm(props) {
                       <option value={sD.subSubscriptionType}>{sD.subSubscriptionType} Year</option>
                       <option value={1}>1 Year</option>
                       <option value={3}>3 Years</option>
+                      <option value={4}>4 Years</option>
                       <option value={5}>5 Years</option>
                       <option value={10}>10 Years</option>
                     </NativeSelect>
