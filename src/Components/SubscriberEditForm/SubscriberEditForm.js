@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import useForm from 'react-hook-form';
+import React, { useState } from 'react';
+import {useForm} from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -10,9 +10,11 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import { navigate } from '@reach/router';
 
 
-import AddSubscriberResult from '../AddSubscriber/AddSubscriber';
+import UpdateSubscriberResult from '../UpdateSubscriber/UpdateSubscriber';
+import BackButton from '../BackButton/BackButton';
 
 
 const useStyles = makeStyles(theme => (
@@ -24,6 +26,7 @@ const useStyles = makeStyles(theme => (
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      // overflowY : 'scroll'
     },
     names: {
       margin: theme.spacing(0, 0, 0, 1),
@@ -33,11 +36,13 @@ const useStyles = makeStyles(theme => (
       [theme.breakpoints.up('md')]: {
         padding:theme.spacing(15),},
       // backgroundColor: '#f0f5ce'
-      background: 'linear-gradient(to right, #190A05, #870000)'
-      
+      backgroundColor: '#E6FFC4',
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      // background: 'linear-gradient(to right, #190A05, #870000)'
     },
     heading: {
-      color: '#ffffff',
+      color: '#110F4C',
       [theme.breakpoints.up('sm')]: {
         fontSize: '3rem',
       },
@@ -54,20 +59,19 @@ const useStyles = makeStyles(theme => (
   }));
 
 export default function SubscriberEditForm(props) {
+  const oldDetails = props.location.state.subscriber;
+  const [sD, setSD]                = useState(oldDetails);
   const { register, handleSubmit } = useForm();
-  const [user, setUser] = useState('');
   const [userResult, setUserResult] = useState(null);
-  const sD = props.subscriberDetails;
   const onSubmit = data => {
-    setUser(data);
-    console.log(data);
+    setUserResult(<UpdateSubscriberResult payload={{...sD, ...data }} />);
+    navigate(-1);
+
   };
-  useEffect(() => {
-    if (user !== '') {
-      setUserResult(<AddSubscriberResult payload={user} />);
-      setUser('');
-    }
-  }, [user]);
+
+  const onReset = () => {
+    setSD(oldDetails);
+  }
 
   const classes = useStyles();
 
@@ -190,7 +194,7 @@ export default function SubscriberEditForm(props) {
                     <Grid item xs={12} sm={4}>
                       <TextField
                         inputRef={register}
-                        required
+                        // required
                         id="subAbout"
                         name="subAbout"
                         label="About"
@@ -202,7 +206,7 @@ export default function SubscriberEditForm(props) {
                     <Grid item xs={12} sm={4}>
                       <TextField
                         inputRef={register}
-                        required
+                        //required
                         id="subAdd1"
                         name="subAdd1"
                         label="Address line 1"
@@ -226,7 +230,7 @@ export default function SubscriberEditForm(props) {
                   <Grid item xs={6}>
                     <TextField
                       inputRef={register}
-                      required
+                      // required
                       id="subPost"
                       name="subPost"
                       label="Post"
@@ -238,7 +242,7 @@ export default function SubscriberEditForm(props) {
                   <Grid item xs={6}>
                     <TextField
                       inputRef={register}
-                      required
+                      // required
                       id="subCity"
                       name="subCity"
                       label="City"
@@ -250,7 +254,7 @@ export default function SubscriberEditForm(props) {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       inputRef={register}
-                      required
+                     // required
                       id="subState"
                       name="subState"
                       label="State"
@@ -261,7 +265,7 @@ export default function SubscriberEditForm(props) {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      required
+                      // required
                       inputRef={register}
                       id="subPincode"
                       name="subPincode"
@@ -293,9 +297,24 @@ export default function SubscriberEditForm(props) {
                       defaultValue={sD.subRemark}
                       />
                   </Grid>
-                  <Grid container justify="center">
+                  <Grid container
+                    justify="space-between"
+                    alignItems="stretch">
+                      <Grid item >
+                        <Button
+                          type="reset"
+                          name="Reset"
+                           //fullWidth
+                          variant="contained"
+                          color="secondry"
+                          onClick ={onReset}
+                          className={classes.submit}
+                          >
+                          Undo Changes
+                      </Button>
+                          </Grid>
 
-                  <Grid item xs={12} sm={6} >
+                  <Grid item >
                     <Button
                       type="submit"
                       name="updateSubscriber"
@@ -307,10 +326,13 @@ export default function SubscriberEditForm(props) {
                       Update Subscriber
                   </Button>
                       </Grid>
+                      {/* </Grid>
+                                <Grid container justify="center" alignItems="center"> */}
                   </Grid>
                 </Grid>
               </React.Fragment>
             </form>
+                <BackButton/>
           </>
         </CssBaseline>
       </Container>

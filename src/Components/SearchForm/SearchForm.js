@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import useForm from 'react-hook-form';
+import React from 'react';
+import {useForm} from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -8,10 +8,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Fab from '@material-ui/core/Fab';
+import { useNavigate } from "@reach/router"
 
 
-import FindSubscriberResult from '../FindSubscriber/FindSubscriber';
+
 
 const useStyles = makeStyles(theme => (
   {
@@ -51,47 +51,16 @@ const useStyles = makeStyles(theme => (
       margin: theme.spacing(3, 0, 2),
     },
   }));
-
+  
 export default function SearchForm() {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const [query, setQuery] = useState('');
-  const [queryResult, setQueryResult] = useState(null);
   const onSubmit = data => {
-    setQuery(data);
+    navigate("searchResult", {state:{searchQuery:data }})
+    
   };
-  const onReset = () => {
-    setQueryResult(null);
-  };
-  useEffect(() => {
-    if (query !== '') {
-      setQueryResult(<FindSubscriberResult payload={query} />);
-      setQuery('');
-    }
-  }, [query]);
 
   const classes = useStyles();
-
-  function RefreshButton() {
-    return (
-      <Fab 
-        color="primary" 
-        variant="extended"
-        type="reset"
-        name="RefreshButton"
-        fullWidth
-        onClick={onReset}
-      >
-      <Typography variant="Button">Reset</Typography>
-      </Fab>
-    )
-  }
-
-  function RenderResult(props) {
-    const result = props.result;
-    return (
-     <> {result}</>
-    )
-  }
 
   function RenderHeading(props) {
     return (
@@ -110,7 +79,7 @@ export default function SearchForm() {
   function RenderForm() {
     return (
       <Container maxWidth='sm'>
-        <form onSubmit={handleSubmit(onSubmit)} >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={3}
             className={classes.form}
             component={Paper} elevation={6}
@@ -171,22 +140,10 @@ export default function SearchForm() {
     >
       <Grid className={classes.paper} >
         <CssBaseline>
-          <>
-            {(queryResult !== null) ?
-              (<>
-                <RenderResult result={queryResult} />
-                <RefreshButton/>
-                </>
-              )
-              : 
-              (
                 <>
-                  <RenderHeading result={queryResult} />
+                  <RenderHeading />
                   <RenderForm />
                 </>
-              )
-            }
-          </>
         </CssBaseline>
       </Grid>
     </Grid>

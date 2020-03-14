@@ -8,8 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-
-
 import { Router } from "@reach/router";
 
 import ButtonLink from './Common/ButtonLink';
@@ -23,8 +21,10 @@ const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/
 const ViewAllDistributors = React.lazy(() => import('./Components/ViewDistributor/ViewAllDistributors'));
 const DistributorDetails = React.lazy(() => import('./Components/DistributorDetails/DistributorDetails'));
 const SubscriberForm = React.lazy(() => import('./Components/SubscriberForm/SubscriberForm'));
+const SubscriberEditForm = React.lazy(() => import('./Components/SubscriberEditForm/SubscriberEditForm'));
 const DistributorForm = React.lazy(() => import('./Components/DistributorForm/DistributorForm'));
 const SearchForm = React.lazy(() => import ('./Components/SearchForm/SearchForm'));
+const SearchResult = React.lazy(() => import('./Components/SearchResult/SearchResult'));
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,6 +66,7 @@ function App() {
     document.title = `ज्ञान लहरी`;
   });
   return (
+    <Suspense>
     <ThemeProvider theme={theme}>
       {/* <> */}
       <div className={classes.main}>
@@ -131,11 +132,14 @@ function App() {
             <Users path="user/:userId" />
             <ViewAllSubscribers path="allSubscribers" />
             <ViewAllDistributors path="allDistributors" />
+            <SearchResult path="searchResult" />
+            <SubscriberEditForm path="editSubscriber" />
           </Router>
         </Suspense>
       </div>
       <Footer/>
     </ThemeProvider >
+        </Suspense>
   );
 }
 

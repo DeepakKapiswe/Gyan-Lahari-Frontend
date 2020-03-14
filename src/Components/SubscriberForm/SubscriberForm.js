@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import useForm from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -185,7 +185,7 @@ export default function SubscriberForm() {
                     <Grid item xs={12} sm={4}>
                       <TextField
                         inputRef={register}
-                        required
+                        // required
                         id="subAbout"
                         name="subAbout"
                         label="About"
@@ -196,7 +196,7 @@ export default function SubscriberForm() {
                     <Grid item xs={12} sm={4}>
                       <TextField
                         inputRef={register}
-                        required
+                        // required
                         id="subAdd1"
                         name="subAdd1"
                         label="Address line 1"
@@ -218,7 +218,7 @@ export default function SubscriberForm() {
                   <Grid item xs={6}>
                     <TextField
                       inputRef={register}
-                      required
+                      // required
                       id="subPost"
                       name="subPost"
                       label="Post"
@@ -229,7 +229,7 @@ export default function SubscriberForm() {
                   <Grid item xs={6}>
                     <TextField
                       inputRef={register}
-                      required
+                      // required
                       id="subCity"
                       name="subCity"
                       label="City"
@@ -240,7 +240,7 @@ export default function SubscriberForm() {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       inputRef={register}
-                      required
+                      // required
                       id="subState"
                       name="subState"
                       label="State"
@@ -250,7 +250,7 @@ export default function SubscriberForm() {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      required
+                      // required
                       inputRef={register}
                       id="subPincode"
                       name="subPincode"

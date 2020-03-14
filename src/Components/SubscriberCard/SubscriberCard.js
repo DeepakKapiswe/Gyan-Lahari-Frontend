@@ -9,12 +9,8 @@ import Container from '@material-ui/core/Container';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
+import { navigate } from '@reach/router';
 
-
-const SubscriberEditForm = React.lazy(() => import('../SubscriberEditForm/SubscriberEditForm'));
 
 const useStyles = makeStyles(({ breakpoints, spacing, shadows }) => ({
   card: {
@@ -22,7 +18,8 @@ const useStyles = makeStyles(({ breakpoints, spacing, shadows }) => ({
     maxWidth: 500,
     borderRadius: spacing(2), // 16px
     transition: '0.3s',
-    boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
+    // boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
+    boxShadow: shadows[20],
     position: 'relative',
     overflow: 'initial',
     display: 'flex',
@@ -101,17 +98,6 @@ const useStyles = makeStyles(({ breakpoints, spacing, shadows }) => ({
       width: 'auto',
     },
   },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: '#E6FFC4',
-    border: '2px solid #000',
-    boxShadow: shadows[5],
-   // padding: spacing(2, 4, 3),
-  },
   
 }));
 
@@ -121,15 +107,7 @@ export default function SubscriberCard(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
 
 
   const sp = " ";
@@ -214,7 +192,7 @@ export default function SubscriberCard(props) {
                     <Card className={styles.cardSmall}>
                       <CardContent className={styles.cardcontent}>
                         <Typography variant={'subtitle'} gutterBottom>
-                          SC : ABCD
+                          SC : {sD.subId}
                   </Typography>
                       </CardContent>
                     </Card>
@@ -249,9 +227,8 @@ export default function SubscriberCard(props) {
               <Grid item>
                 <Button size="small" color="primary"
                   className={styles.button}
-                  // onClick={handleEditViewClick}
-                  onClick={handleOpen}>
-                  Edit
+                  onClick={ e => navigate("editSubscriber/", {state:{subscriber:sD}})}
+                > Edit
         </Button>
               </Grid>
               <Grid item>
@@ -278,45 +255,7 @@ export default function SubscriberCard(props) {
         </Card>
       </Container>
 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={styles.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        disableBackdropClick
-        disableScrollLock
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <Grid container 
-            className={styles.paper }
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
-
-          <Grid item>
-            {/* <h2 id="transition-modal-title">Transition modal</h2> */}
-            {/* <SubscriberDetails subscriber={sD} /> */}
-            <SubscriberEditForm subscriberDetails={sD} />
-            {/* <p id="transition-modal-description">react-transition-group animates me.</p> */}
-            
-              
-            </Grid>
-            <Grid item>
-                <Button size="large" color="primary" variant="contained"
-                  onClick={handleClose}>
-                  Exit
-                </Button>
-                  </Grid>
-                  </Grid>
-        </Fade>
-      </Modal>
       </>
     )
   };
+  // <SubscriberEditForm subscriberDetails={sD} />
