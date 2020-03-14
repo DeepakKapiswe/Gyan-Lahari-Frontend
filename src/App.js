@@ -132,8 +132,9 @@ function App() {
             <Users path="user/:userId" />
             <ViewAllSubscribers path="allSubscribers" />
             <ViewAllDistributors path="allDistributors" />
-            <SearchResult path="searchResult" />         {/*requires state object */}
-            <SubscriberEditForm path="editSubscriber" /> {/*requires state object */}
+            <SearchResult path="searchResult" />
+            {/* Both ^ V requires state object */}
+            <SubscriberEditForm path="editSubscriber" /> 
           </Router>
         </Suspense>
       </div>
