@@ -26,6 +26,7 @@ const DistributorEditForm = React.lazy(() => import('./Components/DistributorEdi
 const DistributorForm = React.lazy(() => import('./Components/DistributorForm/DistributorForm'));
 const SearchForm = React.lazy(() => import ('./Components/SearchForm/SearchForm'));
 const SearchResult = React.lazy(() => import('./Components/SearchResult/SearchResult'));
+const DistributionList = React.lazy(() => import('./Components/DistributionList/DistributionList'));
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -108,14 +109,14 @@ function App() {
               alignItems="baseline"
             >
               <ButtonLink to="/" label="Home" />
-              <ButtonLink to="addNewSubscriber" label="Add Subscriber" />
-              <ButtonLink to="addNewDistributor" label="Add Distributor" />
-              <ButtonLink to="allSubscribers" label="All Subscribers" />
-              <ButtonLink to="allDistributors" label="All Distributors" />
-              <ButtonLink to="viewDistributor" label="View Distributor" />
-              <ButtonLink to="searchSubscriber" label="Search Subscriber" />
+              <ButtonLink to="/addNewSubscriber" label="Add Subscriber" />
+              <ButtonLink to="/addNewDistributor" label="Add Distributor" />
+              <ButtonLink to="/allSubscribers" label="All Subscribers" />
+              <ButtonLink to="/allDistributors" label="All Distributors" />
+              <ButtonLink to="/viewDistributor" label="View Distributor" />
+              <ButtonLink to="/searchSubscriber" label="Search Subscriber" />
               <Router>
-                <ButtonLink to="login" label="Sign In" path="/*"  />
+                <ButtonLink to="/login" label="Sign In" path="/*"  />
                 <ButtonLink to="/" label="Sign Out" path="user/*" />
               </Router>
             </Grid>
@@ -126,17 +127,18 @@ function App() {
           <Router>
             <Login path="login" />
             <Home path="/"/>
-            <SubscriberForm path="addNewSubscriber" />
-            <DistributorForm path="addNewDistributor" />
-            <DistributorDetails path="viewDistributor" />
-            <SearchForm path="searchSubscriber" />
-            <Users path="user/:userId" />
-            <ViewAllSubscribers path="allSubscribers" />
-            <ViewAllDistributors path="allDistributors" />
-            <SearchResult path="searchResult" />
+            <SubscriberForm path="/addNewSubscriber" />
+            <DistributorForm path="/addNewDistributor" />
+            <DistributorDetails path="/viewDistributor" />
+            <SearchForm path="/searchSubscriber" />
+            <Users path="/user/:userId" />
+            <ViewAllSubscribers path="/allSubscribers" />
+            <ViewAllDistributors path="/allDistributors" />
+            <SearchResult path="/searchResult" />
             {/* Both ^ V requires state object */}
-            <SubscriberEditForm path="editSubscriber" /> 
-            <DistributorEditForm path="editDistributor" /> 
+            <SubscriberEditForm path="/editSubscriber" /> 
+            <DistributorEditForm path="/editDistributor" /> 
+            <DistributionList path="/distributionList" />
           </Router>
         </Suspense>
       </div>

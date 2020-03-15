@@ -161,13 +161,15 @@ export default function DistributorCard(props) {
                         justify="space-around"
                     >
                         <Grid item>
-                            <Button size="small" color="primary" className={styles.button}>
-                                Distribution Analysis
+                            <Button size="small" color="primary" className={styles.button}
+                            onClick={ e => navigate("/distributionList", {state:{distributor:dD}})}
+                            >
+                                Distribution List
                             </Button>
                         </Grid>
                         <Grid item>
                             <Button size="small" color="primary" className={styles.button}
-                            onClick={ e => navigate("editDistributor/", {state:{distributor:dD}})}
+                            onClick={ e => navigate("/editDistributor", {state:{distributor:dD}})}
                              >
                                Edit
                             </Button>

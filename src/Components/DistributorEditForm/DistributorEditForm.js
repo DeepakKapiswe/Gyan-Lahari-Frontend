@@ -77,7 +77,11 @@ export default function DistributorEditForm(props) {
   function RenderResult(props) {
     // conditionally render result
     if (props.result !== null) {
-      return <>{userResult}</>
+      return ( 
+      <div className={classes.heading}>
+        {userResult}
+      </div>
+      )
     }
     return (
       <Grid item alignItems="center" >

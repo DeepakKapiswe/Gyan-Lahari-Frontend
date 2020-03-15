@@ -227,7 +227,7 @@ export default function SubscriberCard(props) {
               <Grid item>
                 <Button size="small" color="primary"
                   className={styles.button}
-                  onClick={ e => navigate("editSubscriber/", {state:{subscriber:sD}})}
+                  onClick={ e => navigate("/editSubscriber", {state:{subscriber:sD}})}
                 > Edit
         </Button>
               </Grid>
