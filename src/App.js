@@ -12,8 +12,9 @@ import { Router } from "@reach/router";
 
 import ButtonLink from './Common/ButtonLink';
 import LinearProgress from './Components/Progress/LinearProgressBar';
-import LinearProgressBar from './Components/Progress/LinearProgressBar';
 import Footer from './Components/Footer/Footer';
+import PdfView from './Common/PdfViewer/PdfViewer';
+import PdfDownload from './Common/PdfDownload/PdfDownload';
 
 const Login = React.lazy(() => import('./Components/Login/Login'));
 const Users = React.lazy(() => import('./Components/AddSubscriber/User'));
@@ -27,6 +28,7 @@ const DistributorForm = React.lazy(() => import('./Components/DistributorForm/Di
 const SearchForm = React.lazy(() => import ('./Components/SearchForm/SearchForm'));
 const SearchResult = React.lazy(() => import('./Components/SearchResult/SearchResult'));
 const DistributionList = React.lazy(() => import('./Components/DistributionList/DistributionList'));
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -123,7 +125,7 @@ function App() {
           </Suspense>
         </AppBar>
         <Suspense
-          fallback={<LinearProgressBar />}>
+          fallback={<LinearProgress />}>
           <Router>
             <Login path="login" />
             <Home path="/"/>
@@ -139,6 +141,8 @@ function App() {
             <SubscriberEditForm path="/editSubscriber" /> 
             <DistributorEditForm path="/editDistributor" /> 
             <DistributionList path="/distributionList" />
+            <PdfView path="/viewPdf" />
+            <PdfDownload path="/downloadPdf" />
           </Router>
         </Suspense>
       </div>

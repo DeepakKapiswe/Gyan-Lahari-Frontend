@@ -22,7 +22,7 @@ function DistSubscribers(props) {
   if (!data) return <div>loading...</div>
   const items = data.map((item) => <SubscriberCard subscriberDetails={item} />);
   return (
-    <SubscriberCardList cards={items} header="Distribution List" />
+    <SubscriberCardList cards={items} header="Distribution List" pdfData={data}/>
   );
 }
 

@@ -19,8 +19,7 @@ import BackButton from '../BackButton/BackButton';
 
 const useStyles = makeStyles(theme => (
   {
-    root: {
-    },
+
     paper: {
       margin: theme.spacing(0, 0, 2, 0),
       display: 'flex',
