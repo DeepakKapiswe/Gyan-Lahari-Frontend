@@ -66,6 +66,7 @@ export default function SubscriberCardList(props) {
     const cards = props.cards;
     const header = props.header;
     const pdfData = dcopy(props.pdfData);
+    const pdfName = props.pdfName;
 
     return (
         <>
@@ -85,7 +86,7 @@ export default function SubscriberCardList(props) {
                     </BrowserView>
                     <Button size="small" color="primary"
                             className={useStyles.button}
-                            onClick={e => navigate("/downloadPdf", { state: { data: pdfData } })}
+                            onClick={e => navigate("/downloadPdf", { state: { data: pdfData, fileName:pdfName } })}
                             > Download PDF
                         </Button>
                 </Paper>

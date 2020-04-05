@@ -1,34 +1,25 @@
 import React from "react";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import PdfSubscriberList from '../PdfSubscriberList/PdfSubscriberList';
-import LinearProgress from "../../Components/Progress/LinearProgressBar";
-import Grid from '@material-ui/core/Grid';
+import pdfMake from "pdfmake/build/pdfmake";
+import makePdfSubscriberListData from '../PdfSubscriberList/PdfSubscriberList';
+import vfsFonts from 'pdfmake/build/vfs_fonts'
 
-
+pdfMake.fonts = {
+	NotoSans: {
+		normal: 'NotoSans-Regular.ttf',
+		bold: 'NotoSans-Regular.ttf',
+		italics: 'NotoSans-Regular.ttf',
+		bolditalics: 'NotoSans-Regular.ttf',
+	}
+};
 
 export default function PdfDownload(props) {
-    const pdfData = props.location.state.data
-    return (
-        <Grid container
-            direction="row"
-            justify="center"
-            alignItems="baseline"
-        >
-            <PDFDownloadLink
-                document={<PdfSubscriberList data={pdfData} />}
-                fileName="First.pdf"
-                style={{
-                    textDecoration: "none",
-                    padding: "10px",
-                    color: "#4a4a4a",
-                    backgroundColor: "#f2f2f2",
-                    border: "1px solid #4a4a4a"
-                }}
-            >
-                {({ blob, url, loading, error }) =>
-                    loading ? <LinearProgress /> : "Click To Download"
-                }
-            </PDFDownloadLink>
-        </Grid>
-    );
+    const rawPdfData = props.location.state.data
+    const fName = props.location.state.fileName
+    console.log(fName);
+	const pdfData = makePdfSubscriberListData(rawPdfData)
+	const {vfs} = vfsFonts.pdfMake;
+	pdfMake.vfs = vfs;
+
+	pdfMake.createPdf(pdfData).download(fName);
+	return <>Pdf Downloaded</>
 }
