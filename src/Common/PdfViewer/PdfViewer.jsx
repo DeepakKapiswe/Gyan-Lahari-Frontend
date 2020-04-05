@@ -1,18 +1,23 @@
 import React from "react";
-import { PDFViewer } from "@react-pdf/renderer";
-import PdfSubscriberList from '../PdfSubscriberList/PdfSubscriberList';
-import Grid from '@material-ui/core/Grid';
-import BackButton from '../../Components/BackButton/BackButton';
+import pdfMake from "pdfmake/build/pdfmake";
+import makePdfSubscriberListData from '../PdfSubscriberList/PdfSubscriberList';
+import vfsFonts from 'pdfmake/build/vfs_fonts'
+
+pdfMake.fonts = {
+	NotoSans: {
+		normal: 'NotoSans-Regular.ttf',
+		bold: 'NotoSans-Regular.ttf',
+		italics: 'NotoSans-Regular.ttf',
+		bolditalics: 'NotoSans-Regular.ttf',
+	}
+};
 
 export default function PdfView(props) {
-    const pdfData = props.location.state.data
-    return (
-        <Grid container justify="center" >
+	const rawPdfData = props.location.state.data
+	const pdfData = makePdfSubscriberListData(rawPdfData)
+	const {vfs} = vfsFonts.pdfMake;
+	pdfMake.vfs = vfs;
 
-            <PDFViewer width={900} height={842}>
-                <PdfSubscriberList data={pdfData} />
-            </PDFViewer>
-            <BackButton />
-        </Grid>
-    );
+	pdfMake.createPdf(pdfData).open();
+	return <>Pdf Generated</>
 }
