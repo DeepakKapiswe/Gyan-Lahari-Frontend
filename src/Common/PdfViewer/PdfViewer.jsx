@@ -1,7 +1,7 @@
 import React from "react";
 import pdfMake from "pdfmake/build/pdfmake";
-import makePdfSubscriberListData from '../PdfSubscriberList/PdfSubscriberList';
 import vfsFonts from 'pdfmake/build/vfs_fonts'
+import createPdfData from '../PdfGeneration/createPdfData';
 
 pdfMake.fonts = {
 	NotoSans: {
@@ -12,9 +12,10 @@ pdfMake.fonts = {
 	}
 };
 
+
 export default function PdfView(props) {
 	const rawPdfData = props.location.state.data
-	const pdfData = makePdfSubscriberListData(rawPdfData)
+	const pdfData = createPdfData(rawPdfData);
 	const {vfs} = vfsFonts.pdfMake;
 	pdfMake.vfs = vfs;
 

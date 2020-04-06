@@ -187,7 +187,7 @@ export default function DistributorCard(props) {
                         <Grid item>
                             <Typography className={styles.overline} gutterBottom variant={'body1'}>
                                 Other Distribution Details to be added Here
-              </Typography>
+                            </Typography>
                         </Grid>
                     </CardContent>
                 </Collapse>

@@ -21,7 +21,8 @@ export default function FindSubscriberResult(props) {
   if (error) return <div>Failed to Load in Find Subscriber</div>
   if (!data) return <div>loading...</div>
   const items = data.map((item) => <SubscriberCard subscriberDetails={item} />);
+  const pdfData ={subscriberListData: data, searchData : props.payload, meta : 'SearchResultList'} 
   return (
-    <SubscriberCardList cards={items} header="Search Result" pdfData={data} />
+    <SubscriberCardList cards={items} header="Search Result" pdfData={pdfData} />
   );
 }

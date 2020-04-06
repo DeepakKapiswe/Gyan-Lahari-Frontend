@@ -11,5 +11,6 @@ export default function ViewAllSubscribers(props) {
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
   const items = data.map((item) => <SubscriberCard subscriberDetails={item}/>);
-  return <SubscriberCardList cards={items} header="All Subscribers" pdfData={data}/>;
+  const pdfData ={subscriberListData: data, meta : 'AllSubscribers'} 
+  return <SubscriberCardList cards={items} header="All Subscribers" pdfData={pdfData}/>;
 }

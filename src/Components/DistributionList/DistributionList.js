@@ -21,8 +21,9 @@ function DistSubscribers(props) {
   if (error) return <div>Failed to Load in Find Distributor Subscribers</div>
   if (!data) return <div>loading...</div>
   const items = data.map((item) => <SubscriberCard subscriberDetails={item} />);
+  const pdfData ={subscriberListData: data, distributorData : props.payload, meta : 'DistributionList'} 
   return (
-    <SubscriberCardList cards={items} header="Distribution List" pdfData={data}/>
+    <SubscriberCardList cards={items} header="Distribution List" pdfData={pdfData}/>
   );
 }
 

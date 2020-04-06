@@ -67,7 +67,6 @@ export default function SubscriberCardList(props) {
     const header = props.header;
     const pdfData = dcopy(props.pdfData);
     const pdfName = props.pdfName;
-
     return (
         <>
             <Grid className={classes.paper}>
