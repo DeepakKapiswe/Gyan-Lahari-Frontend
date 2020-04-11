@@ -211,7 +211,7 @@ export default function SubscriberCard(props) {
                       <CardContent className={styles.cardcontent}>
                         <Typography variant={'subtitle'} gutterBottom >
                           {sD.subSubscriptionType} Year <br />
-                          {sD.subStartVol}-{+sD.subStartVol + (sD.subSubscriptionType*4) -1}
+                          {sD.subStartVol}-{sD.subEndVol}
                         </Typography>
                       </CardContent>
                     </Card>
