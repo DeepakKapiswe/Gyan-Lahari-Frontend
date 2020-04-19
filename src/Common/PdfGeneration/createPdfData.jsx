@@ -8,7 +8,7 @@ export default function createPdfData(pdfInfo){
 	const meta = pdfInfo.meta;
 	var getPdfDataFor = {
 		'DistributionList' : function () {
-			return makePdfDistributionListData(pdfInfo.distributorData, pdfInfo.subscriberListData);
+			return makePdfDistributionListData(pdfInfo.distributorData, pdfInfo.distributionDetails, pdfInfo.subscriberListData);
 		   },
 		'SearchResultList' : function () {
 			return makePdfSubscriberListData(pdfInfo.subscriberListData);

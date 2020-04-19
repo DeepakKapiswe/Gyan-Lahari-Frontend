@@ -5,7 +5,7 @@ import useSWR from 'swr';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   heading: {
-    color: '#ffffff',
+    color: '#aaaaaa',
     [breakpoints.down('md')]: {
       fontSize: '3rem',
     },

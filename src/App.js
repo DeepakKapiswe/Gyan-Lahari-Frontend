@@ -28,7 +28,7 @@ const DistributorForm = React.lazy(() => import('./Components/DistributorForm/Di
 const SearchForm = React.lazy(() => import ('./Components/SearchForm/SearchForm'));
 const SearchResult = React.lazy(() => import('./Components/SearchResult/SearchResult'));
 const DistributionList = React.lazy(() => import('./Components/DistributionList/DistributionList'));
-
+const DistributionListForm = React.lazy(() => import('./Components/DistributionListForm/DistributionListForm'));
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -141,6 +141,7 @@ function App() {
             <SubscriberEditForm path="/editSubscriber" /> 
             <DistributorEditForm path="/editDistributor" /> 
             <DistributionList path="/distributionList" />
+            <DistributionListForm path="/distributionListForm" />
             <PdfView path="/viewPdf" />
             <PdfDownload path="/downloadPdf" />
           </Router>

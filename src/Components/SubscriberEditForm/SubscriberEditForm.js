@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useForm} from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -10,7 +10,8 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import { navigate } from '@reach/router';
+// import { navigate } from '@reach/router';
+
 
 
 import UpdateSubscriberResult from '../UpdateSubscriber/UpdateSubscriber';
@@ -63,11 +64,36 @@ export default function SubscriberEditForm(props) {
   const [sD, setSD]                = useState(oldDetails);
   const { register, handleSubmit } = useForm();
   const [userResult, setUserResult] = useState(null);
+  const [endVol, setEndVol] = useState(0);
+  const [subscriptionType, setSubscriptionType] = useState(sD.subSubscriptionType);
+  const [startVol, setStartVol] = useState(sD.subStartVol);
+
   const onSubmit = data => {
+    data.subStartVol = data.subStartVol*1;
+    data.subEndVol = data.subEndVol*1;
+    data.subSubscriptionType = data.subSubscriptionType*1;
     setUserResult(<UpdateSubscriberResult payload={{...sD, ...data }} />);
-    navigate(-1);
+    // navigate(-1);
 
   };
+
+  const handleStartVolChange = (event) => {
+    setStartVol(event.target.value);
+  };
+
+  const handleSubscriptionTypeChange = (event) => {
+    setSubscriptionType(event.target.value);
+  };
+
+  useEffect(() => {
+    if ( startVol !== 0  && subscriptionType !== 0) {
+    setEndVol(startVol*1 + subscriptionType*4 - 1);
+    }
+    else {
+      setEndVol(0);
+      }
+  }, [startVol, subscriptionType]);
+
 
   const onReset = () => {
     setSD(oldDetails);
@@ -129,6 +155,7 @@ export default function SubscriberEditForm(props) {
                       label="Starting Volume"
                       autoComplete="subStartVol"
                       defaultValue={sD.subStartVol}
+                      onChange={handleStartVolChange}
                       />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
@@ -139,6 +166,7 @@ export default function SubscriberEditForm(props) {
                       name="subSubscriptionType"
                       required
                       label="Subscription Type"
+                      onChange={handleSubscriptionTypeChange}
                       >
                       <option value={sD.subSubscriptionType}>{sD.subSubscriptionType} Year</option>
                       <option value={1}>1 Year</option>
@@ -149,6 +177,19 @@ export default function SubscriberEditForm(props) {
                     </NativeSelect>
                     <FormHelperText>Subscription Type</FormHelperText>
 
+                  </Grid>
+                  <Grid item xs={6} sm={4} lg={3}>
+                    <TextField
+                      inputRef={register}
+                      required
+                      type="number"
+                      id="subEndVol"
+                      value = {endVol}
+                      disabled
+                      name="subEndVol"
+                      label="Ending Volume"
+                      autoComplete="subEndVol"
+                      />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField

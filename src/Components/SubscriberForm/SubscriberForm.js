@@ -57,16 +57,40 @@ export default function SubscriberForm() {
   const { register, handleSubmit } = useForm();
   const [user, setUser] = useState('');
   const [userResult, setUserResult] = useState(null);
+  const [endVol, setEndVol] = useState(0);
+  const [subscriptionType, setSubscriptionType] = useState(0);
+  const [startVol, setStartVol] = useState(0);
+
   const onSubmit = data => {
+    data.subStartVol = data.subStartVol*1;
+    data.subEndVol = data.subEndVol*1;
+    data.subSubscriptionType = data.subSubscriptionType*1; 
     setUser(data);
-    console.log(data);
   };
+
+  const handleStartVolChange = (event) => {
+    setStartVol(event.target.value);
+  };
+
+  const handleSubscriptionTypeChange = (event) => {
+    setSubscriptionType(event.target.value);
+  };
+
   useEffect(() => {
     if (user !== '') {
       setUserResult(<AddSubscriberResult payload={user} />);
       setUser('');
     }
   }, [user]);
+
+  useEffect(() => {
+    if ( startVol !== 0  && subscriptionType !== 0) {
+    setEndVol(startVol*1 + subscriptionType*4 - 1);
+    }
+    else {
+      setEndVol(0);
+      }
+  }, [startVol, subscriptionType]);
 
   const classes = useStyles();
 
@@ -122,6 +146,7 @@ export default function SubscriberForm() {
                       name="subStartVol"
                       label="Starting Volume"
                       autoComplete="subStartVol"
+                      onChange={handleStartVolChange}
                       />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
@@ -132,8 +157,9 @@ export default function SubscriberForm() {
                       name="subSubscriptionType"
                       required
                       label="Subscription Type"
+                      onChange={handleSubscriptionTypeChange}
                       >
-                      <option value="" />
+                      <option value={0} />
                       <option value={1}>1 Year</option>
                       <option value={3}>3 Years</option>
                       <option value={4}>4 Years</option>
@@ -142,6 +168,19 @@ export default function SubscriberForm() {
                     </NativeSelect>
                     <FormHelperText>Subscription Type</FormHelperText>
 
+                  </Grid>
+                  <Grid item xs={6} sm={4} lg={3}>
+                    <TextField
+                      inputRef={register}
+                      required
+                      type="number"
+                      id="subEndVol"
+                      value = {endVol}
+                      disabled
+                      name="subEndVol"
+                      label="Ending Volume"
+                      autoComplete="subEndVol"
+                      />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
@@ -170,7 +209,7 @@ export default function SubscriberForm() {
                         required
                         id="subName"
                         name="subName"
-                        label="Name"
+                        label="Subscriber Name"
                         fullWidth
                         autoComplete="subName"
                         />

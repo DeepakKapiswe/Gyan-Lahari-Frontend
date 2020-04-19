@@ -6,19 +6,18 @@ function makeSubscriberCell(subscriber) {
         {
             margin: [8, 9, 0, 0], // sets gap between each row
             lineHeight: 0.85,
-            // background:(a.subStartVol*1 > 60 ? '#eeeebb' : ''), // to set color can be used
             decorationStyle: 'dashed',
             
             table :{
                 body :[[
                     {
                     border: [true, false, false, false],
-                    fillColor: '#ffffff',
-                    stack: [
+                    stack: [ {text :
                         'SC:' + a.subId +
                         ' DC:' + a.subDistId +
-                        ' V(' + a.subStartVol + '-' + (a.subStartVol * 1 + (a.subSubscriptionType * 4 - 1)) +
-                        ')'
+                        ' V(' + a.subStartVol + '-' + a.subEndVol + ')' +
+                        (a.isExpiring ? '**' : ''),
+                        background:(a.isExpiring ? '#eeeebb' : '')}
                         , a.subName
                         , (a.subAbout === ("" || null) ? "" : a.subAbout)
                         , (a.subAdd1 === ("" || null) ? "" : a.subAdd1)
@@ -26,6 +25,7 @@ function makeSubscriberCell(subscriber) {
                         , (a.subPost === ("" || null) ? "" : a.subPost)
                         , (a.subCity === ("" || null) ? "" : a.subCity)
                         , (a.subState === ("" || null) ? "" : a.subState)
+                        
                         , (a.subPincode === ("" || null) ? "" : a.subPincode)
                         , (a.subPhone === ("" || null) ? "" : 'Mob: ' + a.subPhone)
                     ]
@@ -37,7 +37,7 @@ function makeSubscriberCell(subscriber) {
 
 }
 
-function makeDistributorHeadline(distributor, count) {
+function makeDistributorHeadline(distributor, count, expiryCount) {
     const d = distributor
     return (
         {   
@@ -52,13 +52,13 @@ function makeDistributorHeadline(distributor, count) {
                      { stack : [
                      d.distName ,
                      d.distAdd ,
-                     d.distCity,
-                     d.distPhone
+                     d.distCity
                       ] }, 
                       {text:'Copies - ' + count, fontSize: 45,
                        alignment: 'center'}
                   ],
-                  [{text: 'Dist Id : ' + d.distId + '\t\t\t Mob: ' + d.distPhone, fontSize: 12, bold: true}, 'Expiries Here : ']
+                  [ {text: 'Dist Id : ' + d.distId + '\t\t\t Mob: ' + (d.distPhone ? d.distPhone : 'Not Available'), fontSize: 12, bold: true}
+                  , 'Expiries After This Vol: ' + expiryCount]
 
                 ]
                 }
@@ -67,11 +67,12 @@ function makeDistributorHeadline(distributor, count) {
     )
 }
 
-export default function makePdfDistributionListData(distributorData,susbcriberListData) {
+export default function makePdfDistributionListData(distributorData, distributionDetails, susbcriberListData) {
     const arr = []
     const dataArr = dcopy(susbcriberListData); // deep copy for safer operations ahead 
     const totalSubscriber = dataArr.length
-    const distPdfData = makeDistributorHeadline(distributorData, totalSubscriber)
+    const expiryCount = distributionDetails.expiryCount
+    const distPdfData = makeDistributorHeadline(distributorData, totalSubscriber, expiryCount)
     arr.push(distPdfData) 
     while (dataArr.length > 0) { // remove first three elements of Data Array
         const a1 = dataArr.shift();
