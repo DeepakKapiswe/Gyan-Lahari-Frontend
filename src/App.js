@@ -29,6 +29,7 @@ const SearchForm = React.lazy(() => import ('./Components/SearchForm/SearchForm'
 const SearchResult = React.lazy(() => import('./Components/SearchResult/SearchResult'));
 const DistributionList = React.lazy(() => import('./Components/DistributionList/DistributionList'));
 const DistributionListForm = React.lazy(() => import('./Components/DistributionListForm/DistributionListForm'));
+const BulkDistributionListForm = React.lazy(() => import('./Components/BulkDistributionListForm/BulkDistributionListForm'));
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -117,6 +118,7 @@ function App() {
               <ButtonLink to="/allDistributors" label="All Distributors" />
               <ButtonLink to="/viewDistributor" label="View Distributor" />
               <ButtonLink to="/searchSubscriber" label="Search Subscriber" />
+              <ButtonLink to="/bulkDistributionListForm" label="Distribution List" />
               <Router>
                 <ButtonLink to="/login" label="Sign In" path="/*"  />
                 <ButtonLink to="/" label="Sign Out" path="user/*" />
@@ -142,6 +144,7 @@ function App() {
             <DistributorEditForm path="/editDistributor" /> 
             <DistributionList path="/distributionList" />
             <DistributionListForm path="/distributionListForm" />
+            <BulkDistributionListForm path="/bulkDistributionListForm" />
             <PdfView path="/viewPdf" />
             <PdfDownload path="/downloadPdf" />
           </Router>
