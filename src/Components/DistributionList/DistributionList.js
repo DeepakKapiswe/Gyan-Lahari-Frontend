@@ -2,10 +2,9 @@ import React from 'react';
 import useSWR from 'swr';
 
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
-import SubscriberCard from '../SubscriberCard/SubscriberCard';
-import BackButton from '../BackButton/BackButton';
+import SubscriberCard     from '../SubscriberCard/SubscriberCard';
+import BackButton         from '../BackButton/BackButton';
 
-// let url = 'http://192.168.43.28:7000/distSubscribers/';
 let url = 'http://192.168.43.28:7000/distributionList/';
 
 function DistSubscribers(props) {
@@ -21,18 +20,20 @@ function DistSubscribers(props) {
   if (props.payload.dldDetails === '') { return null; }
   if (error) return <div>Failed to Load in Find Distributor Subscribers</div>
   if (!data) return <div>loading...</div>
-  const chartVol = props.payload.dldCurrentVol;
-  var expiryCount = 0;
-  const items = data.map((item) => {
-     item.isExpiring = item.subEndVol === chartVol;
-     if (item.isExpiring) {expiryCount = expiryCount+1};
+  const items = data.dlSubscriberList.map((item) => {
+     item.isExpiring = item.subEndVol === data.dlCurrentVol;
      return <SubscriberCard subscriberDetails={item}/>;
   });
-  props.payload.expiryCount = expiryCount;
+
+  const distributionDetails = {
+      expiryCount  : data.dlExpiryCount
+    , runningCount : data.dlRunningCount
+    , currentVol   : data.dlCurrentVol
+  }
   const pdfData = {
-      subscriberListData: data
-    , distributorData: props.distDetails
-    , distributionDetails: props.payload
+      subscriberListData: data.dlSubscriberList
+    , distributorData: data.dlDistributor
+    , distributionDetails: distributionDetails
     , meta: 'DistributionList' 
     };
   return (

@@ -28,6 +28,7 @@ const DistributorForm = React.lazy(() => import('./Components/DistributorForm/Di
 const SearchForm = React.lazy(() => import ('./Components/SearchForm/SearchForm'));
 const SearchResult = React.lazy(() => import('./Components/SearchResult/SearchResult'));
 const DistributionList = React.lazy(() => import('./Components/DistributionList/DistributionList'));
+const BulkDistributionList = React.lazy(() => import('./Components/BulkDistributionList/BulkDistributionList'));
 const DistributionListForm = React.lazy(() => import('./Components/DistributionListForm/DistributionListForm'));
 const BulkDistributionListForm = React.lazy(() => import('./Components/BulkDistributionListForm/BulkDistributionListForm'));
 
@@ -143,6 +144,7 @@ function App() {
             <SubscriberEditForm path="/editSubscriber" /> 
             <DistributorEditForm path="/editDistributor" /> 
             <DistributionList path="/distributionList" />
+            <BulkDistributionList path="/bulkDistributionList" />
             <DistributionListForm path="/distributionListForm" />
             <BulkDistributionListForm path="/bulkDistributionListForm" />
             <PdfView path="/viewPdf" />
