@@ -19,6 +19,7 @@ export default function makePdfBulkDistributionListData(bulkDistributionListData
             expiryCount  : dl.dlExpiryCount
           , runningCount : dl.dlRunningCount
           , currentVol   : dl.dlCurrentVol
+          , expiries     : dl.dlExpiries
           }
         const dlPdfData = makeDistributionListData(dl.dlDistributor, distributionDetails, dl.dlSubscriberList)
         arr.push(dlPdfData)

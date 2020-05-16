@@ -29,6 +29,7 @@ function DistSubscribers(props) {
       expiryCount  : data.dlExpiryCount
     , runningCount : data.dlRunningCount
     , currentVol   : data.dlCurrentVol
+    , expiries     : data.dlExpiries
   }
   const pdfData = {
       subscriberListData: data.dlSubscriberList
