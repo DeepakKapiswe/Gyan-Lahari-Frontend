@@ -13,6 +13,7 @@ export default function makePdfBulkDistributionListData(bulkDistributionListData
                        , pageBreak:'after' }
 
     const dataArr = dcopy(allDistributionLists); // deep copy for safer operations ahead 
+    const pb = dcopy(pageBreak);
     while (dataArr.length > 0) {
         const dl = dataArr.shift();
         const distributionDetails = {
@@ -23,11 +24,9 @@ export default function makePdfBulkDistributionListData(bulkDistributionListData
           }
         const dlPdfData = makeDistributionListData(dl.dlDistributor, distributionDetails, dl.dlSubscriberList)
         arr.push(dlPdfData)
-        arr.push(pageBreak)
+        arr.push(pb)
         dataArr.slice()
     }
     rawPdfData.content = arr;
-    console.log('pdf data')
-    console.log(rawPdfData.content)
     return rawPdfData;
 }

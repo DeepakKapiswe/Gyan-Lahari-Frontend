@@ -28,9 +28,13 @@ const DistributorForm = React.lazy(() => import('./Components/DistributorForm/Di
 const SearchForm = React.lazy(() => import ('./Components/SearchForm/SearchForm'));
 const SearchResult = React.lazy(() => import('./Components/SearchResult/SearchResult'));
 const DistributionList = React.lazy(() => import('./Components/DistributionList/DistributionList'));
+const ExpiryList = React.lazy(() => import('./Components/ExpiryList/ExpiryList'));
 const BulkDistributionList = React.lazy(() => import('./Components/BulkDistributionList/BulkDistributionList'));
+const BulkExpiryList = React.lazy(() => import('./Components/BulkExpiryList/BulkExpiryList'));
 const DistributionListForm = React.lazy(() => import('./Components/DistributionListForm/DistributionListForm'));
+const ExpiryListForm = React.lazy(() => import('./Components/ExpiryListForm/ExpiryListForm'));
 const BulkDistributionListForm = React.lazy(() => import('./Components/BulkDistributionListForm/BulkDistributionListForm'));
+const BulkExpiryListForm = React.lazy(() => import('./Components/BulkExpiryListForm/BulkExpiryListForm'));
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -119,7 +123,8 @@ function App() {
               <ButtonLink to="/allDistributors" label="All Distributors" />
               <ButtonLink to="/viewDistributor" label="View Distributor" />
               <ButtonLink to="/searchSubscriber" label="Search Subscriber" />
-              <ButtonLink to="/bulkDistributionListForm" label="Distribution List" />
+              <ButtonLink to="/bulkDistributionListForm" label="Print Distribution List" />
+              <ButtonLink to="/bulkExpiryListForm" label="Print Expiry List" />
               <Router>
                 <ButtonLink to="/login" label="Sign In" path="/*"  />
                 <ButtonLink to="/" label="Sign Out" path="user/*" />
@@ -147,6 +152,10 @@ function App() {
             <BulkDistributionList path="/bulkDistributionList" />
             <DistributionListForm path="/distributionListForm" />
             <BulkDistributionListForm path="/bulkDistributionListForm" />
+            <ExpiryList path="/expiryList" />
+            <BulkExpiryList path="/bulkExpiryList" />
+            <ExpiryListForm path="/expiryListForm" />
+            <BulkExpiryListForm path="/bulkExpiryListForm" />
             <PdfView path="/viewPdf" />
             <PdfDownload path="/downloadPdf" />
           </Router>
