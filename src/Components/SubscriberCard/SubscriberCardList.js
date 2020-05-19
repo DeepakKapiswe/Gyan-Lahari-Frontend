@@ -22,6 +22,7 @@ const useStyles = makeStyles(({ breakpoints, spacing, shadows }) => ({
         //     background: '#870000',   /* fallback for old browsers */
         // background: '-webkit-linear-gradient(to right, #190A05, #870000)',  /* Chrome 10-25, Safari 5.1-6 */
         // background: 'linear-gradient(to right, #190A05, #870000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: 'linear-gradient(to bottom,  rgba(255,197,120,1) 6%,rgba(255,197,120,1) 17%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 49%,rgba(255,197,120,1) 60%,rgba(255,197,120,1) 60%,rgba(251,157,35,1) 97%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 100%,rgba(251,157,35,1) 101%)',
         height: '65vh',
         overflow: 'scroll',
         border: '5px solid #B6DBCB',
@@ -57,7 +58,7 @@ const useStyles = makeStyles(({ breakpoints, spacing, shadows }) => ({
         },
         [breakpoints.up('sm')]: {
             width: 'auto',
-        },
+        },  
     },
 }));
 

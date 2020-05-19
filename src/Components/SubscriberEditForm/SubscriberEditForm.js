@@ -36,7 +36,8 @@ const useStyles = makeStyles(theme => (
       [theme.breakpoints.up('md')]: {
         padding:theme.spacing(15),},
       // backgroundColor: '#f0f5ce'
-      backgroundColor: '#E6FFC4',
+      background: 'linear-gradient(to bottom,  rgba(255,197,120,1) 6%,rgba(255,197,120,1) 17%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 49%,rgba(255,197,120,1) 60%,rgba(255,197,120,1) 60%,rgba(251,157,35,1) 97%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 100%,rgba(251,157,35,1) 101%)',
+      // backgroundColor: '#E6FFC4',
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
       // background: 'linear-gradient(to right, #190A05, #870000)'

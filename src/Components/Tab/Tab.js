@@ -10,7 +10,8 @@ import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
   root: {
-   background: 'linear-gradient(to right, #190A05, #870000)',
+  //  background: 'linear-gradient(to right, #190A05, #870000)',
+   background: 'linear-gradient(to bottom,  rgba(255,197,120,1) 6%,rgba(255,197,120,1) 17%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 49%,rgba(255,197,120,1) 60%,rgba(255,197,120,1) 60%,rgba(251,157,35,1) 97%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 100%,rgba(251,157,35,1) 101%)',
     flexGrow: 1,
   },
   tab: {

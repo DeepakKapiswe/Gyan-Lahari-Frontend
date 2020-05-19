@@ -26,7 +26,5 @@ export default function makePdfBulkExpiryListData(bulkExpiryListData) {
         dataArr.slice()
     }
     rawPdfData.content = arr;
-    console.log('pdf data')
-    console.log(arr)
     return rawPdfData;
 }
