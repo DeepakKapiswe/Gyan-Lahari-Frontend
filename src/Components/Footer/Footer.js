@@ -10,22 +10,31 @@ const useStyles = makeStyles(theme => ({
   footer: {
       padding: theme.spacing(3, 2),
       marginTop: 'auto',
-    //   backgroundColor:
+      backgroundColor:'#2a2521'
     //       theme.palette.type === 'dark' ? theme.palette.grey[800] : theme.palette.grey[200],
+  },
+  text : {
+      color : '#f3f7d7'
+  },
+  link : {
+      color : '#e5ff40'
   },
   }));
 
 function Copyright() {
+    const classes = useStyles();
     return (
-        <Typography variant="body2" color="textSecondary">
-            {'Copyright © '}
-            {/* <Link color="inherit" href="https://material-ui.com/"> */}
-            <Link color="inherit" href="https://www.kabirgyan.com">
+        <React.Fragment className={classes.text}>
+        <Typography variant="body2">
+          {'Copyright © '}
+            <Link className={classes.link} href="https://www.kabirgyan.com">
                 Kabir Gyan
-        </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
+            </Link>
+          {' '}
+          {new Date().getFullYear()}
+          {'.'}
         </Typography>
+       </React.Fragment>
     );
 }
 
@@ -34,9 +43,9 @@ export default function Footer() {
     const classes = useStyles();
     return (
         <footer className={classes.footer}>
-            <Container maxWidth="sm">
+            <Container maxWidth="sm" className={classes.text}>
                 <Typography variant="body1">Sri Kabir Gyan Prakashan Kendra</Typography>
-                <Copyright />
+                <Copyright className={classes.text} />
             </Container>
         </footer>
     );

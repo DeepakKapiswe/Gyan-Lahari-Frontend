@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import useSWR from 'swr';
+import FlowerDiv from '../FlowerDiv/FlowerDiv';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   heading: {
@@ -37,8 +38,9 @@ export default function AddSubscriberResult (props) {
       <Typography variant="h2" component="h3"
           
           className={styles.heading}>
-            New Subscriber Added
+            New Subscriber Added !!
             </Typography>
+            <FlowerDiv/>
       <h1> {result} </h1>
     </> );
 }

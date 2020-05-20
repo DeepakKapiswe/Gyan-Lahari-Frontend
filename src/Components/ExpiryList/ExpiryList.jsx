@@ -36,7 +36,6 @@ function ExpiredSubscribers(props) {
     , expiryDetails: expiryDetails
     , meta: 'ExpiryList' 
     };
-    console.log(pdfData)
   return (
     <SubscriberCardList cards={items} header="Expiry List" pdfData={pdfData}/>
   );

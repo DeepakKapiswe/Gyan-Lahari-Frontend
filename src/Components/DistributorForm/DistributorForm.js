@@ -11,6 +11,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 import AddDistributorResult from '../AddDistributor/AddDistributor';
+import FlowerDiv from '../FlowerDiv/FlowerDiv';
 
 
 const useStyles = makeStyles(theme => (
@@ -29,14 +30,10 @@ const useStyles = makeStyles(theme => (
     bgColor: {
       flexGrow: 1,
       [theme.breakpoints.up('md')]: {
-        padding:theme.spacing(15),},
-      // backgroundColor: '#f0f5ce'
-      // background: 'linear-gradient(to right, #190A05, #870000)'
-      background: 'linear-gradient(to bottom,  rgba(255,197,120,1) 6%,rgba(255,197,120,1) 17%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 49%,rgba(255,197,120,1) 60%,rgba(255,197,120,1) 60%,rgba(251,157,35,1) 97%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 100%,rgba(251,157,35,1) 101%)',
-      
+        padding:theme.spacing(15)}
+      , backgroundColor: '#ebf5ab',
     },
     heading: {
-      // color: '#ffffff',
       color: '#110F4C',
       [theme.breakpoints.up('sm')]: {
         fontSize: '3rem',
@@ -51,6 +48,12 @@ const useStyles = makeStyles(theme => (
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    center: {
+      display: 'block',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      width: '50%',
+    }
   }));
 
 export default function DistributorForm() {
@@ -76,19 +79,22 @@ export default function DistributorForm() {
       return <>{distributorResult}</>
     }
     return (
+    <>
       <Grid item alignItems="center" >
 
       <Typography variant="h2" component="h3"
-        
         className={classes.heading} align="center">
         New Distributor Details
-            </Typography>
+      </Typography>
 
       <Typography variant="h2" component="h3"
         className={classes.heading} align="center">
         नये वितरक का विवरण
-            </Typography>
+      </Typography>
+      <FlowerDiv />
+      
     </Grid>
+    </>
     );
   }
 

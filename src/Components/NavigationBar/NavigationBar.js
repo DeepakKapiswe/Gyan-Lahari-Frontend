@@ -19,7 +19,9 @@ const useStyles2 = makeStyles({
     //background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     border: 0,
     // background: 'rgb(207,223,118)',
-    background: 'linear-gradient(90deg, rgba(207,223,118,0.6110819327731092) 0%, rgba(217,237,166,0.5970763305322129) 38%, rgba(235,246,192,0.6306897759103641) 83%)',
+     backgroundColor: '#ebf5ab',
+     
+    // background: 'linear-gradient(90deg, rgba(207,223,118,0.6110819327731092) 0%, rgba(217,237,166,0.5970763305322129) 38%, rgba(235,246,192,0.6306897759103641) 83%)',
     borderRadius: 0,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     color: 'Black',

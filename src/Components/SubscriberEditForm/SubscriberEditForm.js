@@ -16,6 +16,7 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 
 import UpdateSubscriberResult from '../UpdateSubscriber/UpdateSubscriber';
 import BackButton from '../BackButton/BackButton';
+import FlowerDiv from '../FlowerDiv/FlowerDiv';
 
 
 const useStyles = makeStyles(theme => (
@@ -35,12 +36,9 @@ const useStyles = makeStyles(theme => (
       flexGrow: 1,
       [theme.breakpoints.up('md')]: {
         padding:theme.spacing(15),},
-      // backgroundColor: '#f0f5ce'
-      background: 'linear-gradient(to bottom,  rgba(255,197,120,1) 6%,rgba(255,197,120,1) 17%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 49%,rgba(255,197,120,1) 60%,rgba(255,197,120,1) 60%,rgba(251,157,35,1) 97%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 100%,rgba(251,157,35,1) 101%)',
-      // backgroundColor: '#E6FFC4',
+         backgroundColor: '#ebf5ab',
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
-      // background: 'linear-gradient(to right, #190A05, #870000)'
     },
     heading: {
       color: '#110F4C',
@@ -120,6 +118,7 @@ export default function SubscriberEditForm(props) {
         className={classes.heading} align="center">
         सदस्यता विवरण सुधार
             </Typography>
+            <FlowerDiv/>
     </Grid>
     );
   }

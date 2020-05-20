@@ -1,6 +1,4 @@
 import React from 'react';
-// import Fab from '@material-ui/core/Fab';
-// import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { navigate } from '@reach/router';
 import Button from '@material-ui/core/Button';

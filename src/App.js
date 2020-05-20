@@ -7,6 +7,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Divider from '@material-ui/core/Divider';
+import ToolBar from '@material-ui/core/Toolbar';
 
 import { Router } from "@reach/router";
 
@@ -15,6 +17,8 @@ import LinearProgress from './Components/Progress/LinearProgressBar';
 import Footer from './Components/Footer/Footer';
 import PdfView from './Common/PdfViewer/PdfViewer';
 import PdfDownload from './Common/PdfDownload/PdfDownload';
+import Logo from './Components/Logo/Logo';
+
 
 const Login = React.lazy(() => import('./Components/Login/Login'));
 const Users = React.lazy(() => import('./Components/AddSubscriber/User'));
@@ -50,6 +54,9 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1,
+    [theme.breakpoints.up('sm')]: {
+        fontSize: '6rem',
+      },
   },
   paper: {
     padding: theme.spacing(2),
@@ -59,6 +66,13 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     paddingTop: theme.spacing(1),
   },
+  appColor: {
+    background: '#050355'
+  },
+  toolColor: {
+    background: '#e4ded4'
+  }
+  
   
 }));
 
@@ -78,14 +92,16 @@ function App() {
   return (
     <Suspense>
     <ThemeProvider theme={theme}>
-      {/* <> */}
       <div className={classes.main}>
       <CssBaseline />
         <AppBar
           position="sticky"
           color="primary"
           elevation={6}
+          className={classes.appColor}
         >
+          <ToolBar>
+            <Logo/>
           <Grid
             className={classes.appBar}
             direction="row"
@@ -101,42 +117,48 @@ function App() {
               </Typography>
             </Grid>
           </Grid>
+          </ToolBar>
         </AppBar>
+        <React.Fragment className={classes.toolColor}>
         <AppBar
-          color="default"
           position="static"
+          className={classes.toolColor}
         >
-          <Suspense
-            fallback={<LinearProgress />}>
-
             <Grid container
-              component={Typography}
-              variant="subtitle2"
               className={classes.toolbar}
-              justify="space-between"
               alignItems="baseline"
+              justify="center"
             >
               <ButtonLink to="/" label="Home" />
+              <Divider orientation="vertical" flexItem />
               <ButtonLink to="/addNewSubscriber" label="Add Subscriber" />
+              <Divider orientation="vertical" flexItem />
               <ButtonLink to="/addNewDistributor" label="Add Distributor" />
+              <Divider orientation="vertical" flexItem />
               <ButtonLink to="/allSubscribers" label="All Subscribers" />
+              <Divider orientation="vertical" flexItem />
               <ButtonLink to="/allDistributors" label="All Distributors" />
+              <Divider orientation="vertical" flexItem />
               <ButtonLink to="/viewDistributor" label="View Distributor" />
+              <Divider orientation="vertical" flexItem />
               <ButtonLink to="/searchSubscriber" label="Search Subscriber" />
+              <Divider orientation="vertical" flexItem />
               <ButtonLink to="/bulkDistributionListForm" label="Print Distribution List" />
+              <Divider orientation="vertical" flexItem />
               <ButtonLink to="/bulkExpiryListForm" label="Print Expiry List" />
+              <Divider orientation="vertical" flexItem />
               <Router>
                 <ButtonLink to="/login" label="Sign In" path="/*"  />
                 <ButtonLink to="/" label="Sign Out" path="user/*" />
               </Router>
             </Grid>
-          </Suspense>
         </AppBar>
+        </React.Fragment>
         <Suspense
           fallback={<LinearProgress />}>
           <Router>
             <Login path="login" />
-            <Home path="/"/>
+            <Home path="/"><Logo/></Home>
             <SubscriberForm path="/addNewSubscriber" />
             <DistributorForm path="/addNewDistributor" />
             <DistributorDetails path="/viewDistributor" />

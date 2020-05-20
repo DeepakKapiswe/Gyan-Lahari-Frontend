@@ -38,7 +38,7 @@ export default function AddDistributorResult (props) {
           
           className={styles.heading}>
             New Distributor Added
-            </Typography>
+      </Typography>
       <h1> {result} </h1>
     </> );
 }

@@ -16,14 +16,20 @@ import { navigate } from '@reach/router';
 
 function Copyright() {
     return (
-        <Typography variant="body2" color="textSecondary" align="center">
+        <React.Fragment >
+        <Typography variant="body2" color="textSecondary"  >
+            Sri Kabir Gyan Prakashan Kendra
+        </Typography>
+        <Typography variant="body2" color="textSecondary" >
             {'Copyright © '}
-            <Link color="inherit" href="https://kabirgyan.com/">
-                KabirGyan.com
-      </Link>{' '}
+            <Link color="secondary" href="https://kabirgyan.com/">
+                kabir Gyan
+            </Link>
+            {' '}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
+        </React.Fragment>
     );
 }
 
@@ -40,9 +46,10 @@ const useStyles = makeStyles(theme => (
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             // backgroundColor: '#FFFF22',
-            backgroundColor: 'linear-gradient(to bottom,  rgba(255,197,120,1) 6%,rgba(255,197,120,1) 17%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 49%,rgba(255,197,120,1) 60%,rgba(255,197,120,1) 60%,rgba(251,157,35,1) 97%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 100%,rgba(251,157,35,1) 101%)',
+            // backgroundColor: 'linear-gradient(to bottom,  rgba(255,197,120,1) 6%,rgba(255,197,120,1) 17%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 49%,rgba(255,197,120,1) 60%,rgba(255,197,120,1) 60%,rgba(251,157,35,1) 97%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 100%,rgba(251,157,35,1) 101%)',
             backgroundHeight: '100%',
             zIndex: '-1',
+             backgroundColor: '#ebf5ab',
               },
         },
         bgColor: {

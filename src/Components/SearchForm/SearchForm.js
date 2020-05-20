@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useNavigate } from "@reach/router"
+import FlowerDiv from '../FlowerDiv/FlowerDiv';
 
 
 
@@ -31,9 +32,7 @@ const useStyles = makeStyles(theme => (
       [theme.breakpoints.up('md')]: {
         padding: theme.spacing(5),
       },
-      // backgroundColor: '#f0f5ce'
-      // background: 'linear-gradient(to right, #190A05, #870000)'
-      background: 'linear-gradient(to bottom,  rgba(255,197,120,1) 6%,rgba(255,197,120,1) 17%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 49%,rgba(255,197,120,1) 60%,rgba(255,197,120,1) 60%,rgba(251,157,35,1) 97%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 100%,rgba(251,157,35,1) 101%)',
+       backgroundColor: '#ebf5ab'
 
     },
     heading: {
@@ -74,6 +73,7 @@ export default function SearchForm() {
           className={classes.heading} align="center">
           खोज विवरण
             </Typography>
+            <FlowerDiv/>
       </Grid>)
   }
 
