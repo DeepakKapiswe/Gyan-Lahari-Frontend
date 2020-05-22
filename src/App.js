@@ -1,14 +1,12 @@
 import React, { Suspense, useEffect } from 'react';
 import './App.css';
 import { ThemeProvider } from '@material-ui/core/styles';
-import theme from './Theme';
+// import theme from './Theme';
 import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
-import ToolBar from '@material-ui/core/Toolbar';
 
 import { Router } from "@reach/router";
 
@@ -20,6 +18,21 @@ import PdfDownload from './Common/PdfDownload/PdfDownload';
 import Logo from './Components/Logo/Logo';
 
 
+
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+// import InboxIcon from '@material-ui/icons/MoveToInbox';
+// import List from '@material-ui/core/List';
+// import ListItem from '@material-ui/core/ListItem';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemText from '@material-ui/core/ListItemText';
+// import MailIcon from '@material-ui/icons/Mail';
+import MenuIcon from '@material-ui/icons/Menu';
+import Toolbar from '@material-ui/core/Toolbar';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+
+
 const Login = React.lazy(() => import('./Components/Login/Login'));
 const Users = React.lazy(() => import('./Components/AddSubscriber/User'));
 const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
@@ -29,7 +42,7 @@ const SubscriberForm = React.lazy(() => import('./Components/SubscriberForm/Subs
 const SubscriberEditForm = React.lazy(() => import('./Components/SubscriberEditForm/SubscriberEditForm'));
 const DistributorEditForm = React.lazy(() => import('./Components/DistributorEditForm/DistributorEditForm'));
 const DistributorForm = React.lazy(() => import('./Components/DistributorForm/DistributorForm'));
-const SearchForm = React.lazy(() => import ('./Components/SearchForm/SearchForm'));
+const SearchForm = React.lazy(() => import('./Components/SearchForm/SearchForm'));
 const SearchResult = React.lazy(() => import('./Components/SearchResult/SearchResult'));
 const DistributionList = React.lazy(() => import('./Components/DistributionList/DistributionList'));
 const ExpiryList = React.lazy(() => import('./Components/ExpiryList/ExpiryList'));
@@ -40,73 +53,156 @@ const ExpiryListForm = React.lazy(() => import('./Components/ExpiryListForm/Expi
 const BulkDistributionListForm = React.lazy(() => import('./Components/BulkDistributionListForm/BulkDistributionListForm'));
 const BulkExpiryListForm = React.lazy(() => import('./Components/BulkExpiryListForm/BulkExpiryListForm'));
 
+const drawerWidth = 240;
+
 const useStyles = makeStyles(theme => ({
-  root: {
+
+  title: {
     flexGrow: 1,
+    [theme.breakpoints.up('md')]: {
+      fontSize: '6rem',
+    },
+  },
+  drawerTitle: {
+    // flexGrow: 1,
+    [theme.breakpoints.up('md')]: {
+      fontSize: '3rem',
+    },
+  },
+  paper: {
+    // padding: theme.spacing(2),
+    color: theme.palette.text.secondary,
+  },
+
+
+  root: {
+    display: 'list-item',
+    // flexGrow: 1,
+  },
+  drawer: {
+
+    [theme.breakpoints.up('md')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+    overflow: 'auto',
+  },
+  appBar: {
+    background: '#050355',
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  titleBar: {
+    paddingTop: theme.spacing(1),
+
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
   },
-  toolbar: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    alignItems: 'flex-start',
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    background: '#e4ded4',
+    width: drawerWidth,
   },
-  title: {
+  content: {
     flexGrow: 1,
-    [theme.breakpoints.up('sm')]: {
-        fontSize: '6rem',
-      },
+    display:'list-item',
+    [theme.breakpoints.up('md')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
+    },
   },
-  paper: {
-    padding: theme.spacing(2),
-    // textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-  appBar: {
-    paddingTop: theme.spacing(1),
-  },
-  appColor: {
-    background: '#050355'
-  },
-  toolColor: {
-    background: '#e4ded4'
-  }
-  
-  
+
 }));
 
 
 
-
-function Home(){
-  return <h1> Dummy Home</h1>;
+function Home() {
+  return <Logo/>;
 }
 
-function App() {
-  const classes = useStyles();
 
+function App(props) {
+  const { window } = props;
+  const classes = useStyles();
+  const theme = useTheme();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
   useEffect(() => {
     document.title = `ज्ञान लहरी`;
   });
+
+  const drawer = (
+    <div>
+      <div className={classes.toolbar} />
+      <Typography
+        variant="h4"
+        className={classes.drawerTitle}
+        align="center"
+        display="initial"
+      >
+        ज्ञान लहरी
+      </Typography>
+      <Divider />
+      <Divider />
+      <Divider />
+      <ButtonLink to="/" label="Home" />
+      <Divider />
+      <ButtonLink to="/addNewSubscriber" label="Add Subscriber" />
+      <ButtonLink to="/searchSubscriber" label="Search Subscriber" />
+      <ButtonLink to="/allSubscribers" label="All Subscribers" />
+      <Divider />
+      <Divider />
+      <Divider />
+      <ButtonLink to="/addNewDistributor" label="Add Distributor" />
+      <ButtonLink to="/viewDistributor" label="View Distributor" />
+      <ButtonLink to="/allDistributors" label="All Distributors" />
+      <Divider />
+      <Divider />
+      <Divider />
+      <ButtonLink to="/bulkDistributionListForm" label="Print Distribution" />
+      <ButtonLink to="/bulkExpiryListForm" label="Print Expiry" />
+      <Divider />
+      <Router>
+        <ButtonLink to="/login" label="Sign In" path="/*" />
+        <ButtonLink to="/" label="Sign Out" path="user/*" />
+      </Router>
+    </div>
+  );
+
+  const container = window !== undefined ? () => window().document.body : undefined;
+
   return (
-    <Suspense>
-    <ThemeProvider theme={theme}>
-      <div className={classes.main}>
+    <div className={classes.root}>
       <CssBaseline />
-        <AppBar
-          position="sticky"
-          color="primary"
-          elevation={6}
-          className={classes.appColor}
-        >
-          <ToolBar>
-            <Logo/>
+
+      <AppBar
+        position="sticky"
+        className={classes.appBar}
+        elevation={6}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Logo />
           <Grid
-            className={classes.appBar}
+            className={classes.titleBar}
             direction="row"
             container
-            justify="space-evenly"
+            justify="center"
             alignItems="baseline"
           >
             <Grid item>
@@ -117,76 +213,80 @@ function App() {
               </Typography>
             </Grid>
           </Grid>
-          </ToolBar>
-        </AppBar>
-        <React.Fragment className={classes.toolColor}>
-        <AppBar
-          position="static"
-          className={classes.toolColor}
-        >
-            <Grid container
-              className={classes.toolbar}
-              alignItems="baseline"
-              justify="center"
-            >
-              <ButtonLink to="/" label="Home" />
-              <Divider orientation="vertical" flexItem />
-              <ButtonLink to="/addNewSubscriber" label="Add Subscriber" />
-              <Divider orientation="vertical" flexItem />
-              <ButtonLink to="/addNewDistributor" label="Add Distributor" />
-              <Divider orientation="vertical" flexItem />
-              <ButtonLink to="/allSubscribers" label="All Subscribers" />
-              <Divider orientation="vertical" flexItem />
-              <ButtonLink to="/allDistributors" label="All Distributors" />
-              <Divider orientation="vertical" flexItem />
-              <ButtonLink to="/viewDistributor" label="View Distributor" />
-              <Divider orientation="vertical" flexItem />
-              <ButtonLink to="/searchSubscriber" label="Search Subscriber" />
-              <Divider orientation="vertical" flexItem />
-              <ButtonLink to="/bulkDistributionListForm" label="Print Distribution List" />
-              <Divider orientation="vertical" flexItem />
-              <ButtonLink to="/bulkExpiryListForm" label="Print Expiry List" />
-              <Divider orientation="vertical" flexItem />
+        </Toolbar>
+      </AppBar>
+      <nav className={classes.drawer}>
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Hidden mdUp implementation="css">
+          <Drawer
+            container={container}
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden mdDown implementation="css">
+          <Drawer
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            variant="permanent"
+            open
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
+
+      <div className={classes.content}>
+        <Suspense>
+          <ThemeProvider theme={theme}>
+            <Suspense
+              fallback={<LinearProgress />}>
               <Router>
-                <ButtonLink to="/login" label="Sign In" path="/*"  />
-                <ButtonLink to="/" label="Sign Out" path="user/*" />
+                <Login path="login" />
+                <Home path="/">
+                  
+                </Home>
+                <SubscriberForm path="/addNewSubscriber" />
+                <DistributorForm path="/addNewDistributor" />
+                <DistributorDetails path="/viewDistributor" />
+                <SearchForm path="/searchSubscriber" />
+                <Users path="/user/:userId" />
+                <ViewAllSubscribers path="/allSubscribers" />
+                <ViewAllDistributors path="/allDistributors" />
+                <SearchResult path="/searchResult" />
+                {/* Both ^ V requires state object */}
+                <SubscriberEditForm path="/editSubscriber" />
+                <DistributorEditForm path="/editDistributor" />
+                <DistributionList path="/distributionList" />
+                <BulkDistributionList path="/bulkDistributionList" />
+                <DistributionListForm path="/distributionListForm" />
+                <BulkDistributionListForm path="/bulkDistributionListForm" />
+                <ExpiryList path="/expiryList" />
+                <BulkExpiryList path="/bulkExpiryList" />
+                <ExpiryListForm path="/expiryListForm" />
+                <BulkExpiryListForm path="/bulkExpiryListForm" />
+                <PdfView path="/viewPdf" />
+                <PdfDownload path="/downloadPdf" />
               </Router>
-            </Grid>
-        </AppBar>
-        </React.Fragment>
-        <Suspense
-          fallback={<LinearProgress />}>
-          <Router>
-            <Login path="login" />
-            <Home path="/"><Logo/></Home>
-            <SubscriberForm path="/addNewSubscriber" />
-            <DistributorForm path="/addNewDistributor" />
-            <DistributorDetails path="/viewDistributor" />
-            <SearchForm path="/searchSubscriber" />
-            <Users path="/user/:userId" />
-            <ViewAllSubscribers path="/allSubscribers" />
-            <ViewAllDistributors path="/allDistributors" />
-            <SearchResult path="/searchResult" />
-            {/* Both ^ V requires state object */}
-            <SubscriberEditForm path="/editSubscriber" /> 
-            <DistributorEditForm path="/editDistributor" /> 
-            <DistributionList path="/distributionList" />
-            <BulkDistributionList path="/bulkDistributionList" />
-            <DistributionListForm path="/distributionListForm" />
-            <BulkDistributionListForm path="/bulkDistributionListForm" />
-            <ExpiryList path="/expiryList" />
-            <BulkExpiryList path="/bulkExpiryList" />
-            <ExpiryListForm path="/expiryListForm" />
-            <BulkExpiryListForm path="/bulkExpiryListForm" />
-            <PdfView path="/viewPdf" />
-            <PdfDownload path="/downloadPdf" />
-          </Router>
+            </Suspense>
+            <Footer />
+          </ThemeProvider >
         </Suspense>
       </div>
-      <Footer/>
-    </ThemeProvider >
-        </Suspense>
+    </div>
   );
 }
+
 
 export default App;
