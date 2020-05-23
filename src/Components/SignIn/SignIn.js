@@ -13,22 +13,24 @@ import { makeStyles } from '@material-ui/core/styles';
 import './signin.css';
 import custImg from './lotus.png';
 import { navigate } from '@reach/router';
+import FlowerDiv from '../FlowerDiv/FlowerDiv';
+import { Hidden } from '@material-ui/core';
 
 function Copyright() {
     return (
         <React.Fragment >
-        <Typography variant="body2" color="textSecondary"  >
-            Sri Kabir Gyan Prakashan Kendra
+            <Typography variant="body2" color="textSecondary"  >
+                Sri Kabir Gyan Prakashan Kendra
         </Typography>
-        <Typography variant="body2" color="textSecondary" >
-            {'Copyright © '}
-            <Link color="secondary" href="https://kabirgyan.com/">
-                kabir Gyan
+            <Typography variant="body2" color="textSecondary" >
+                {'Copyright © '}
+                <Link color="secondary" href="https://kabirgyan.com/">
+                    kabir Gyan
             </Link>
-            {' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
+                {' '}
+                {new Date().getFullYear()}
+                {'.'}
+            </Typography>
         </React.Fragment>
     );
 }
@@ -41,20 +43,20 @@ const useStyles = makeStyles(theme => (
         },
         image: {
             [theme.breakpoints.up('md')]: {
-            backgroundImage: `url(${custImg})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            // backgroundColor: '#FFFF22',
-            // backgroundColor: 'linear-gradient(to bottom,  rgba(255,197,120,1) 6%,rgba(255,197,120,1) 17%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 49%,rgba(255,197,120,1) 60%,rgba(255,197,120,1) 60%,rgba(251,157,35,1) 97%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 100%,rgba(251,157,35,1) 101%)',
-            backgroundHeight: '100%',
-            zIndex: '-1',
-             backgroundColor: '#ebf5ab',
-              },
+                backgroundImage: `url(${custImg})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                // backgroundColor: '#FFFF22',
+                // backgroundColor: 'linear-gradient(to bottom,  rgba(255,197,120,1) 6%,rgba(255,197,120,1) 17%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 49%,rgba(255,197,120,1) 60%,rgba(255,197,120,1) 60%,rgba(251,157,35,1) 97%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 100%,rgba(251,157,35,1) 101%)',
+                backgroundHeight: '100%',
+                zIndex: '-1',
+                backgroundColor: '#ebf5ab',
+            },
         },
         bgColor: {
             flexGrow: 1,
-          },
+        },
         paper: {
             // width: '100%',
             margin: theme.spacing(8, 4),
@@ -62,7 +64,8 @@ const useStyles = makeStyles(theme => (
             flexDirection: 'column',
             alignItems: 'center',
             [theme.breakpoints.down('md')]: {
-              padding:theme.spacing(0),},
+                padding: theme.spacing(0),
+            },
         },
         avatar: {
             margin: theme.spacing(1),
@@ -70,7 +73,7 @@ const useStyles = makeStyles(theme => (
         },
         form: {
             [theme.breakpoints.up('md')]: {
-            width: '70%',
+                width: '70%',
             },
             marginTop: theme.spacing(1),
         },
@@ -82,13 +85,13 @@ const useStyles = makeStyles(theme => (
 export default function SignIn(props) {
     const classes = useStyles();
     return (
-            <Grid
-      container xs
-      className={classes.bgColor}
-      direction="row-reverse"
-      justify="center"
-      alignItems="center"
-    >
+        <Grid
+            container xs
+            className={classes.bgColor}
+            direction="row-reverse"
+            justify="center"
+            alignItems="center"
+        >
 
             <Grid container component="main" className={classes.root}>
                 <CssBaseline />
@@ -163,7 +166,10 @@ export default function SignIn(props) {
                     </div>
                 </Grid>
             </Grid>
-            </Grid>
+            <Hidden mdDown>
+                <FlowerDiv />
+            </Hidden>
+        </Grid>
 
     );
 }

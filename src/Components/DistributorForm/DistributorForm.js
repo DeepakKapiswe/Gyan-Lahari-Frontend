@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -30,7 +30,8 @@ const useStyles = makeStyles(theme => (
     bgColor: {
       flexGrow: 1,
       [theme.breakpoints.up('md')]: {
-        padding:theme.spacing(15)}
+        padding: theme.spacing(15)
+      }
       , backgroundColor: '#ebf5ab',
     },
     heading: {
@@ -79,46 +80,46 @@ export default function DistributorForm() {
       return <>{distributorResult}</>
     }
     return (
-    <>
-      <Grid item alignItems="center" >
+      <>
+        <Grid item alignItems="center" >
 
-      <Typography variant="h2" component="h3"
-        className={classes.heading} align="center">
-        New Distributor Details
+          <Typography variant="h2" component="h3"
+            className={classes.heading} align="center">
+            New Distributor Details
       </Typography>
 
-      <Typography variant="h2" component="h3"
-        className={classes.heading} align="center">
-        नये वितरक का विवरण
+          <Typography variant="h2" component="h3"
+            className={classes.heading} align="center">
+            नये वितरक का विवरण
       </Typography>
-      <FlowerDiv />
-      
-    </Grid>
-    </>
+          <FlowerDiv />
+
+        </Grid>
+      </>
     );
   }
 
   return (
-      <Grid
+    <Grid
       container xs
       className={classes.bgColor}
       direction="row-reverse"
       justify="center"
       alignItems="center"
     >
-      <Grid  className={classes.paper} >
+      <Grid className={classes.paper} >
         <CssBaseline>
           <>
             <RenderResult result={distributorResult} />
             <Container maxWidth='sm'>
-            <form onSubmit={handleSubmit(onSubmit)} >
+              <form onSubmit={handleSubmit(onSubmit)} >
                 <Grid container spacing={3}
                   className={classes.form}
                   component={Paper} elevation={6}
                   direction="column"
                   justify="flex-start"
                   alignItems="stretch"
-                  >
+                >
                   <Grid item>
                     <TextField
                       inputRef={register}
@@ -128,30 +129,30 @@ export default function DistributorForm() {
                       name="distId"
                       label="Distributor Id"
                       autoComplete="distId"
-                      />
+                    />
                   </Grid>
-                    <Grid item>
-                      <TextField
-                        inputRef={register}
-                        required
-                        id="distName"
-                        name="distName"
-                        label="Name"
-                        fullWidth
-                        autoComplete="distName"
-                        />
-                    </Grid>
+                  <Grid item>
+                    <TextField
+                      inputRef={register}
+                      required
+                      id="distName"
+                      name="distName"
+                      label="Name"
+                      fullWidth
+                      autoComplete="distName"
+                    />
+                  </Grid>
 
-                    <Grid item>
-                      <TextField
-                        inputRef={register}
-                        id="distAdd"
-                        name="distAdd"
-                        label="Address"
-                        fullWidth
-                        autoComplete="distAdd"
-                        />
-                    </Grid>
+                  <Grid item>
+                    <TextField
+                      inputRef={register}
+                      id="distAdd"
+                      name="distAdd"
+                      label="Address"
+                      fullWidth
+                      autoComplete="distAdd"
+                    />
+                  </Grid>
                   <Grid item >
                     <TextField
                       inputRef={register}
@@ -161,7 +162,7 @@ export default function DistributorForm() {
                       label="City"
                       fullWidth
                       autoComplete="distCity"
-                      />
+                    />
                   </Grid>
                   <Grid item>
                     <TextField
@@ -171,29 +172,29 @@ export default function DistributorForm() {
                       label="Phone"
                       fullWidth
                       autoComplete="distPhone"
-                      />
+                    />
                   </Grid>
                   <Grid container justify="center">
 
                     <Grid item >
-                    <Button
-                      type="submit"
-                      name="createNewDistributor"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
+                      <Button
+                        type="submit"
+                        name="createNewDistributor"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
                       >
-                      Create New Distributor
+                        Create New Distributor
                   </Button>
-                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
-            </form>
-                </Container>
+              </form>
+            </Container>
           </>
         </CssBaseline>
-  </Grid>
-  </Grid>
+      </Grid>
+    </Grid>
   );
 }

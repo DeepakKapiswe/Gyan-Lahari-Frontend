@@ -29,7 +29,7 @@ paper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    background: 'linear-gradient(to right, #190A05, #870000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    backgroundColor: '#ebf5ab',
 },
 gridCard: {
         flexGrow: 1,
