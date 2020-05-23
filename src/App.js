@@ -8,9 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 
-import { Router } from "@reach/router";
+import { Router, Link } from "@reach/router";
 
-import ButtonLink from './Common/ButtonLink';
 import LinearProgress from './Components/Progress/LinearProgressBar';
 import Footer from './Components/Footer/Footer';
 import PdfView from './Common/PdfViewer/PdfViewer';
@@ -22,12 +21,8 @@ import Logo from './Components/Logo/Logo';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import MailIcon from '@material-ui/icons/Mail';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -64,10 +59,14 @@ const useStyles = makeStyles(theme => ({
     },
   },
   drawerTitle: {
-    // flexGrow: 1,
-    [theme.breakpoints.up('md')]: {
+    flexGrow: 1,
+    background: '#050355',
+    [theme.breakpoints.down('md')]: {
       fontSize: '3rem',
+      paddingTop: theme.spacing(5),
     },
+    color:'white',
+    fontSize: '3rem',
   },
   paper: {
     // padding: theme.spacing(2),
@@ -77,10 +76,9 @@ const useStyles = makeStyles(theme => ({
 
   root: {
     display: 'list-item',
-    // flexGrow: 1,
+    flexGrow: 1,
   },
   drawer: {
-
     [theme.breakpoints.up('md')]: {
       width: drawerWidth,
       flexShrink: 0,
@@ -104,24 +102,44 @@ const useStyles = makeStyles(theme => ({
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    background: '#e4ded4',
+    // background: '#e4ded4',
+    background: '#defaf3',
     width: drawerWidth,
   },
   content: {
     flexGrow: 1,
-    display:'list-item',
+    display: 'list-item',
     [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
   },
+  buttonText: {
+    color: '#050505'
+  },
+  link: {
+    color: '#defaf3'
+  },
+  drawerHead :{
+    
+  }
 
 }));
 
-
+function ListLink(props) {
+  const classes = useStyles();
+  return (
+    <Link to={props.to} className={classes.link}>
+      <ListItem button className={classes.buttonText}>
+                <h3>{props.label.toUpperCase()}</h3>
+        {props.icon && <ListItemIcon> {props.icon}</ListItemIcon>}
+      </ListItem>
+    </Link>
+  )
+}
 
 function Home() {
-  return <Logo/>;
+  return <Logo />;
 }
 
 
@@ -140,7 +158,9 @@ function App(props) {
 
   const drawer = (
     <div>
+      <Hidden mdDown>
       <div className={classes.toolbar} />
+      </Hidden>
       <Typography
         variant="h4"
         className={classes.drawerTitle}
@@ -152,26 +172,26 @@ function App(props) {
       <Divider />
       <Divider />
       <Divider />
-      <ButtonLink to="/" label="Home" />
+      <ListLink to="/" label="Home"/>
       <Divider />
-      <ButtonLink to="/addNewSubscriber" label="Add Subscriber" />
-      <ButtonLink to="/searchSubscriber" label="Search Subscriber" />
-      <ButtonLink to="/allSubscribers" label="All Subscribers" />
-      <Divider />
-      <Divider />
-      <Divider />
-      <ButtonLink to="/addNewDistributor" label="Add Distributor" />
-      <ButtonLink to="/viewDistributor" label="View Distributor" />
-      <ButtonLink to="/allDistributors" label="All Distributors" />
+      <ListLink to="/addNewSubscriber" label="Add Subscriber"/>
+      <ListLink to="/searchSubscriber" label="Search Subscriber" />
+      <ListLink to="/allSubscribers" label="All Subscribers" />
       <Divider />
       <Divider />
       <Divider />
-      <ButtonLink to="/bulkDistributionListForm" label="Print Distribution" />
-      <ButtonLink to="/bulkExpiryListForm" label="Print Expiry" />
+      <ListLink to="/addNewDistributor" label="Add Distributor" />
+      <ListLink to="/viewDistributor" label="View Distributor" />
+      <ListLink to="/allDistributors" label="All Distributors" />
+      <Divider />
+      <Divider />
+      <Divider />
+      <ListLink to="/bulkDistributionListForm" label="Print Distribution" />
+      <ListLink to="/bulkExpiryListForm" label="Print Expiry" />
       <Divider />
       <Router>
-        <ButtonLink to="/login" label="Sign In" path="/*" />
-        <ButtonLink to="/" label="Sign Out" path="user/*" />
+        <ListLink to="/login" label="Sign In" path="/*" />
+        <ListLink to="/" label="Sign Out" path="user/*" />
       </Router>
     </div>
   );
@@ -255,7 +275,7 @@ function App(props) {
               <Router>
                 <Login path="login" />
                 <Home path="/">
-                  
+
                 </Home>
                 <SubscriberForm path="/addNewSubscriber" />
                 <DistributorForm path="/addNewDistributor" />

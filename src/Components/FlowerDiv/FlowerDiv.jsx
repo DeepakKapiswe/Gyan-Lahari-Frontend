@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
-      width: '50%'
+      width: '80%'
     }}
 ));
 
