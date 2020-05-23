@@ -59,20 +59,15 @@ const useStyles = makeStyles(theme => ({
     },
   },
   drawerTitle: {
-    flexGrow: 1,
-    background: '#050355',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '3rem',
-      paddingTop: theme.spacing(5),
-    },
-    color:'white',
     fontSize: '3rem',
+    [theme.breakpoints.down('md')]: {
+      paddingTop: theme.spacing(5),
+      flexGrow: 1,
+      background: '#050355',
+      color: 'white',
+      
+    },
   },
-  paper: {
-    // padding: theme.spacing(2),
-    color: theme.palette.text.secondary,
-  },
-
 
   root: {
     display: 'list-item',
@@ -120,8 +115,8 @@ const useStyles = makeStyles(theme => ({
   link: {
     color: '#defaf3'
   },
-  drawerHead :{
-    
+  drawerHead: {
+
   }
 
 }));
@@ -131,7 +126,7 @@ function ListLink(props) {
   return (
     <Link to={props.to} className={classes.link}>
       <ListItem button className={classes.buttonText}>
-                <h3>{props.label.toUpperCase()}</h3>
+        <h3>{props.label.toUpperCase()}</h3>
         {props.icon && <ListItemIcon> {props.icon}</ListItemIcon>}
       </ListItem>
     </Link>
@@ -156,11 +151,8 @@ function App(props) {
     document.title = `ज्ञान लहरी`;
   });
 
-  const drawer = (
-    <div>
-      <Hidden mdDown>
-      <div className={classes.toolbar} />
-      </Hidden>
+  const drawerItems = (
+    <>
       <Typography
         variant="h4"
         className={classes.drawerTitle}
@@ -172,9 +164,9 @@ function App(props) {
       <Divider />
       <Divider />
       <Divider />
-      <ListLink to="/" label="Home"/>
+      <ListLink to="/" label="Home" />
       <Divider />
-      <ListLink to="/addNewSubscriber" label="Add Subscriber"/>
+      <ListLink to="/addNewSubscriber" label="Add Subscriber" />
       <ListLink to="/searchSubscriber" label="Search Subscriber" />
       <ListLink to="/allSubscribers" label="All Subscribers" />
       <Divider />
@@ -193,7 +185,22 @@ function App(props) {
         <ListLink to="/login" label="Sign In" path="/*" />
         <ListLink to="/" label="Sign Out" path="user/*" />
       </Router>
-    </div>
+    </>
+  );
+  const drawer = (
+    <>
+      <Hidden mdUp>
+        <div onClick={handleDrawerToggle} >
+          {drawerItems}
+        </div>
+      </Hidden>
+      <Hidden mdDown>
+        <>
+          <div className={classes.toolbar} />
+          {drawerItems}
+        </>
+      </Hidden>
+    </>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
