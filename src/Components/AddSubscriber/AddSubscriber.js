@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import useSWR from 'swr';
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
+import { LinearProgress } from '@material-ui/core';
+import { useNavigate } from "@reach/router"
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   heading: {
-    color: '#ffffff',
+    color: '#110F4C',
     [breakpoints.down('md')]: {
       fontSize: '3rem',
     },
@@ -19,28 +21,38 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
 let url = 'http://192.168.43.28:7000/addUser/';
 
 export default function AddSubscriberResult (props) {
+  // const newSubscriberData = props.location.state.newSubscriberData;
+  const navigate = useNavigate();
+  const newSubscriberData = props.newSubscriberData;
   const styles= useStyles();
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(props.payload)
+    body: JSON.stringify(newSubscriberData)
   }).then(res => res.json())
 
-  const { result, error} = useSWR(url, fetcher, { suspense: true });
+  const { data, error} = useSWR(url, fetcher, { suspense: true, refreshInterval: 99999999999999 , revalidateOnFocus: false });
+  // if (props.location.state == null) { return (
+  //     <>
+  //       <h1> Oops... Bad Add Query Please Click Add Again !! </h1>
+  //       <BackButton label="Add Again" path="addNewSubscriber"/>
+  //     </>
+  //   ); }
+  if (newSubscriberData.subName === '') {return <div>Empty Query</div>}
   if (error) return <div>failed to load</div>
-  if (!result) return <div>loading...</div>
+  // if (!data) return <LinearProgress/>
+  navigate("/viewSubscriber", {state:{subscriber:data }});  
   
-  if (props.payload.subName === '') {return <div>Empty Query</div>}
   return (
-    <>
+    <Suspense fallback={<LinearProgress/>}>
+
       <Typography variant="h2" component="h3"
-          
-          className={styles.heading}>
+          className={styles.heading} align="center">
             New Subscriber Added !!
-            </Typography>
-            <FlowerDiv/>
-      <h1> {result} </h1>
-    </> );
+      </Typography>
+      <FlowerDiv/>
+    </Suspense>
+     );
 }

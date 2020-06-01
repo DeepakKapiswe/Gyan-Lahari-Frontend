@@ -1,7 +1,6 @@
 import React, { Suspense, useEffect } from 'react';
 import './App.css';
 import { ThemeProvider } from '@material-ui/core/styles';
-// import theme from './Theme';
 import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
@@ -28,11 +27,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 
+
+
 const Login = React.lazy(() => import('./Components/Login/Login'));
 const Users = React.lazy(() => import('./Components/AddSubscriber/User'));
 const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
 const ViewAllDistributors = React.lazy(() => import('./Components/ViewDistributor/ViewAllDistributors'));
 const DistributorDetails = React.lazy(() => import('./Components/DistributorDetails/DistributorDetails'));
+const ViewSubscriber = React.lazy(() => import('./Components/ViewSubscriber/ViewSubscriber'));
+const AddResult = React.lazy(() => import('./Components/AddResult/AddResult'));
 const SubscriberForm = React.lazy(() => import('./Components/SubscriberForm/SubscriberForm'));
 const SubscriberEditForm = React.lazy(() => import('./Components/SubscriberEditForm/SubscriberEditForm'));
 const DistributorEditForm = React.lazy(() => import('./Components/DistributorEditForm/DistributorEditForm'));
@@ -47,6 +50,8 @@ const DistributionListForm = React.lazy(() => import('./Components/DistributionL
 const ExpiryListForm = React.lazy(() => import('./Components/ExpiryListForm/ExpiryListForm'));
 const BulkDistributionListForm = React.lazy(() => import('./Components/BulkDistributionListForm/BulkDistributionListForm'));
 const BulkExpiryListForm = React.lazy(() => import('./Components/BulkExpiryListForm/BulkExpiryListForm'));
+const RecentlyAddedForm = React.lazy(() => import('./Components/RecentlyAddedForm/RecentlyAddedForm'));
+const RecentlyAddedResult = React.lazy(() => import('./Components/RecentlyAddedResult/RecentlyAddedResult'));
 
 const drawerWidth = 240;
 
@@ -167,6 +172,7 @@ function App(props) {
       <ListLink to="/" label="Home" />
       <Divider />
       <ListLink to="/addNewSubscriber" label="Add Subscriber" />
+      <ListLink to="/recentlyAddedForm" label="View Recently Added" />
       <ListLink to="/searchSubscriber" label="Search Subscriber" />
       <ListLink to="/allSubscribers" label="All Subscribers" />
       <Divider />
@@ -275,11 +281,12 @@ function App(props) {
       </nav>
 
       <div className={classes.content}>
-        <Suspense>
+        <Suspense fallback={<LinearProgress />}>
           <ThemeProvider theme={theme}>
             <Suspense
               fallback={<LinearProgress />}>
               <Router>
+                
                 <Login path="login" />
                 <Home path="/">
 
@@ -287,6 +294,8 @@ function App(props) {
                 <SubscriberForm path="/addNewSubscriber" />
                 <DistributorForm path="/addNewDistributor" />
                 <DistributorDetails path="/viewDistributor" />
+                <AddResult path="/addSubscriberResult"/>
+                <ViewSubscriber path="/viewSubscriber" />
                 <SearchForm path="/searchSubscriber" />
                 <Users path="/user/:userId" />
                 <ViewAllSubscribers path="/allSubscribers" />
@@ -305,6 +314,8 @@ function App(props) {
                 <BulkExpiryListForm path="/bulkExpiryListForm" />
                 <PdfView path="/viewPdf" />
                 <PdfDownload path="/downloadPdf" />
+                <RecentlyAddedForm path="/recentlyAddedForm" />
+                <RecentlyAddedResult path="/recentlyAddedResult" />
               </Router>
             </Suspense>
             <Footer />

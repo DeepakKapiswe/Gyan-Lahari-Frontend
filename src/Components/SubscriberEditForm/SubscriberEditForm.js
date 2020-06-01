@@ -71,6 +71,7 @@ export default function SubscriberEditForm(props) {
     data.subStartVol = data.subStartVol*1;
     data.subEndVol = data.subEndVol*1;
     data.subSubscriptionType = data.subSubscriptionType*1;
+    data.subSlipNum = data.subSlipNum*1;
     setUserResult(<UpdateSubscriberResult payload={{...sD, ...data }} />);
     // navigate(-1);
 
@@ -195,6 +196,7 @@ export default function SubscriberEditForm(props) {
                     <TextField
                       inputRef={register}
                       required
+                      type="number"
                       id="subSlipNum"
                       name="subSlipNum"
                       label="Slip Number"

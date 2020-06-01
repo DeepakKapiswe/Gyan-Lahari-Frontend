@@ -17,7 +17,7 @@ function makeSubscriberCell(subscriber, currentVol) {
                         stack: [{
                             text:
                                 'SC:' + a.subId +
-                                ' D' + a.subDistId +
+                                ' D'  + a.subDistId +
                                 ' V' + currentVol + '{' + a.subStartVol + '-' + a.subEndVol + '}' +
                                 (a.isExpiring ? '**' : ''),
                             background: (a.isExpiring ? '#98997f' : '')
@@ -29,9 +29,8 @@ function makeSubscriberCell(subscriber, currentVol) {
                             , (a.subPost === ("" || null) ? "" : a.subPost)
                             , (a.subCity === ("" || null) ? "" : a.subCity)
                             , (a.subState === ("" || null) ? "" : a.subState)
-
                             , (a.subPincode === ("" || null) ? "" : a.subPincode)
-                            , (a.subPhone === ("" || null) ? "" : 'Mob: ' + a.subPhone)
+                            , (a.subPhone === ( "" || null) ? "" : 'Mob: ' + a.subPhone)
                         ]
                     }
                 ]]

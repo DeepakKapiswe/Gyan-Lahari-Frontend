@@ -27,7 +27,7 @@ export default function UpdateSubscriberResult (props) {
   }).then(res => res.json())
 
   const styles= useStyles();
-  const { data, error} = useSWR(url, fetcher, { suspense: true });
+  const { data, error} = useSWR(url, fetcher, { suspense: true, refreshInterval: 99999999999999 , revalidateOnFocus: false });
   if (props.payload.subName === '') {return <div>Empty Query</div>}
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>

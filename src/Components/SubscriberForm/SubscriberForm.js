@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -10,9 +10,8 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import { useNavigate } from "@reach/router"
 
-
-import AddSubscriberResult from '../AddSubscriber/AddSubscriber';
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
 
 
@@ -54,9 +53,10 @@ const useStyles = makeStyles(theme => (
   }));
 
 export default function SubscriberForm() {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const [user, setUser] = useState('');
-  const [userResult, setUserResult] = useState(null);
+  // const [user, setUser] = useState('');
+  // const [userResult, setUserResult] = useState(null);
   const [endVol, setEndVol] = useState(0);
   const [subscriptionType, setSubscriptionType] = useState(0);
   const [startVol, setStartVol] = useState(0);
@@ -65,7 +65,8 @@ export default function SubscriberForm() {
     data.subStartVol = data.subStartVol*1;
     data.subEndVol = data.subEndVol*1;
     data.subSubscriptionType = data.subSubscriptionType*1; 
-    setUser(data);
+    data.subSlipNum = data.subSlipNum*1;
+    navigate("/addSubscriberResult", {state:{newSubscriberData:data }})
   };
 
   const handleStartVolChange = (event) => {
@@ -76,12 +77,14 @@ export default function SubscriberForm() {
     setSubscriptionType(event.target.value);
   };
 
-  useEffect(() => {
-    if (user !== '') {
-      setUserResult(<AddSubscriberResult payload={user} />);
-      setUser('');
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user !== '') {
+  //     setUserResult(
+  //          <AddSubscriberResult payload={user} />
+  //        );
+  //     setUser('');
+  //   }
+  // }, [user]);
 
   useEffect(() => {
     if ( startVol !== 0  && subscriptionType !== 0) {
@@ -95,12 +98,8 @@ export default function SubscriberForm() {
   const classes = useStyles();
 
   function RenderResult(props) {
-    // conditionally render result
-    if (props.result !== null) {
-      return <>{userResult}</>
-    }
     return (
-      <Grid item alignItems="center" >
+      <Grid item >
 
       <Typography variant="h2" component="h3"
         
@@ -128,7 +127,7 @@ export default function SubscriberForm() {
       <Container maxWidth='xl' className={classes.paper}  >
         <CssBaseline>
           <>
-            <RenderResult result={userResult} />
+            <RenderResult  />
             <form onSubmit={handleSubmit(onSubmit)} >
               <React.Fragment>
                 <Grid container spacing={3}
@@ -187,6 +186,7 @@ export default function SubscriberForm() {
                     <TextField
                       inputRef={register}
                       required
+                      type="number"
                       id="subSlipNum"
                       name="subSlipNum"
                       label="Slip Number"

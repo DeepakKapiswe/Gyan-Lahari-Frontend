@@ -94,19 +94,8 @@ export default function SubscriberCardList(props) {
         </>
     );
 
-    return (
-        <>
-            <Grid className={classes.paper}>
-                {/* <Paper className={classes.title}>
-                    <Typography variant="h4"
-                        align="center"
-                        noWrap="true">
-                        {header}
-                    </Typography>
-                    <FlowerDiv /> */}
-                {renderHeading}
-
-                <ButtonGroup orientation="vertical"
+    const pdfButtons =(
+        <ButtonGroup orientation="vertical"
                     variant="contained">
 
                     <BrowserView>
@@ -134,7 +123,7 @@ export default function SubscriberCardList(props) {
                     </BrowserView>
                     <Button size="small" color="secondary"
                         variant="contained"
-                        ß onClick={e => navigate("/downloadPdf", { state: { data: pdfData, fileName: pdfName } })}
+                        onClick={e => navigate("/downloadPdf", { state: { data: pdfData, fileName: pdfName } })}
                     >
                         <Grid container direction="row" alignItems="center">
                             <Grid item>
@@ -150,6 +139,14 @@ export default function SubscriberCardList(props) {
                         </Grid>
                     </Button>
                 </ButtonGroup>
+        
+    );
+
+    return (
+        <>
+            <Grid className={classes.paper}>
+                {renderHeading}
+                {props.noPdf !== true && pdfButtons}
             </Grid>
 
             <Grid
