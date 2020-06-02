@@ -61,6 +61,7 @@ export default function SubscriberForm() {
   const [subscriptionType, setSubscriptionType] = useState(0);
   const [startVol, setStartVol] = useState(0);
 
+  
   const onSubmit = data => {
     data.subStartVol = data.subStartVol*1;
     data.subEndVol = data.subEndVol*1;
@@ -115,7 +116,16 @@ export default function SubscriberForm() {
     </Grid>
     );
   }
+  // function refreshPage() {
+  //   window.location.reload(false);
+  // }
 
+  // // var refresh = true ;
+  // // if (refresh === true)
+  // //   {
+  // //     refresh = false;
+  // //     refreshPage(); 
+  // //   }
   return (
       <Grid
       container xs
@@ -165,6 +175,8 @@ export default function SubscriberForm() {
                       <option value={4}>4 Years</option>
                       <option value={5}>5 Years</option>
                       <option value={10}>10 Years</option>
+                      <option value={2}>2 Years</option>
+                      <option value={8}>8 Years</option>
                     </NativeSelect>
                     <FormHelperText>Subscription Type</FormHelperText>
 
@@ -292,6 +304,7 @@ export default function SubscriberForm() {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       // required
+                      type="number"
                       inputRef={register}
                       id="subPincode"
                       name="subPincode"
@@ -303,6 +316,7 @@ export default function SubscriberForm() {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       inputRef={register}
+                      type="number"
                       id="subPhone"
                       name="subPhone"
                       label="Phone"

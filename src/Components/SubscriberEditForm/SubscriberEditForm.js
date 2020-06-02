@@ -175,6 +175,8 @@ export default function SubscriberEditForm(props) {
                       <option value={4}>4 Years</option>
                       <option value={5}>5 Years</option>
                       <option value={10}>10 Years</option>
+                      <option value={2}>2 Years</option>
+                      <option value={8}>8 Years</option>
                     </NativeSelect>
                     <FormHelperText>Subscription Type</FormHelperText>
 
