@@ -30,6 +30,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 
 const Login = React.lazy(() => import('./Components/Login/Login'));
+const TestLogin = React.lazy(() => import('./Components/TestLoginForm'));
+const TestLoginResult = React.lazy(() => import('./Components/TestLoginResult'));
 const Users = React.lazy(() => import('./Components/AddSubscriber/User'));
 const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
 const ViewAllDistributors = React.lazy(() => import('./Components/ViewDistributor/ViewAllDistributors'));
@@ -287,7 +289,7 @@ function App(props) {
               fallback={<LinearProgress />}>
               <Router>
                 
-                <Login path="login" />
+                <TestLogin path="login" />
                 <Home path="/">
 
                 </Home>
@@ -316,6 +318,7 @@ function App(props) {
                 <PdfDownload path="/downloadPdf" />
                 <RecentlyAddedForm path="/recentlyAddedForm" />
                 <RecentlyAddedResult path="/recentlyAddedResult" />
+                <TestLoginResult path="/testLoginResult" />
               </Router>
             </Suspense>
             <Footer />
