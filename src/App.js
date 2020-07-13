@@ -29,7 +29,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 
 
-const Login = React.lazy(() => import('./Components/Login/Login'));
+// const Login = React.lazy(() => import('./Components/Login/Login'));
 const TestLogin = React.lazy(() => import('./Components/TestLoginForm'));
 const TestLoginResult = React.lazy(() => import('./Components/TestLoginResult'));
 const Users = React.lazy(() => import('./Components/AddSubscriber/User'));

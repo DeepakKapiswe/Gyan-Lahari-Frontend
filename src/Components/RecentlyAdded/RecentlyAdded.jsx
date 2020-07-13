@@ -11,8 +11,12 @@ export default function RecentlyAddedSubscribers(props) {
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      'Accept':  'application/json',
+      'X-XSRF-TOKEN': localStorage.getItem('XSRF-TOKEN') || undefined,
     },
+    credentials: 'include',
+    mode: 'cors',
     body: JSON.stringify(props.payload)
   }).then(res => res.json())
 

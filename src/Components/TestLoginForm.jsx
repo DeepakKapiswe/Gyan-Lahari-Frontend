@@ -12,8 +12,6 @@ import { useNavigate } from "@reach/router"
 import FlowerDiv from './FlowerDiv/FlowerDiv';
 
 
-
-
 const useStyles = makeStyles(theme => (
   {
     root: {

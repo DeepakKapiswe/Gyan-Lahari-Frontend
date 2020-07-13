@@ -1,7 +1,8 @@
 import React from 'react';
 import useSWR from 'swr';
 
-let url = 'http://192.168.43.28:7000/checkUserAuth/';
+// let url = 'http://192.168.43.28:7000/checkUserAuth/';
+let url = 'http://192.168.43.28:7000/login/';
 
 export default function TestLogin(props) {
   const fetcher = (...args) => fetch(url, {
