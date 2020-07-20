@@ -3,7 +3,7 @@ import useSWR from 'swr'
 import SubscriberCard from '../SubscriberCard/SubscriberCard';
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 
-let url = 'http://192.168.43.28:7000/';
+let url = 'https://192.168.43.28:7000/';
 
 // const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -14,11 +14,13 @@ export default function ViewAllSubscribers(props) {
     headers: {
       "Content-Type": "application/json",
       'Accept':  'application/json',
-      'X-XSRF-TOKEN': localStorage.getItem('XSRF-TOKEN') || undefined,
+      // 'X-XSRF-TOKEN': localStorage.getItem('XSRF-TOKEN') || undefined,
     },
-    credentials: 'same-origin',
+    credentials: 'include',
+    mode: 'cors',
     body: JSON.stringify(props.payload)
   }).then(res => res.json())
+
   const { data, error} = useSWR(url, fetcher, { suspense: true });
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>

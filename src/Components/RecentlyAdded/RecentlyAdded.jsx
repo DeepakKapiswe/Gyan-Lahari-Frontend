@@ -5,7 +5,7 @@ import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 import SubscriberCard from '../SubscriberCard/SubscriberCard';
 // import PdfDownload from '../../Common/PdfDownload/PdfDownload';
 
-let url = 'http://192.168.43.28:7000/recentlyAddedSubscribers/';
+let url = 'https://localhost:7000/recentlyAddedSubscribers/';
 
 export default function RecentlyAddedSubscribers(props) {
   const fetcher = (...args) => fetch(url, {
@@ -13,7 +13,6 @@ export default function RecentlyAddedSubscribers(props) {
     headers: {
       "Content-Type": "application/json",
       'Accept':  'application/json',
-      'X-XSRF-TOKEN': localStorage.getItem('XSRF-TOKEN') || undefined,
     },
     credentials: 'include',
     mode: 'cors',
