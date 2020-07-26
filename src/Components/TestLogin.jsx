@@ -1,15 +1,20 @@
 import React from 'react';
 import useSWR from 'swr';
+import Cookies from 'js-cookie';
 
+import {url_login} from '../apiEndpoints/api';
 
-let url = 'https://localhost:7000/login/';
+let url = url_login;
 
 export default function TestLogin(props) {
   const fetcher = (...args) => fetch(url, {
-    method: 'post',
+   method: 'post',
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      'Accept':  'application/json',
+      'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
     },
+    credentials: 'include',
     body: JSON.stringify(props.payload)
   })
   // .then(res => res.json())

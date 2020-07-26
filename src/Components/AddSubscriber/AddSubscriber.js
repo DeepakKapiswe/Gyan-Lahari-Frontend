@@ -5,6 +5,8 @@ import useSWR from 'swr';
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
 import { LinearProgress } from '@material-ui/core';
 import { useNavigate } from "@reach/router"
+import { url_addUser } from '../../apiEndpoints/api';
+import Cookies from 'js-cookie';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   heading: {
@@ -18,8 +20,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   },
 }));
 
-let url = 'http://192.168.43.28:7000/addUser/';
-
+let url = url_addUser;
 export default function AddSubscriberResult (props) {
   // const newSubscriberData = props.location.state.newSubscriberData;
   const navigate = useNavigate();
@@ -28,7 +29,9 @@ export default function AddSubscriberResult (props) {
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      'Accept':  'application/json',
+      'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
     },
     body: JSON.stringify(newSubscriberData)
   }).then(res => res.json())

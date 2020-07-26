@@ -1,12 +1,25 @@
 import React from 'react';
-import useSWR from 'swr'
+import useSWR from 'swr';
+import Cookies from 'js-cookie';
+
 import DistributorCard from '../DistributorCard/DistributorCard';
 import DistributorCardList from '../DistributorCard/DistributorCardList';
-
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+import { url_getAllDistributor } from '../../apiEndpoints/api';
 
 export default function ViewAllDistributors(props) {
-  let url = 'http://192.168.43.28:7000/getAllDistributor';
+  let url = url_getAllDistributor;
+
+  const fetcher = (...args) => fetch(url, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      'Accept':  'application/json',
+      'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
+    },
+    credentials: 'include',
+    body: JSON.stringify(props.payload)
+  }).then(res => res.json())
+    
   const { data, error} = useSWR(url, fetcher, { suspense: true });
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>

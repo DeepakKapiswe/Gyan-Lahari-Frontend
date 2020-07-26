@@ -32,7 +32,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 // const Login = React.lazy(() => import('./Components/Login/Login'));
 const TestLogin = React.lazy(() => import('./Components/TestLoginForm'));
 const TestLoginResult = React.lazy(() => import('./Components/TestLoginResult'));
-const Users = React.lazy(() => import('./Components/AddSubscriber/User'));
 const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
 const ViewAllDistributors = React.lazy(() => import('./Components/ViewDistributor/ViewAllDistributors'));
 const DistributorDetails = React.lazy(() => import('./Components/DistributorDetails/DistributorDetails'));
@@ -299,7 +298,6 @@ function App(props) {
                 <AddResult path="/addSubscriberResult"/>
                 <ViewSubscriber path="/viewSubscriber" />
                 <SearchForm path="/searchSubscriber" />
-                <Users path="/user/:userId" />
                 <ViewAllSubscribers path="/allSubscribers" />
                 <ViewAllDistributors path="/allDistributors" />
                 <SearchResult path="/searchResult" />

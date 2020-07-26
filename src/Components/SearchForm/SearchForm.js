@@ -56,6 +56,7 @@ export default function SearchForm() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const onSubmit = data => {
+    console.log(data);
     navigate("/searchResult", {state:{searchQuery:data }})
     
   };

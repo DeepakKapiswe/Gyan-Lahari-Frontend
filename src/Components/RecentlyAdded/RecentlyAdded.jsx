@@ -1,21 +1,21 @@
 import React from 'react';
 import useSWR from 'swr';
+import Cookies from 'js-cookie';
 
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 import SubscriberCard from '../SubscriberCard/SubscriberCard';
-// import PdfDownload from '../../Common/PdfDownload/PdfDownload';
+import { url_recentlyAddedSubscribers } from '../../apiEndpoints/api';
 
-let url = 'https://localhost:7000/recentlyAddedSubscribers/';
-
+let url = url_recentlyAddedSubscribers;
 export default function RecentlyAddedSubscribers(props) {
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {
       "Content-Type": "application/json",
       'Accept':  'application/json',
+      'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
     },
     credentials: 'include',
-    mode: 'cors',
     body: JSON.stringify(props.payload)
   }).then(res => res.json())
 

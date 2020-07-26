@@ -1,7 +1,10 @@
 import React from 'react';
+import useSWR from 'swr';
+import Cookies from 'js-cookie';
+
 import { makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import useSWR from 'swr';
+import { url_updateSubscriber } from '../../apiEndpoints/api';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   heading: {
@@ -15,14 +18,17 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   },
 }));
 
-let url = 'http://192.168.43.28:7000/updateSubscriber/';
+
+let url = url_updateSubscriber;
 
 export default function UpdateSubscriberResult (props) {
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {
-      "Content-Type": "application/json"
-    },
+      "Content-Type": "application/json",
+      'Accept':  'application/json',
+      'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
+      },
     body: JSON.stringify(props.payload)
   }).then(res => res.json())
 

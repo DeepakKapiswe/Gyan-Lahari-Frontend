@@ -1,17 +1,21 @@
 import React from 'react';
 import useSWR from 'swr';
+import Cookies from 'js-cookie';
 
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 import SubscriberCard from '../SubscriberCard/SubscriberCard';
-// import PdfDownload from '../../Common/PdfDownload/PdfDownload';
+import { url_searchSubscriber } from '../../apiEndpoints/api';
 
-let url = 'http://192.168.43.28:7000/searchSubscriber/';
+
+let url = url_searchSubscriber;
 
 export default function FindSubscriberResult(props) {
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      'Accept':  'application/json',
+      'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
     },
     body: JSON.stringify(props.payload)
   }).then(res => res.json())
