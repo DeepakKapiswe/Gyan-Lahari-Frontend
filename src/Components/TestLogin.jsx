@@ -12,7 +12,7 @@ export default function TestLogin(props) {
     headers: {
       "Content-Type": "application/json",
       'Accept':  'application/json',
-      'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
+      // 'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
     },
     credentials: 'include',
     body: JSON.stringify(props.payload)
