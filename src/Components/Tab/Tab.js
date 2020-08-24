@@ -76,7 +76,7 @@ export function FullWidthTabs(props) {
           variant="fullWidth"
           aria-label="full width tabs example"
         >
-          <Tab label="Customer Login" {...a11yProps(0)} />
+          <Tab label="Subscriber Login" {...a11yProps(0)} />
           <Tab label="Distributor Login" {...a11yProps(1)} />
           <Tab label="Admin Login" {...a11yProps(2)} />
         </Tabs>

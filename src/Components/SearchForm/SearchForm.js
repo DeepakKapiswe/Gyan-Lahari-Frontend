@@ -8,8 +8,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { useNavigate } from "@reach/router"
+import { useNavigate } from "@reach/router";
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
+import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
 
 
 
@@ -55,10 +56,12 @@ const useStyles = makeStyles(theme => (
 export default function SearchForm() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+  const saveLastLocation = useSaveLastLocation();
+  const saveNextLocation = useSaveNextLocation();
+  saveLastLocation();
   const onSubmit = data => {
-    console.log(data);
+    saveNextLocation("/searchResult", {state:{searchQuery:data }});
     navigate("/searchResult", {state:{searchQuery:data }})
-    
   };
 
   const classes = useStyles();

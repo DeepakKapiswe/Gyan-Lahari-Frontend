@@ -6,6 +6,7 @@ import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 import SubscriberCard     from '../SubscriberCard/SubscriberCard';
 import BackButton         from '../BackButton/BackButton';
 import { url_expiryList } from '../../apiEndpoints/api';
+import LoginPrompt from '../LoginPrompt/LoginPrompt';
 
 let url = url_expiryList;
 
@@ -18,12 +19,13 @@ function ExpiredSubscribers(props) {
       'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
     },
     body: JSON.stringify(props.payload)
-  }).then(res => res.json())
+  }).then(res => res.ok ? res.json() : res.status);
 
   const { data, error} = useSWR(url, fetcher, { suspense: true });
   if (props.payload.eldDetails === '') { return null; }
   if (error) return <div>Failed to Load in Find Distributor Subscribers</div>
   if (!data) return <div>loading...</div>
+  if (data === 401) return <LoginPrompt/>
   const items = data.elExpiries.map((item) => {
      item.isExpiring = true;
      return <SubscriberCard subscriberDetails={item}/>;

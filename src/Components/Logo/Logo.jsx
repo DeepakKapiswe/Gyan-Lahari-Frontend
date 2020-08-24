@@ -18,14 +18,23 @@ const useStyles = makeStyles((theme) => ({
       },
     //   opacity: '0.2',
     //   zIndex: "revert"
+    },
+    bigger : {
+      display: 'block',
+            marginLeft: 'auto',
+      marginRight: 'auto',
+      marginTop: 'auto',
+      marginBottom: 'auto',
+      maxWidth:'25%'
     }}
 ));
 
 
-export default function Logo () {
+export default function Logo (props) {
     const classes = useStyles();
     return (
-        <img src={logo} alt="" className={classes.center} />
+        // <img src={logo} alt="" className={classes.center + ' ' + props.customClass} />
+        <img src={logo} alt="" className={props.medium ? classes.bigger :classes.center } />
     )
 
 }

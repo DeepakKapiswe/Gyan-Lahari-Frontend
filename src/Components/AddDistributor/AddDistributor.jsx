@@ -4,6 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import useSWR from 'swr';
 import { url_addDistributor } from '../../apiEndpoints/api';
 import Cookies from 'js-cookie';
+import LoginPrompt from '../LoginPrompt/LoginPrompt';
+import { useNavigate } from '@reach/router';
+import FlowerDiv from '../FlowerDiv/FlowerDiv';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   heading: {
@@ -19,8 +22,10 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
 
 let url = url_addDistributor;
 
-export default function AddDistributorResult (props) {
+export default function AddDistributor (props) {
   const styles= useStyles();
+  const navigate = useNavigate();
+  const payload = props.newDistributorData;
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {
@@ -28,21 +33,21 @@ export default function AddDistributorResult (props) {
       'Accept':  'application/json',
       'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
     },
-    body: JSON.stringify(props.payload)
-  }).then(res => res.json())
+    body: JSON.stringify(payload)
+  }).then(res => res.ok ? res.json() : res.status);
 
-  const { result, error} = useSWR(url, fetcher, { suspense: true });
+  const { data, error} = useSWR(url, fetcher, { suspense: true, refreshInterval: 99999999999999 , revalidateOnFocus: false });
   if (error) return <div>failed to load</div>
-  if (!result) return <div>loading...</div>
-
-  if (props.payload.distName === '') {return <div>Empty Query</div>}
+  if (!data) return <div>loading...</div>
+  if (data === 401) return <LoginPrompt/>
+  if (payload.distName === '') {return <div>Empty Query</div>}
+  navigate("/viewAddedDistributor", {state:{distributor:data }})
   return (
     <>
       <Typography variant="h2" component="h3"
-          
           className={styles.heading}>
-            New Distributor Added
+            New Distributor Added !!
       </Typography>
-      <h1> {result} </h1>
+      <FlowerDiv/>
     </> );
 }

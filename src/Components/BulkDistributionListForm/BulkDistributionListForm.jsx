@@ -17,6 +17,7 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import { useEffect } from 'react';
 
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
+import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -79,6 +80,9 @@ export default function BulkDistributionListForm(props) {
     register({ name: "bdldCurrentVol" });
   });
 
+  const saveLastLocation = useSaveLastLocation();
+  const saveNextLocation = useSaveNextLocation();
+  saveLastLocation();
   const onSubmit = data => {
     data.bdldCurrentVol = data.bdldCurrentVol*1
     data.bdldDistIds =
@@ -86,8 +90,8 @@ export default function BulkDistributionListForm(props) {
       ? allDistIds    // this could be modified in multiple requests if all distributors are selected
                       // as otherwise this call takes too much time due to excess data in same pdf
       : data.bdldDistIds.map((dId) => dId.toString())
+    saveNextLocation("/bulkDistributionList", {state:{bdldDetails:data}})
     navigate("/bulkDistributionList", {state:{bdldDetails:data}})
-    console.log(data)
   };
 
   const classes = useStyles();
@@ -212,11 +216,11 @@ const distNames = {
    '3' :   '3 :     मनोज भाई',
    '5' :   '5 :     राजेन्',
    '6' :   '6 :     पशुपति भाई',
-   '9' :   '9 :     योगेश्',
-   '10' :  '10 :    पवन विश्',
-   '12' :  '12 :    सुदीप भार्इ',
+   '9' :   '9 :     योगेश्वर भाई',
+   '10' :  '10 :    पवन विश्वकर्मा',
+   '12' :  '12 :    सुदीप भाई',
    '13' :  '13 :    अर्जुन भाई',
-   '14' :  '14 :    साध्',
+   '14' :  '14 :    साध्वी गीता भारती',
    '15' :  '15 :    प्रेमलता बहन',
    '16' :  '16 :    बैजंती बहन',
    '17' :  '17 :    धर्मशीला बहन',
@@ -228,7 +232,7 @@ const distNames = {
    '24' :  '24 :    मौर्या भाई',
    '25' :  '25 :    मीना बहन',
    '26' :  '26 :    सियाशरण भाई',
-   '27' :  '27 :    पुष्',
+   '27' :  '27 :    पुष्पा बहन',
    '28' :  '28 :    वीणा बहन',
    '29' :  '29 :    किरण बहन',
    '30' :  '30 :    मंजु बहन',

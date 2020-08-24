@@ -32,7 +32,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   },
 }));
 
-export default function DistributorDetails() {
+export default function DistributorDetails(props) {
   const styles = useStyles();
   return (
     <Grid
@@ -58,7 +58,7 @@ export default function DistributorDetails() {
       </Grid>
 
       <Grid item className={styles.title}>
-        <DistributorCard distributorDetails={sample} />
+        <DistributorCard distributorDetails={props.distributor || sample} />
       </Grid>
     </Grid>
   );

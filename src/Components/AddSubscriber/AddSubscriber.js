@@ -7,6 +7,7 @@ import { LinearProgress } from '@material-ui/core';
 import { useNavigate } from "@reach/router"
 import { url_addUser } from '../../apiEndpoints/api';
 import Cookies from 'js-cookie';
+import LoginPrompt from '../LoginPrompt/LoginPrompt';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   heading: {
@@ -22,7 +23,6 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
 
 let url = url_addUser;
 export default function AddSubscriberResult (props) {
-  // const newSubscriberData = props.location.state.newSubscriberData;
   const navigate = useNavigate();
   const newSubscriberData = props.newSubscriberData;
   const styles= useStyles();
@@ -34,18 +34,13 @@ export default function AddSubscriberResult (props) {
       'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
     },
     body: JSON.stringify(newSubscriberData)
-  }).then(res => res.json())
+  }).then(res => res.ok ? res.json() : res.status);
 
   const { data, error} = useSWR(url, fetcher, { suspense: true, refreshInterval: 99999999999999 , revalidateOnFocus: false });
-  // if (props.location.state == null) { return (
-  //     <>
-  //       <h1> Oops... Bad Add Query Please Click Add Again !! </h1>
-  //       <BackButton label="Add Again" path="addNewSubscriber"/>
-  //     </>
-  //   ); }
   if (newSubscriberData.subName === '') {return <div>Empty Query</div>}
   if (error) return <div>failed to load</div>
   // if (!data) return <LinearProgress/>
+  if (data === 401) return <LoginPrompt/>
   navigate("/viewSubscriber", {state:{subscriber:data }});  
   
   return (

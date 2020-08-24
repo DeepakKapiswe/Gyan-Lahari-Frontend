@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import { makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { url_updateDistributor } from '../../apiEndpoints/api';
+import LoginPrompt from '../LoginPrompt/LoginPrompt';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   heading: {
@@ -30,13 +31,14 @@ export default function UpdateDistributorResult (props) {
       'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
     },
     body: JSON.stringify(props.payload)
-  }).then(res => res.json())
+  }).then(res => res.ok ? res.json() : res.status);
 
   const styles= useStyles();
   const { data, error} = useSWR(url, fetcher, { suspense: true });
   if (props.payload.distName === '') {return <div>Empty Query</div>}
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
+  if (data === 401) return <LoginPrompt />
   
   return (
     <>
