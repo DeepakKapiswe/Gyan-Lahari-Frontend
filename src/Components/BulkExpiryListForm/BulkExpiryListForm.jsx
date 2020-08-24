@@ -16,6 +16,7 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import { useEffect } from 'react';
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
+import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -82,7 +83,11 @@ export default function BulkExpiryListForm(props) {
     register({ name: "beldExpiryVol" });
     register({ name: "beldExpiryYearDuration" });
   });
-
+  
+  const saveLastLocation = useSaveLastLocation();
+  const saveNextLocation = useSaveNextLocation();
+  saveLastLocation();
+  
   const onSubmit = data => {
     data.beldExpiryVol          = data.beldExpiryVol*1
     data.beldExpiryYearDuration = data.beldExpiryYearDuration*1
@@ -91,8 +96,8 @@ export default function BulkExpiryListForm(props) {
       ? allDistIds    // this could be modified in multiple requests if all distributors are selected
                       // as otherwise this call takes too much time due to excess data in same pdf
       : data.beldDistIds.map(dId => dId.toString())
+    saveNextLocation("/bulkExpiryList", {state:{beldDetails:data}})
     navigate("/bulkExpiryList", {state:{beldDetails:data}})
-    console.log(data)
   };
 
   const classes = useStyles();
@@ -334,14 +339,14 @@ const distNames = {
    '108' : '108 :   चिरकी',
    '109' : '109 :   अनुप भाई',
    '110' : '110 :   सुमित्रा बहन',
-   '111' : '111 :   जगदम्',
+   '111' : '111 :   जगदम्बा बहन',
    '112' : '112 :   भारती गुप्',
    '113' : '113 :   अनीता बहन',
    '114' : '114 :   नवीन भाई',
    '115' : '115 :   संगीता बहन ',
    '116' : '116 :   उषा बहन',
    '117' : '117 :   रूपा बहन',
-   '118' : '118 :   सुरेन्',
+   '118' : '118 :   सुरेंद्र भाई',
    '119' : '119 :   आरती बहन',
    '120' : '120 :   अखिलेश भाई',
    '121' : '121 :   दिवाकर भाई',
@@ -350,23 +355,23 @@ const distNames = {
    '124' : '124 :   मंजू बहन',
    '125' : '125 :   दिलीप भाई',
    '126' : '126 :   हेमंत भाई',
-   '127' : '127 :   पोस्',
+   '127' : '127 :   पोस्ट द्वारा',
    '129' : '129 :   लोकेस भाई',
    '130' : '130 :   अनीता बहन',
-   '131' : '131 :   पुष्',
+   '131' : '131 :   पुष्पा बहन',
    '132' : '132 :   अजय भाई',
    '133' : '133 :   अमृता बहन',
    '134' : '134 :   नितेश भार्इ',
    '135' : '135 :   अजय सिंह',
    '136' : '136 :   राकेश भाई',
    '137' : '137 :   रेणु बहन',
-   '138' : '138 :   शैलेन्',
+   '138' : '138 :   शैलेंद्र भाई',
    '139' : '139 :   रितेश',
    '140' : '140 :   किरण बहन',
    '141' : '141 :   विनय भदानी',
    '142' : '142 :   लालजीत भाई',
-   '143' : '143 :   हरेन्',
-   '144' : '144 :   सिद्धेश्',
+   '143' : '143 :   हरेन्द्र भाई',
+   '144' : '144 :   सिद्धेश्वर भाई',
    '145' : '145 :   मंजु बहन, मीरा तिवारी',
    '146' : '146 :   शिव भाई, लालजीत भाई',
    '147' : '147 :   घाघरा',
@@ -381,7 +386,7 @@ const distNames = {
    '128' : '128 :   सचिदानंद भाई',
    '156' : '156 :   गुड्डी बहन, चाईबासा',
    '157' : '157 :   प्रचार प्रसार',
-   '158' : '158 :   गजेन्',
+   '158' : '158 :   गजेंद्र भाई',
    '159' : '159 :   प्रतीमा बहन',
    '160' : '160 :   शैलेश भाई',
    '161' : '161 :   कृतिनारायण भाई',
@@ -391,7 +396,7 @@ const distNames = {
    '165' : '165 :   अनुप भाई ',
    '166' : '166 :   गुड्डू भाई ',
    '167' : '167 :   राखी भदानी',
-   '168' : '168 :   उपेन्',
+   '168' : '168 :   उपेन्द्र भाई',
    '169' : '169 :   विकास भाई',
    '170' : '170 :   घनंजय',
    '171' : '171 :   वंदना बहन',
@@ -408,9 +413,9 @@ const distNames = {
    '182' : '182 :   अजय  भाई ',
    '183' : '183 :   लालती देवी',
    '184' : '184 :   उदय नारायण सिंह',
-   '185' : '185 :   रांची, नीरज',
+   '185' : '185 :   रांची - नीरज',
    '186' : '186 :   आशीष',
-   '187' : '187 :   श्री जी स्',
+   '187' : '187 :   श्रीजी स्वीट्स',
    '188' : '188 :   अंजना बहन',
    '189' : '189 :   स्मिता बहन',
    '191' : '191 :   नारायण भाई',
@@ -418,7 +423,7 @@ const distNames = {
    '193' : '193 :   सुमन बहन',
    '194' : '194 :   हलधर यादव',
    '195' : '195 :   सीताराम अग्रवाल',
-   '196' : '196 :   विरेन्',
+   '196' : '196 :   विरेंद्र राम',
    '197' : '197 :   वीणा बहन',
    '4' :   '4 :     रामदुलार भाई',
    '198' : '198 :   इंदु बहन',

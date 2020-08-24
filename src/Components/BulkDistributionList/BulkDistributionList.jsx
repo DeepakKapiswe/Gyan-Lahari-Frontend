@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 import BackButton from '../BackButton/BackButton';
 import { url_bulkDistributionList } from '../../apiEndpoints/api';
+import LoginPrompt from '../LoginPrompt/LoginPrompt';
 
 let url = url_bulkDistributionList;
 
@@ -17,12 +18,13 @@ function FetchBulkDistributionList(props) {
       'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
     },
     body: JSON.stringify(props.payload)
-  }).then(res => res.json())
+  }).then(res => res.ok ? res.json() : res.status);
 
   const { data, error} = useSWR(url, fetcher, { suspense: true });
   if (props.payload.bdldDetails === '') { return null; }
   if (error) return <div>Failed to Load in Bulk Distribution List</div>
   if (!data) return <div>loading...</div>
+  if (data === 401) return <LoginPrompt/>
 
   const pdfData = {
       bulkDistributionData : data

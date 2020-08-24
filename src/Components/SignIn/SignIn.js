@@ -1,4 +1,5 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -12,9 +13,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import './signin.css';
 import custImg from './lotus.png';
-import { navigate } from '@reach/router';
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
-import { Hidden } from '@material-ui/core';
+import { Hidden, Fab } from '@material-ui/core';
+import { useNavigate } from "@reach/router";
+import { useGotoRememberedLocation } from '../../Hooks/GotoRememberedLocation';
 
 function Copyright() {
     return (
@@ -24,8 +26,8 @@ function Copyright() {
         </Typography>
             <Typography variant="body2" color="textSecondary" >
                 {'Copyright © '}
-                <Link color="secondary" href="https://kabirgyan.com/">
-                    kabir Gyan
+                <Link color="secondary" href="https://gyanlahari.com/">
+                    Gyan Lahari
             </Link>
                 {' '}
                 {new Date().getFullYear()}
@@ -47,8 +49,6 @@ const useStyles = makeStyles(theme => (
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                // backgroundColor: '#FFFF22',
-                // backgroundColor: 'linear-gradient(to bottom,  rgba(255,197,120,1) 6%,rgba(255,197,120,1) 17%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 29%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 32%,rgba(255,197,120,1) 49%,rgba(255,197,120,1) 60%,rgba(255,197,120,1) 60%,rgba(251,157,35,1) 97%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 98%,rgba(251,157,35,1) 100%,rgba(251,157,35,1) 101%)',
                 backgroundHeight: '100%',
                 zIndex: '-1',
                 backgroundColor: '#ebf5ab',
@@ -83,93 +83,116 @@ const useStyles = makeStyles(theme => (
     }));
 
 export default function SignIn(props) {
+    const navigate = useNavigate();
+    const {movetoLastLocation} = useGotoRememberedLocation();
+    const { register, handleSubmit } = useForm();
+    const onSubmit = data => {
+        navigate("/loginResult/", { state: { userAuthData: data } })
+    };
+
     const classes = useStyles();
-    return (
-        <Grid
-            container xs
-            className={classes.bgColor}
-            direction="row-reverse"
-            justify="center"
-            alignItems="center"
-        >
 
-            <Grid container component="main" className={classes.root}>
-                <CssBaseline />
-                <Grid item xs={false} sm={false} md={7} className={classes.image} />
-                <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>
-                    <div className={classes.paper}>
-                        <Typography component="h2" variant="h4">
-                            {props.user}
-                        </Typography>
-                        <Typography >
-                            Details
-          </Typography>
-                        <form
-                            className={classes.form}
-                            noValidate
-                            onSubmit={event => {
-                                event.preventDefault()
-                                navigate(`/user/${event.target.email.value}`)
-                            }}
-                        >
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                            />
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                            />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                            >
-                                Sign In
-                            </Button>
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                </Link>
-                                </Grid>
-                                <Grid item>
-                                    <Link href="#" variant="body2">
-                                        {"Don't have an account? Sign Up"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                            <Box mt={5}>
-                                <Copyright />
-                            </Box>
-                        </form>
-                    </div>
-                </Grid>
+    function CancelButton() {
+        return <Grid container direction="row-reverse">
+            <Grid item>
+                <Fab
+                    variant="extended"
+                    size="small"
+                    color="primary"
+                    aria-label="add"
+                    className={classes.margin}
+                    onClick={() => movetoLastLocation()}
+                >
+                    Cancel
+                   </Fab>
             </Grid>
-            <Hidden mdDown>
-                <FlowerDiv />
-            </Hidden>
         </Grid>
-
+    }
+    return (
+        <>
+            <Grid
+                container xs
+                className={classes.bgColor}
+                direction="row-reverse"
+                justify="center"
+                alignItems="center"
+            >
+                <Grid container component="main" className={classes.root}>
+                    {props.cancelButton && <CancelButton />}
+                    <CssBaseline />
+                    <Grid item xs={false} sm={false} md={7} className={classes.image} />
+                    <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>
+                        <div className={classes.paper}>
+                            <Typography component="h2" variant="h4">
+                                {props.user}
+                            </Typography>
+                            <Typography >
+                                Details
+                        </Typography>
+                            <form
+                                onSubmit={handleSubmit(onSubmit)}
+                                className={classes.form}
+                                noValidate
+                            >
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    inputRef={register}
+                                    required
+                                    id="userId"
+                                    name="userId"
+                                    label="User Name"
+                                    fullWidth
+                                    autoComplete="userId"
+                                />
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    inputRef={register}
+                                    id="password"
+                                    name="password"
+                                    label="Password"
+                                    autoComplete="password"
+                                    required
+                                    fullWidth
+                                    type="password"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="remember" color="primary" />}
+                                    label="Remember me"
+                                />
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.submit}
+                                >
+                                    Login
+                            </Button>
+                                <Grid container direction="column">
+                                    <Grid item xs>
+                                        <Link href="#" variant="body2">
+                                            Forgot password?
+                                        </Link>
+                                    </Grid>
+                                    <Grid item>
+                                        <Link href="https://gyanlahari.com/login/" variant="body2">
+                                            {"Don't have an account? Sign Up"}
+                                        </Link>
+                                    </Grid>
+                                </Grid>
+                                <Box mt={5}>
+                                    <Copyright />
+                                </Box>
+                            </form>
+                        </div>
+                    </Grid>
+                </Grid>
+                <Hidden mdDown>
+                    <FlowerDiv />
+                </Hidden>
+            </Grid>
+        </>
     );
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import TestLogin from './TestLogin';
 
-import BackButton from './BackButton/BackButton';
+import BackButton from '../BackButton/BackButton';
+import Login from '../Login/Login';
 
-export default function TestLoginResult (props) {
+export default function LoginResult (props) {
     if (props.location.state == null) { return (
         <>
         <h1> Oops... Bad Login Query Please Click Fill Details Again !! </h1>
@@ -13,7 +13,7 @@ export default function TestLoginResult (props) {
     const userAuthData = props.location.state.userAuthData;
     return (
        <>
-        <TestLogin payload={userAuthData} />
+        <Login payload={userAuthData} />
         <BackButton label="Fill Details Again"/>
        </>
     );

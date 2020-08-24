@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 import BackButton from '../BackButton/BackButton';
 import { url_bulkExpiryList } from '../../apiEndpoints/api';
+import LoginPrompt from '../LoginPrompt/LoginPrompt';
 
 let url = url_bulkExpiryList;
 
@@ -17,12 +18,13 @@ function FetchBulkExpiryList(props) {
       'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
     },
     body: JSON.stringify(props.payload)
-  }).then(res => res.json())
+  }).then(res => res.ok ? res.json() : res.status);
 
   const { data, error} = useSWR(url, fetcher, { suspense: true });
   if (props.payload.beldDetails === '') { return null; }
   if (error) return <div>Failed to Load in Bulk Expiry List</div>
   if (!data) return <div>loading...</div>
+  if (data === 401) return <LoginPrompt/>
 
   const pdfData = {
       bulkExpiryListData : data

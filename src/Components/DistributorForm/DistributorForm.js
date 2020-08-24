@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -10,8 +10,9 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 
-import AddDistributorResult from '../AddDistributor/AddDistributor';
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
+import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
+import { useNavigate } from '@reach/router';
 
 
 const useStyles = makeStyles(theme => (
@@ -59,26 +60,20 @@ const useStyles = makeStyles(theme => (
 
 export default function DistributorForm() {
   const { register, handleSubmit } = useForm();
-  const [distributor, setDistributor] = useState('');
-  const [distributorResult, setDistributorResult] = useState(null);
+  const navigate = useNavigate();
+  const saveLastLocation = useSaveLastLocation();
+  const saveNextLocation = useSaveNextLocation();
+  saveLastLocation();
+
   const onSubmit = data => {
-    setDistributor(data);
-    console.log(data);
+    saveNextLocation("/addDistributorResult", {state:{newDistributorData:data }});
+    navigate("/addDistributorResult", {state:{newDistributorData:data }});
   };
-  useEffect(() => {
-    if (distributor !== '') {
-      setDistributorResult(<AddDistributorResult payload={distributor} />);
-      setDistributor('');
-    }
-  }, [distributor]);
+
 
   const classes = useStyles();
 
-  function RenderResult(props) {
-    // conditionally render result
-    if (props.result !== null) {
-      return <>{distributorResult}</>
-    }
+  function RenderHeading(props) {
     return (
       <>
         <Grid item alignItems="center" >
@@ -110,7 +105,7 @@ export default function DistributorForm() {
       <Grid className={classes.paper} >
         <CssBaseline>
           <>
-            <RenderResult result={distributorResult} />
+            <RenderHeading />
             <Container maxWidth='sm'>
               <form onSubmit={handleSubmit(onSubmit)} >
                 <Grid container spacing={3}

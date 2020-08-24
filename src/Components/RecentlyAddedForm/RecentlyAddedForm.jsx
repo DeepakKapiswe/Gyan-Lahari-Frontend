@@ -10,8 +10,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useNavigate } from "@reach/router"
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
-
-
+import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
 
 
 const useStyles = makeStyles(theme => (
@@ -54,9 +53,13 @@ const useStyles = makeStyles(theme => (
   
 export default function RecentlyAddedForm() {
   const navigate = useNavigate();
+  const saveLastLocation = useSaveLastLocation();
+  const saveNextLocation = useSaveNextLocation();
   const { register, handleSubmit } = useForm();
+  saveLastLocation();
   const onSubmit = data => {
     data = data.raCount*1;
+    saveNextLocation("/recentlyAddedResult", {state:{recentlyAddedQuery:data }});
     navigate("/recentlyAddedResult", {state:{recentlyAddedQuery:data }})
     
   };

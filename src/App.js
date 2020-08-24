@@ -25,18 +25,22 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useSaveLastLocation, useSaveNextLocation } from './Hooks/SaveLocation';
 
 
 
 
-// const Login = React.lazy(() => import('./Components/Login/Login'));
-const TestLogin = React.lazy(() => import('./Components/TestLoginForm'));
-const TestLoginResult = React.lazy(() => import('./Components/TestLoginResult'));
+const Login = React.lazy(() => import('./Components/Login/Login.jsx'));
+const LoginForm = React.lazy(() => import('./Components/LoginForm/LoginForm'));
+const LoginBackdrop = React.lazy(() => import('./Components/LoginBackdrop/LoginBackdrop'));
+const LoginResult = React.lazy(() => import('./Components/LoginResult/LoginResult'));
 const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
 const ViewAllDistributors = React.lazy(() => import('./Components/ViewDistributor/ViewAllDistributors'));
+const ViewAddedDistributor = React.lazy(() => import('./Components/ViewDistributor/ViewDistributor'));
 const DistributorDetails = React.lazy(() => import('./Components/DistributorDetails/DistributorDetails'));
 const ViewSubscriber = React.lazy(() => import('./Components/ViewSubscriber/ViewSubscriber'));
 const AddResult = React.lazy(() => import('./Components/AddResult/AddResult'));
+const AddDistributorResult = React.lazy(() => import('./Components/AddDistributor/AddDistributorResult'));
 const SubscriberForm = React.lazy(() => import('./Components/SubscriberForm/SubscriberForm'));
 const SubscriberEditForm = React.lazy(() => import('./Components/SubscriberEditForm/SubscriberEditForm'));
 const DistributorEditForm = React.lazy(() => import('./Components/DistributorEditForm/DistributorEditForm'));
@@ -140,6 +144,10 @@ function ListLink(props) {
 }
 
 function Home() {
+  const saveLastLocation = useSaveLastLocation();
+  const saveNextLocation = useSaveNextLocation();
+  saveLastLocation();
+  saveNextLocation("/",{state:null});
   return <Logo />;
 }
 
@@ -189,7 +197,7 @@ function App(props) {
       <ListLink to="/bulkExpiryListForm" label="Print Expiry" />
       <Divider />
       <Router>
-        <ListLink to="/login" label="Sign In" path="/*" />
+        <ListLink to="/loginForm" label="Sign In" path="/*" />
         <ListLink to="/" label="Sign Out" path="user/*" />
       </Router>
     </>
@@ -280,26 +288,27 @@ function App(props) {
           </Drawer>
         </Hidden>
       </nav>
-
       <div className={classes.content}>
         <Suspense fallback={<LinearProgress />}>
           <ThemeProvider theme={theme}>
             <Suspense
               fallback={<LinearProgress />}>
               <Router>
-                
-                <TestLogin path="login" />
-                <Home path="/">
-
-                </Home>
+                <LoginForm path="/loginForm" />
+                <LoginBackdrop path="/loginBackdrop" />
+                <Login path="/login" />
+                <LoginResult path="/loginResult" />
+                <Home path="/" />
                 <SubscriberForm path="/addNewSubscriber" />
                 <DistributorForm path="/addNewDistributor" />
                 <DistributorDetails path="/viewDistributor" />
+                <AddDistributorResult path="/addDistributorResult" />
                 <AddResult path="/addSubscriberResult"/>
                 <ViewSubscriber path="/viewSubscriber" />
                 <SearchForm path="/searchSubscriber" />
                 <ViewAllSubscribers path="/allSubscribers" />
                 <ViewAllDistributors path="/allDistributors" />
+                <ViewAddedDistributor path="/viewAddedDistributor" />
                 <SearchResult path="/searchResult" />
                 {/* Both ^ V requires state object */}
                 <SubscriberEditForm path="/editSubscriber" />
@@ -316,7 +325,6 @@ function App(props) {
                 <PdfDownload path="/downloadPdf" />
                 <RecentlyAddedForm path="/recentlyAddedForm" />
                 <RecentlyAddedResult path="/recentlyAddedResult" />
-                <TestLoginResult path="/testLoginResult" />
               </Router>
             </Suspense>
             <Footer />

@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 import SubscriberCard from '../SubscriberCard/SubscriberCard';
 import { url_searchSubscriber } from '../../apiEndpoints/api';
+import LoginPrompt from '../LoginPrompt/LoginPrompt';
 
 
 let url = url_searchSubscriber;
@@ -18,12 +19,13 @@ export default function FindSubscriberResult(props) {
       'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
     },
     body: JSON.stringify(props.payload)
-  }).then(res => res.json())
+  }).then(res => res.ok ? res.json() : res.status);
 
   const { data, error} = useSWR(url, fetcher, { suspense: true,revalidateOnFocus: false });
   if (props.payload.sqSubName === '') { return null; }
   if (error) return <div>Failed to Load in Find Subscriber</div>
   if (!data) return <div>loading...</div>
+  if (data === 401) return <LoginPrompt/>
   const items = data.map((item) => <SubscriberCard subscriberDetails={item} />);
   const pdfData ={subscriberListData: data, searchData : props.payload, meta : 'SearchResultList'} 
   return (

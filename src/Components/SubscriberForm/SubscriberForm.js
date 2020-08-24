@@ -13,6 +13,7 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import { useNavigate } from "@reach/router"
 
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
+import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
 
 
 const useStyles = makeStyles(theme => (
@@ -55,11 +56,13 @@ const useStyles = makeStyles(theme => (
 export default function SubscriberForm() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  // const [user, setUser] = useState('');
-  // const [userResult, setUserResult] = useState(null);
   const [endVol, setEndVol] = useState(0);
   const [subscriptionType, setSubscriptionType] = useState(0);
   const [startVol, setStartVol] = useState(0);
+  const saveLastLocation = useSaveLastLocation();
+  const saveNextLocation = useSaveNextLocation();
+  saveLastLocation();
+
 
   
   const onSubmit = data => {
@@ -67,6 +70,7 @@ export default function SubscriberForm() {
     data.subEndVol = data.subEndVol*1;
     data.subSubscriptionType = data.subSubscriptionType*1; 
     data.subSlipNum = data.subSlipNum*1;
+    saveNextLocation("/addSubscriberResult", {state:{newSubscriberData:data }});
     navigate("/addSubscriberResult", {state:{newSubscriberData:data }})
   };
 

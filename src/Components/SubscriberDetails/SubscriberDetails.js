@@ -31,7 +31,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   },
 }));
 
-export default function DistributorDetails(props) {
+export default function SubscriberDetails(props) {
   const subscriber = props.subscriber;
   const styles = useStyles();
   return (
@@ -45,16 +45,15 @@ export default function DistributorDetails(props) {
       <Grid item alignItems="center" className={styles.gridContent}>
 
         <Typography variant="h2" component="h3"
-          
           className={styles.heading}>
           Subscription Details
-              </Typography>
+        </Typography>
 
         <Typography variant="h2" component="h3"
           className={styles.heading}>
-         सदस्यता विवरण
-              </Typography>
-              <FlowerDiv/>
+                सदस्यता विवरण
+        </Typography>
+        <FlowerDiv/>
       </Grid>
 
       <Grid item className={styles.title}>
