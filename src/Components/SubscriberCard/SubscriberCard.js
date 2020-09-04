@@ -10,6 +10,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
 import { navigate } from '@reach/router';
+import { useSaveNextLocation } from '../../Hooks/SaveLocation';
 
 
 const useStyles = makeStyles(({ breakpoints, spacing, shadows }) => ({
@@ -104,14 +105,18 @@ const useStyles = makeStyles(({ breakpoints, spacing, shadows }) => ({
 export default function SubscriberCard(props) {
   const styles = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const saveNextLocation = useSaveNextLocation();
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   
-
-
   const sp = " ";
   const sD = props.subscriberDetails;
+
+  const handleEditClick = () => {
+    saveNextLocation("/editSubscriber", {state:{subscriber:sD}});
+    navigate("/editSubscriber", {state:{subscriber:sD}});
+  };
 
     return (
       <>
@@ -227,8 +232,8 @@ export default function SubscriberCard(props) {
               <Grid item>
                 <Button size="small" color="primary"
                   className={styles.button}
-                  onClick={ e => navigate("/editSubscriber", {state:{subscriber:sD}})}
-                > Edit
+                  onClick={handleEditClick}>
+                 Edit
         </Button>
               </Grid>
               <Grid item>
@@ -258,4 +263,3 @@ export default function SubscriberCard(props) {
       </>
     )
   };
-  // <SubscriberEditForm subscriberDetails={sD} />

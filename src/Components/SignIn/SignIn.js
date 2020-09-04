@@ -177,7 +177,7 @@ export default function SignIn(props) {
                                         </Link>
                                     </Grid>
                                     <Grid item>
-                                        <Link href="https://gyanlahari.com/login/" variant="body2">
+                                        <Link href="https://gyanlahari.com" variant="body2">
                                             {"Don't have an account? Sign Up"}
                                         </Link>
                                     </Grid>

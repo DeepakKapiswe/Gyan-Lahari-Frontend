@@ -36,7 +36,7 @@ export default function LinearProgressBar() {
   const classes = useStyles();
 
   return (
-    <Grid container xs
+    <Grid container
       direction="column"
       justify="flex-end"
       alignItems="center">

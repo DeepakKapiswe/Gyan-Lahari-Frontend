@@ -24,17 +24,17 @@ const useStyles = makeStyles(theme => ({
 function Copyright() {
     const classes = useStyles();
     return (
-        <React.Fragment className={classes.text}>
+        <div className={classes.text}>
         <Typography variant="body2">
           {'Copyright © '}
-            <Link className={classes.link} href="https://www.kabirgyan.com">
-                Kabir Gyan
+            <Link className={classes.link} href="https://gyanlahari.com">
+                Gyan Lahari
             </Link>
           {' '}
           {new Date().getFullYear()}
           {'.'}
         </Typography>
-       </React.Fragment>
+       </div>
     );
 }
 

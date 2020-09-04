@@ -1,5 +1,7 @@
 
 export const url_login = 'https://gyanlahari.com/api/login/';
+export const url_viewSubscriber = 'https://gyanlahari.com/api/viewSubscriber/';
+export const url_viewDistributor = 'https://gyanlahari.com/api/viewDistributor/';
 export const url_addDistributor = 'https://gyanlahari.com/api/addDistributor/';
 export const url_addUser = 'https://gyanlahari.com/api/addUser/';
 export const url_bulkDistributionList = 'https://gyanlahari.com/api/bulkDistributionList/';

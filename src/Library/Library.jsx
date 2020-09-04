@@ -1,6 +1,8 @@
 
-export function setLoggedIn () {
+export function setLoggedIn (user) {
     localStorage.setItem('#1', 't');
+    localStorage.setItem('uType', user.uType);
+    localStorage.setItem('uId', user.uId);
 }
 
 export function setLoggedOut () {
@@ -13,3 +15,14 @@ export function isLoggedIn () {
     return false;
 }
 
+export function getUserTypeLS () {
+    return (localStorage.getItem('uType'));
+}
+
+export function setUserTypeLS (userType) {
+    localStorage.setItem('uType', userType);
+}
+
+export function isAuthorized (userType, authorisedUserTypes) {
+    return authorisedUserTypes.includes(userType);
+}

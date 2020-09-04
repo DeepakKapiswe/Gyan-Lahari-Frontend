@@ -1,5 +1,6 @@
 import { useNavigate } from '@reach/router';
 import { useAppState, useAppDispatch } from '../Contexts/AppContext';
+import { useCallback } from 'react';
 
 
 function useGotoRememberedLocation () {
@@ -8,15 +9,15 @@ function useGotoRememberedLocation () {
     const appDispatch = useAppDispatch();
     const flag = gotoLastLocation;
 
-    function movetoLastLocation () {
+    const movetoLastLocation = useCallback( () => {
         appDispatch({cmd : 'unsetGotoLastLocation'});
         if (flag === true) navigate(lastLocation.pathname);
-    }
+        },[appDispatch, navigate, flag, lastLocation]);
     
-    function movetoNextLocation () {
+    const movetoNextLocation = useCallback( () => {
         appDispatch({cmd : 'unsetGotoLastLocation'});
         if (flag === true) navigate(nextLocation.pathname, nextLocation.state);
-    }
+    }, [appDispatch, navigate, flag, nextLocation]);
 
     return {movetoLastLocation, movetoNextLocation}
 }
