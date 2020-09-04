@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect} from 'react';
 import './App.css';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 
-import { Router, Link } from "@reach/router";
+import { Router, Link, Redirect } from "@reach/router";
 
 import LinearProgress from './Components/Progress/LinearProgressBar';
 import Footer from './Components/Footer/Footer';
@@ -25,7 +25,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { useSaveLastLocation, useSaveNextLocation } from './Hooks/SaveLocation';
+import {Authorised} from './Common/Authorization';
+import * as auth from './Common/Authorization';
+import LoginPrompt from './Components/LoginPrompt/LoginPrompt';
+import Home from './Components/Home/Home';
 
 
 
@@ -37,11 +40,13 @@ const LoginResult = React.lazy(() => import('./Components/LoginResult/LoginResul
 const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
 const ViewAllDistributors = React.lazy(() => import('./Components/ViewDistributor/ViewAllDistributors'));
 const ViewAddedDistributor = React.lazy(() => import('./Components/ViewDistributor/ViewDistributor'));
-const DistributorDetails = React.lazy(() => import('./Components/DistributorDetails/DistributorDetails'));
+
 const ViewSubscriber = React.lazy(() => import('./Components/ViewSubscriber/ViewSubscriber'));
 const AddResult = React.lazy(() => import('./Components/AddResult/AddResult'));
 const AddDistributorResult = React.lazy(() => import('./Components/AddDistributor/AddDistributorResult'));
 const SubscriberForm = React.lazy(() => import('./Components/SubscriberForm/SubscriberForm'));
+const SubscriberDashboard = React.lazy(() => import('./Components/SubscriberDashboard/SubscriberDashboard'));
+const DistributorDashboard = React.lazy(() => import('./Components/DistributorDashboard/DistributorDashboard'));
 const SubscriberEditForm = React.lazy(() => import('./Components/SubscriberEditForm/SubscriberEditForm'));
 const DistributorEditForm = React.lazy(() => import('./Components/DistributorEditForm/DistributorEditForm'));
 const DistributorForm = React.lazy(() => import('./Components/DistributorForm/DistributorForm'));
@@ -143,15 +148,6 @@ function ListLink(props) {
   )
 }
 
-function Home() {
-  const saveLastLocation = useSaveLastLocation();
-  const saveNextLocation = useSaveNextLocation();
-  saveLastLocation();
-  saveNextLocation("/",{state:null});
-  return <Logo />;
-}
-
-
 function App(props) {
   const { window } = props;
   const classes = useStyles();
@@ -180,21 +176,39 @@ function App(props) {
       <Divider />
       <ListLink to="/" label="Home" />
       <Divider />
-      <ListLink to="/addNewSubscriber" label="Add Subscriber" />
-      <ListLink to="/recentlyAddedForm" label="View Recently Added" />
-      <ListLink to="/searchSubscriber" label="Search Subscriber" />
-      <ListLink to="/allSubscribers" label="All Subscribers" />
+      <Divider />
+      <Divider />
+      <Authorised authUserTypes={auth.uts}>
+        <ListLink to="/subscriberDashboard" label="Subscriber Dashboard" />
+      </Authorised>
+      <Authorised authUserTypes={auth.utd}>
+        <ListLink to="/distributorDashboard" label="Distributor Dashboard" />
+      </Authorised>
+      <Authorised >
+        <ListLink to="/addNewSubscriber" label="Add Subscriber" />
+      </Authorised >
+      <Authorised authUserTypes={auth.ualManager}>
+        <ListLink to="/allSubscribers" label="All Subscribers" />
       <Divider />
       <Divider />
       <Divider />
-      <ListLink to="/addNewDistributor" label="Add Distributor" />
-      <ListLink to="/viewDistributor" label="View Distributor" />
-      <ListLink to="/allDistributors" label="All Distributors" />
+        <ListLink to="/recentlyAddedForm" label="View Recently Added" />
+        <ListLink to="/searchSubscriber" label="Search Subscriber" />
       <Divider />
       <Divider />
       <Divider />
-      <ListLink to="/bulkDistributionListForm" label="Print Distribution" />
-      <ListLink to="/bulkExpiryListForm" label="Print Expiry" />
+        <ListLink to="/allDistributors" label="All Distributors" />
+        <Authorised onlyAdmin >
+          <ListLink to="/addNewDistributor" label="Add Distributor" />
+        </Authorised>
+      <Divider />
+      <Divider />
+      <Divider />
+        <ListLink to="/bulkDistributionListForm" label="Print Distribution" />
+        <ListLink to="/bulkExpiryListForm" label="Print Expiry" />
+      </Authorised>
+      <Divider />
+      <Divider />
       <Divider />
       <Router>
         <ListLink to="/loginForm" label="Sign In" path="/*" />
@@ -299,33 +313,86 @@ function App(props) {
                 <Login path="/login" />
                 <LoginResult path="/loginResult" />
                 <Home path="/" />
-                <SubscriberForm path="/addNewSubscriber" />
-                <DistributorForm path="/addNewDistributor" />
-                <DistributorDetails path="/viewDistributor" />
-                <AddDistributorResult path="/addDistributorResult" />
-                <AddResult path="/addSubscriberResult"/>
-                <ViewSubscriber path="/viewSubscriber" />
-                <SearchForm path="/searchSubscriber" />
-                <ViewAllSubscribers path="/allSubscribers" />
-                <ViewAllDistributors path="/allDistributors" />
-                <ViewAddedDistributor path="/viewAddedDistributor" />
-                <SearchResult path="/searchResult" />
-                {/* Both ^ V requires state object */}
-                <SubscriberEditForm path="/editSubscriber" />
-                <DistributorEditForm path="/editDistributor" />
-                <DistributionList path="/distributionList" />
-                <BulkDistributionList path="/bulkDistributionList" />
-                <DistributionListForm path="/distributionListForm" />
-                <BulkDistributionListForm path="/bulkDistributionListForm" />
-                <ExpiryList path="/expiryList" />
-                <BulkExpiryList path="/bulkExpiryList" />
-                <ExpiryListForm path="/expiryListForm" />
-                <BulkExpiryListForm path="/bulkExpiryListForm" />
-                <PdfView path="/viewPdf" />
-                <PdfDownload path="/downloadPdf" />
-                <RecentlyAddedForm path="/recentlyAddedForm" />
-                <RecentlyAddedResult path="/recentlyAddedResult" />
-              </Router>
+                <Authorised onlyAdmin path="/addNewSubscriber">
+                  <SubscriberForm path="/" />
+                </Authorised> 
+                <Authorised authUserTypes={auth.ualManager} path="/addNewDistributor">
+                    <DistributorForm path="/" />
+                </Authorised> 
+                <Authorised authUserTypes={auth.ualManager} path="/addDistributorResult">
+                  <AddDistributorResult path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/addSubscriberResult">
+                  <AddResult path="/"/>
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/viewSubscriber">
+                  <ViewSubscriber path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/searchSubscriber">
+                  <SearchForm path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/allSubscribers">
+                  <ViewAllSubscribers path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/allDistributors">
+                  <ViewAllDistributors path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/viewAddedDistributor">
+                  <ViewAddedDistributor path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/searchResult">
+                  <SearchResult path="/" />
+                </Authorised>
+                <Authorised path="/editSubscriber" fallback={<LoginPrompt/>}>
+                  <SubscriberEditForm path="/" />
+                </Authorised>
+                <Authorised path="/editDistributor" fallback={<LoginPrompt/>}>
+                   <DistributorEditForm path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/distributionList">
+                  <DistributionList path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/bulkDistributionList">
+                  <BulkDistributionList path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/distributionListForm">
+                  <DistributionListForm path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/bulkDistributionListForm">
+                  <BulkDistributionListForm path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/expiryList">
+                  <ExpiryList path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/bulkExpiryList">
+                  <BulkExpiryList path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/expiryListForm">
+                  <ExpiryListForm path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/bulkExpiryListForm">
+                  <BulkExpiryListForm path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/viewPdf">
+                  <PdfView path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/downloadPdf">
+                  <PdfDownload path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/recentlyAddedForm">
+                  <RecentlyAddedForm path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/recentlyAddedResult">
+                  <RecentlyAddedResult path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.uts} path="/subscriberDashboard">
+                  <SubscriberDashboard path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.utd} path="/distributorDashboard">
+                  <DistributorDashboard path="/" />
+                </Authorised>
+                </Router>
+              <Redirect default to="/" noThrow />
             </Suspense>
             <Footer />
           </ThemeProvider >
@@ -334,6 +401,5 @@ function App(props) {
     </div>
   );
 }
-
 
 export default App;

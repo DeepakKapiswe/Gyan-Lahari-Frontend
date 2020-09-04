@@ -1,33 +1,33 @@
 import React from 'react'
+import { getUserTypeLS, setUserTypeLS } from '../Library/Library'
 const AppStateContext = React.createContext()
 const AppDispatchContext = React.createContext()
 
 function appReducer(state, action) {
   switch (action.cmd) {
     case 'setUserLoggedIn': {
-      state.isUserLoggedIn = true
-      return state
+      return {...state, isUserLoggedIn : true}
     }
     case 'unsetUserLoggedIn': {
-      state.isUserLoggedIn = false
-      return state
+      return {...state, isUserLoggedIn : false} 
     }
     case 'setGotoLastLocation': {
-      state.gotoLastLocation = true
-      return state
+      return {...state, gotoLastLocation : true}
     }
     case 'unsetGotoLastLocation': {
-      state.gotoLastLocation = false
-      return state
+      return {...state, gotoLastLocation : false}
     }
     case 'saveLastLocation': {
-      state.lastLocation = action.lastLocation
-      return state
+      return {...state, lastLocation : action.lastLocation}
     }
     case 'saveNextLocation': {
       state.nextLocation.pathname = action.nextLocationPath
       state.nextLocation.state = action.nextLocationState
       return state
+    }
+    case 'setUserType' : {
+      setUserTypeLS(action.userType)
+      return {...state, userType: action.userType }
     }
     default: {
       throw new Error(`Unhandled action Command: ${action.cmd}`)
@@ -38,6 +38,7 @@ function appReducer(state, action) {
 const initAppState = {
     isUserLoggedIn: false,
     gotoLastLocation: false,
+    userType: getUserTypeLS(),
     lastLocation:{pathname:'/', state : {}},
     nextLocation:{pathname:'/', state : {}},
 }

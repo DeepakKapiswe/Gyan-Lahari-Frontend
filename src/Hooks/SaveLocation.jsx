@@ -1,30 +1,32 @@
 import { useLocation } from '@reach/router';
 import { useAppDispatch } from '../Contexts/AppContext';
-import { isLoggedIn } from '../Library/Library';
 
 
 
 function useSaveLastLocation() {
     const location = useLocation();
     const appDispatch = useAppDispatch();
-    return () => {
-        if (!isLoggedIn()) {
+    return (path, state) => {
+        location.pathname = path || location.pathname;
+        location.state = state || location.state;
         appDispatch({ cmd: 'saveLastLocation', lastLocation: location });
         appDispatch({ cmd: 'setGotoLastLocation' });
-    }}
+}
 }
 
 export { useSaveLastLocation }
 
 function useSaveNextLocation() {
+    const location = useLocation();
     const appDispatch = useAppDispatch();
     return (pathname, state) => {
-        if (!isLoggedIn()) {
+        pathname = pathname || location.pathname;
+        state = state || location.state;
         appDispatch({ cmd: 'saveNextLocation', 
                       nextLocationPath: pathname, 
                       nextLocationState : state 
                     });
-    }}
+    }
 }
 
 export { useSaveNextLocation }
