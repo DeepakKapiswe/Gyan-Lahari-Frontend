@@ -87,7 +87,8 @@ export default function SignIn(props) {
     const {movetoLastLocation} = useGotoRememberedLocation();
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
-        navigate("/loginResult/", { state: { userAuthData: data } })
+        data.userRole = props.userRole || "administrativeUser" ;
+        navigate("/loginResult/", { state: { userAuthData: data } });
     };
 
     const classes = useStyles();
