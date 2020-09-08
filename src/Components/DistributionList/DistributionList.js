@@ -5,10 +5,10 @@ import Cookies from 'js-cookie';
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 import SubscriberCard     from '../SubscriberCard/SubscriberCard';
 import BackButton         from '../BackButton/BackButton';
-import { url_bulkDistributionList } from '../../apiEndpoints/api';
+import { url_distributionList } from '../../apiEndpoints/api';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
 
-let url = url_bulkDistributionList;
+let url = url_distributionList;
 
 function DistSubscribers(props) {
   const fetcher = (...args) => fetch(url, {
