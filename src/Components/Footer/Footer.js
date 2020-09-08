@@ -34,6 +34,10 @@ function Copyright() {
           {new Date().getFullYear()}
           {'.'}
         </Typography>
+        <Typography variant="body2" >
+                {'Contact us '}
+                {'+91-9155950505'}
+            </Typography>
        </div>
     );
 }
