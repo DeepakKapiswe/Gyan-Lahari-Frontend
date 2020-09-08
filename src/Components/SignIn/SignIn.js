@@ -26,12 +26,16 @@ function Copyright() {
         </Typography>
             <Typography variant="body2" color="textSecondary" >
                 {'Copyright © '}
-                <Link color="secondary" href="https://gyanlahari.com/">
+                <Link href="https://gyanlahari.com/">
                     Gyan Lahari
             </Link>
                 {' '}
                 {new Date().getFullYear()}
                 {'.'}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" >
+                {'Contact us '}
+                {'+91-9155950505'}
             </Typography>
         </React.Fragment>
     );
@@ -129,24 +133,35 @@ export default function SignIn(props) {
                             </Typography>
                             <Typography >
                                 Details
-                        </Typography>
+                            </Typography>
                             <form
                                 onSubmit={handleSubmit(onSubmit)}
                                 className={classes.form}
                                 noValidate
                             >
+                                {props.user !== "Admin" && 
+                                    <>
+                                    <Typography align="center">
+                                        Please Enter Your Registered Mobile Number
+                                    </Typography>
+                                    <Typography align="center">
+                                        कृपया अपना रेजिस्टर्ड मोबाइल नम्बर भरें
+                                    </Typography>
+                                    </>
+                                }
                                 <TextField
                                     variant="outlined"
                                     margin="normal"
                                     inputRef={register}
                                     required
+                                    type={props.user == "Admin" ? "text" : "number"}
                                     id="userId"
                                     name="userId"
-                                    label="User Name"
+                                    label={props.user == "Admin" ? "User Name" : "Mobile Number"}
                                     fullWidth
                                     autoComplete="userId"
                                 />
-                                <TextField
+                                {props.user == "Admin" && <TextField
                                     variant="outlined"
                                     margin="normal"
                                     inputRef={register}
@@ -156,12 +171,9 @@ export default function SignIn(props) {
                                     autoComplete="password"
                                     required
                                     fullWidth
-                                    type="password"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox value="remember" color="primary" />}
-                                    label="Remember me"
-                                />
+                                    type="password" />
+                                    }
+                                
                                 <Button
                                     type="submit"
                                     fullWidth
@@ -171,18 +183,28 @@ export default function SignIn(props) {
                                 >
                                     Login
                             </Button>
-                                <Grid container direction="column">
-                                    <Grid item xs>
-                                        <Link href="#" variant="body2">
-                                            Forgot password?
-                                        </Link>
-                                    </Grid>
-                                    <Grid item>
-                                        <Link href="https://gyanlahari.com" variant="body2">
-                                            {"Don't have an account? Sign Up"}
-                                        </Link>
-                                    </Grid>
-                                </Grid>
+                                {props.user !== "Admin" ? 
+                                  <Grid container direction="column">
+                                      <Grid item>
+                                          <Typography >
+                                              To register your mobile number
+                                          </Typography>
+                                      </Grid>
+                                      <Grid item>
+                                          <Typography >
+                                              Give us a call at +91-9155950505
+                                          </Typography>
+                                      </Grid>
+                                  </Grid> :
+                                  <Grid container direction="column">
+                                      <Grid item>
+                                          <Typography >
+                                              For Tech Support Call +91-9155950505
+                                          </Typography>
+                                      </Grid>
+                                  </Grid>
+
+                                }
                                 <Box mt={5}>
                                     <Copyright />
                                 </Box>
