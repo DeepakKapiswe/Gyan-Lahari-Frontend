@@ -7,6 +7,7 @@ export const url_addUser = 'https://gyanlahari.com/api/addUser/';
 export const url_bulkDistributionList = 'https://gyanlahari.com/api/bulkDistributionList/';
 export const url_bulkExpiryList = 'https://gyanlahari.com/api/bulkExpiryList/';
 export const url_distributionList = 'https://gyanlahari.com/api/distributionList/';
+export const url_distDistributionList = 'https://gyanlahari.com/api/distDistributionList/';
 export const url_expiryList = 'https://gyanlahari.com/api/expiryList/';
 export const url_searchSubscriber = 'https://gyanlahari.com/api/searchSubscriber/';
 export const url_recentlyAddedSubscribers = 'https://gyanlahari.com/api/recentlyAddedSubscribers/';

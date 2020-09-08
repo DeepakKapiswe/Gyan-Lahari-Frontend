@@ -5,12 +5,15 @@ import Cookies from 'js-cookie';
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 import SubscriberCard     from '../SubscriberCard/SubscriberCard';
 import BackButton         from '../BackButton/BackButton';
-import { url_distributionList } from '../../apiEndpoints/api';
+import { url_distributionList, url_distDistributionList } from '../../apiEndpoints/api';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
+import { useAppState } from '../../Contexts/AppContext';
 
 let url = url_distributionList;
 
 function DistSubscribers(props) {
+  const {userType} = useAppState();
+  const url = userType === 'UDistributor' ? url_distDistributionList : url_distributionList ;
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {

@@ -349,13 +349,13 @@ function App(props) {
                 <Authorised path="/editDistributor" fallback={<LoginPrompt/>}>
                    <DistributorEditForm path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/distributionList">
+                <Authorised authUserTypes={auth.ualDistributor} path="/distributionList">
                   <DistributionList path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualManager} path="/bulkDistributionList">
                   <BulkDistributionList path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/distributionListForm">
+                <Authorised authUserTypes={auth.ualDistributor} path="/distributionListForm">
                   <DistributionListForm path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualManager} path="/bulkDistributionListForm">
@@ -373,10 +373,10 @@ function App(props) {
                 <Authorised authUserTypes={auth.ualManager} path="/bulkExpiryListForm">
                   <BulkExpiryListForm path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/viewPdf">
+                <Authorised authUserTypes={auth.ualDistributor} path="/viewPdf">
                   <PdfView path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/downloadPdf">
+                <Authorised authUserTypes={auth.ualDistributor} path="/downloadPdf">
                   <PdfDownload path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualManager} path="/recentlyAddedForm">
