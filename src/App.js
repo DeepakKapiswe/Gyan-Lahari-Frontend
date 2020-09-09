@@ -196,8 +196,8 @@ function App(props) {
         <Divider />
         <Divider />
         <Divider />
-        <Authorised authUserTypes={auth.ualManager}>
           <ListLink to="/allSubscribers" label="All Subscribers" />
+        <Authorised authUserTypes={auth.ualManager}>
           <ListLink to="/allDistributors" label="All Distributors" />
           <Authorised onlyAdmin >
             <ListLink to="/addNewDistributor" label="Add Distributor" />
@@ -333,7 +333,7 @@ function App(props) {
                 <Authorised authUserTypes={auth.ualDistributor} path="/searchSubscriber">
                   <SearchForm path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/allSubscribers">
+                <Authorised authUserTypes={auth.ualDistributor} path="/allSubscribers">
                   <ViewAllSubscribers path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualManager} path="/allDistributors">

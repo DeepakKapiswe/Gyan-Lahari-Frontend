@@ -4,19 +4,19 @@ import Cookies from 'js-cookie';
 
 import SubscriberCard from '../SubscriberCard/SubscriberCard';
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
-import { url_getAllSubscribers } from '../../apiEndpoints/api';
+import { url_getAllSubscribers, url_distGetAllSubscribers } from '../../apiEndpoints/api';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
 import { useSaveNextLocation } from '../../Hooks/SaveLocation';
 import { useLocation } from '@reach/router';
+import { useAppState } from '../../Contexts/AppContext';
 
-let url = url_getAllSubscribers;
-
-// const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function ViewAllSubscribers(props) {
   const saveNextLocation = useSaveNextLocation();
   const location = useLocation();
   saveNextLocation(location.pathname,{state:{}})
+  const {userType} = useAppState();
+  const url = userType === 'UDistributor' ? url_distGetAllSubscribers : url_getAllSubscribers;
   const fetcher = (...args) => fetch(url, {
     method: 'GET',
     headers: {
