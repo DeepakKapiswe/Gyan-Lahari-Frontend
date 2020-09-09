@@ -343,10 +343,10 @@ function App(props) {
                 <Authorised authUserTypes={auth.ualManager} path="/searchResult">
                   <SearchResult path="/" />
                 </Authorised>
-                <Authorised path="/editSubscriber" fallback={<LoginPrompt/>}>
+                <Authorised fallback={<LoginPrompt/>} path="/editSubscriber">
                   <SubscriberEditForm path="/" />
                 </Authorised>
-                <Authorised path="/editDistributor" fallback={<LoginPrompt/>}>
+                <Authorised fallback={<LoginPrompt/>} path="/editDistributor">
                    <DistributorEditForm path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualDistributor} path="/distributionList">
@@ -361,13 +361,13 @@ function App(props) {
                 <Authorised authUserTypes={auth.ualManager} path="/bulkDistributionListForm">
                   <BulkDistributionListForm path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/expiryList">
+                <Authorised authUserTypes={auth.ualDistributor} path="/expiryList">
                   <ExpiryList path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualManager} path="/bulkExpiryList">
                   <BulkExpiryList path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/expiryListForm">
+                <Authorised authUserTypes={auth.ualDistributor} path="/expiryListForm">
                   <ExpiryListForm path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualManager} path="/bulkExpiryListForm">

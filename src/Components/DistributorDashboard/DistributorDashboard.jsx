@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 import { makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { url_viewDistributor } from '../../apiEndpoints/api';
+import { url_distViewDistributor } from '../../apiEndpoints/api';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
 import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
 import DistributorDetails from '../DistributorDetails/DistributorDetails';
@@ -22,7 +22,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
 }));
 
 
-let url = url_viewDistributor;
+let url = url_distViewDistributor;
 
 export default function DistributorDashboard (props) {
   const styles= useStyles();

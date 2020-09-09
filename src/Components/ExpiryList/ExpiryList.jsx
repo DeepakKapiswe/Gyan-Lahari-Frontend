@@ -5,12 +5,15 @@ import Cookies from 'js-cookie';
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 import SubscriberCard     from '../SubscriberCard/SubscriberCard';
 import BackButton         from '../BackButton/BackButton';
-import { url_expiryList } from '../../apiEndpoints/api';
+import { url_expiryList, url_distExpiryList } from '../../apiEndpoints/api';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
+import { useAppState } from '../../Contexts/AppContext';
 
 let url = url_expiryList;
 
 function ExpiredSubscribers(props) {
+  const {userType} = useAppState();
+  const url = userType === 'UDistributor' ? url_distExpiryList : url_expiryList ;
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {
