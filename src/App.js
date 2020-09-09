@@ -187,26 +187,28 @@ function App(props) {
       <Authorised >
         <ListLink to="/addNewSubscriber" label="Add Subscriber" />
       </Authorised >
-      <Authorised authUserTypes={auth.ualManager}>
-        <ListLink to="/allSubscribers" label="All Subscribers" />
-      <Divider />
-      <Divider />
-      <Divider />
-        <ListLink to="/recentlyAddedForm" label="View Recently Added" />
-        <ListLink to="/searchSubscriber" label="Search Subscriber" />
-      <Divider />
-      <Divider />
-      <Divider />
-        <ListLink to="/allDistributors" label="All Distributors" />
-        <Authorised onlyAdmin >
-          <ListLink to="/addNewDistributor" label="Add Distributor" />
+      <Authorised authUserTypes={auth.ualDistributor}>
+        <Divider />
+        <Divider />
+        <Divider />
+          <ListLink to="/recentlyAddedForm" label="View Recently Added" />
+          <ListLink to="/searchSubscriber" label="Search Subscriber" />
+        <Divider />
+        <Divider />
+        <Divider />
+        <Authorised authUserTypes={auth.ualManager}>
+          <ListLink to="/allSubscribers" label="All Subscribers" />
+          <ListLink to="/allDistributors" label="All Distributors" />
+          <Authorised onlyAdmin >
+            <ListLink to="/addNewDistributor" label="Add Distributor" />
+          </Authorised>
+          <Divider />
+          <Divider />
+          <Divider />
+          <ListLink to="/bulkDistributionListForm" label="Print Distribution" />
+          <ListLink to="/bulkExpiryListForm" label="Print Expiry" />
         </Authorised>
-      <Divider />
-      <Divider />
-      <Divider />
-        <ListLink to="/bulkDistributionListForm" label="Print Distribution" />
-        <ListLink to="/bulkExpiryListForm" label="Print Expiry" />
-      </Authorised>
+      </Authorised >
       <Divider />
       <Divider />
       <Divider />
@@ -328,7 +330,7 @@ function App(props) {
                 <Authorised authUserTypes={auth.ualManager} path="/viewSubscriber">
                   <ViewSubscriber path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/searchSubscriber">
+                <Authorised authUserTypes={auth.ualDistributor} path="/searchSubscriber">
                   <SearchForm path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualManager} path="/allSubscribers">
@@ -340,7 +342,7 @@ function App(props) {
                 <Authorised authUserTypes={auth.ualManager} path="/viewAddedDistributor">
                   <ViewAddedDistributor path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/searchResult">
+                <Authorised authUserTypes={auth.ualDistributor} path="/searchResult">
                   <SearchResult path="/" />
                 </Authorised>
                 <Authorised fallback={<LoginPrompt/>} path="/editSubscriber">
@@ -379,10 +381,10 @@ function App(props) {
                 <Authorised authUserTypes={auth.ualDistributor} path="/downloadPdf">
                   <PdfDownload path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/recentlyAddedForm">
+                <Authorised authUserTypes={auth.ualDistributor} path="/recentlyAddedForm">
                   <RecentlyAddedForm path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/recentlyAddedResult">
+                <Authorised authUserTypes={auth.ualDistributor} path="/recentlyAddedResult">
                   <RecentlyAddedResult path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.uts} path="/subscriberDashboard">

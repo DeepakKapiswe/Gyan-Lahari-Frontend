@@ -4,13 +4,13 @@ import Cookies from 'js-cookie';
 
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 import SubscriberCard from '../SubscriberCard/SubscriberCard';
-import { url_searchSubscriber } from '../../apiEndpoints/api';
+import { url_searchSubscriber, url_distSearchSubscriber } from '../../apiEndpoints/api';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
-
-
-let url = url_searchSubscriber;
+import { useAppState } from '../../Contexts/AppContext';
 
 export default function FindSubscriberResult(props) {
+  const {userType} = useAppState();
+  const url = userType === 'UDistributor' ? url_distSearchSubscriber : url_searchSubscriber;
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {
