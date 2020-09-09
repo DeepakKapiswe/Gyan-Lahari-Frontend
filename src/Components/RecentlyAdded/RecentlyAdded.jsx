@@ -4,11 +4,13 @@ import Cookies from 'js-cookie';
 
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
 import SubscriberCard from '../SubscriberCard/SubscriberCard';
-import { url_recentlyAddedSubscribers } from '../../apiEndpoints/api';
+import { url_recentlyAddedSubscribers, url_distRecentlyAddedSubscribers } from '../../apiEndpoints/api';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
+import { useAppState } from '../../Contexts/AppContext';
 
-let url = url_recentlyAddedSubscribers;
 export default function RecentlyAddedSubscribers(props) {
+  const {userType} = useAppState();
+  const url = userType === 'UDistributor' ? url_distRecentlyAddedSubscribers : url_recentlyAddedSubscribers ;
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {
