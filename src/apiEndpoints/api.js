@@ -1,5 +1,6 @@
 
 export const url_login = 'https://gyanlahari.com/api/login/';
+export const url_distLogin = 'https://gyanlahari.com/api/distLogin/';
 export const url_viewSubscriber = 'https://gyanlahari.com/api/viewSubscriber/';
 export const url_viewDistributor = 'https://gyanlahari.com/api/viewDistributor/';
 export const url_distViewDistributor = 'https://gyanlahari.com/api/dist/viewDistributor/';

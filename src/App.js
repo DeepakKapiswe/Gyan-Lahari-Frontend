@@ -197,6 +197,14 @@ function App(props) {
         <Divider />
         <Divider />
           <ListLink to="/allSubscribers" label="All Subscribers" />
+          <Divider />
+          <Divider />
+          <Divider />
+          <Authorised authUserTypes={auth.utd}>
+
+          <ListLink to="/distributionListForm" label="Distribution List" />
+          <ListLink to="/expiryListForm" label="Expiry List" />
+          </Authorised>
         <Authorised authUserTypes={auth.ualManager}>
           <ListLink to="/allDistributors" label="All Distributors" />
           <Authorised onlyAdmin >

@@ -1,5 +1,5 @@
 import React from 'react'
-import { getUserTypeLS, setUserTypeLS } from '../Library/Library'
+import { getUserTypeLS, setUserTypeLS, getDistributorLS, setDistributorLS } from '../Library/Library'
 const AppStateContext = React.createContext()
 const AppDispatchContext = React.createContext()
 
@@ -26,8 +26,12 @@ function appReducer(state, action) {
       return state
     }
     case 'setUserType' : {
-      setUserTypeLS(action.userType)
+      setUserTypeLS(action.userType);
       return {...state, userType: action.userType }
+    }
+    case 'setDistributorDetails' : {
+      setDistributorLS(action.distributorDetails);
+      return {...state, distributorDetails: action.distributorDetails }
     }
     default: {
       throw new Error(`Unhandled action Command: ${action.cmd}`)
@@ -39,6 +43,7 @@ const initAppState = {
     isUserLoggedIn: false,
     gotoLastLocation: false,
     userType: getUserTypeLS(),
+    distributorDetails: getDistributorLS(), 
     lastLocation:{pathname:'/', state : {}},
     nextLocation:{pathname:'/', state : {}},
 }

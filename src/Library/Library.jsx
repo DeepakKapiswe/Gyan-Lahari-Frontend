@@ -1,8 +1,8 @@
 
-export function setLoggedIn (user) {
+export function setLoggedIn (uType, uId) {
     localStorage.setItem('#1', 't');
-    localStorage.setItem('uType', user.uType);
-    localStorage.setItem('uId', user.uId);
+    localStorage.setItem('uType', uType);
+    localStorage.setItem('uId', uId);
 }
 
 export function setLoggedOut () {
@@ -21,6 +21,14 @@ export function getUserTypeLS () {
 
 export function setUserTypeLS (userType) {
     localStorage.setItem('uType', userType);
+}
+
+export function getDistributorLS () {
+    return (JSON.parse(localStorage.getItem('distributor')));
+}
+
+export function setDistributorLS (distData) {
+    localStorage.setItem('distributor', JSON.stringify(distData));
 }
 
 export function isAuthorized (userType, authorisedUserTypes) {

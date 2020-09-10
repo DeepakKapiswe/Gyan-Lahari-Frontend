@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useNavigate } from "@reach/router"
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
+import { useAppState } from '../../Contexts/AppContext';
 
 
 
@@ -54,9 +55,11 @@ const useStyles = makeStyles(theme => (
   
 export default function DistributionListForm(props) {
   const navigate = useNavigate();
+  
   const { register, handleSubmit } = useForm();
-  const distId = props.location.state.distributor.distId;
-  const dD = props.location.state.distributor;
+  const {distributorDetails} = useAppState();
+  const distId = distributorDetails.distId || props.location.state.distributor.distId;
+  const dD = distributorDetails || props.location.state.distributor;
   const onSubmit = data => {
     data.dldCurrentVol = data.dldCurrentVol*1
     navigate("/distributionList", {state:{dldDetails:data, distDetails:dD }})

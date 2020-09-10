@@ -3,8 +3,6 @@ import { useForm } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -154,14 +152,14 @@ export default function SignIn(props) {
                                     margin="normal"
                                     inputRef={register}
                                     required
-                                    type={props.user == "Admin" ? "text" : "number"}
+                                    type={props.user === "Admin" ? "text" : "number"}
                                     id="userId"
                                     name="userId"
-                                    label={props.user == "Admin" ? "User Name" : "Mobile Number"}
+                                    label={props.user === "Admin" ? "User Name" : "Mobile Number"}
                                     fullWidth
                                     autoComplete="userId"
                                 />
-                                {props.user == "Admin" && <TextField
+                                {props.user === "Admin" && <TextField
                                     variant="outlined"
                                     margin="normal"
                                     inputRef={register}

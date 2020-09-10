@@ -9,7 +9,6 @@ import { url_distributionList, url_distDistributionList } from '../../apiEndpoin
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
 import { useAppState } from '../../Contexts/AppContext';
 
-let url = url_distributionList;
 
 function DistSubscribers(props) {
   const {userType} = useAppState();
