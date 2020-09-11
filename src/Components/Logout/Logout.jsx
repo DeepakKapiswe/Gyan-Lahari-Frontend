@@ -23,12 +23,14 @@ export default function Login(props) {
 
   const { data, error} = useSWR(url, fetcher, { suspense: true, refreshInterval: 99999999999999 , revalidateOnFocus: false });
   useEffect(() => {
-    if (data === null ) { movetoLastLocation(); }
+    if (data === null ) { 
+      movetoLastLocation(); 
+      } else {
     setLoggedOut();
     localStorage.clear();
     appDispatch({ cmd: 'clearContext'});
     navigate("/");
-  }, [data, movetoLastLocation, appDispatch]);
+  }}, [data, movetoLastLocation, appDispatch]);
   if (error) return <div>Failed to Load in Logout User</div>
   return <h1> {data} </h1>
 }

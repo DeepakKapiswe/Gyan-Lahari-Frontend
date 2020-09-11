@@ -25,14 +25,14 @@ export default function Login(props) {
 
   const { data, error} = useSWR(url, fetcher, { suspense: true, refreshInterval: 99999999999999 , revalidateOnFocus: false });
   useEffect(() => {
-    if (data === null ) { movetoLastLocation(); }
-    if (data.hasOwnProperty('uType')) {
+    if (data === (null || 401 )) { movetoLastLocation(); }
+    else if (data.hasOwnProperty('uType')) {
       setUserLoggedIn();
       setLoggedIn(data.uType, data.uId);
       setUserType(data.uType);
       movetoNextLocation ();
       }
-    if (data.hasOwnProperty('distId')) {
+    else if (data.hasOwnProperty('distId')) {
       setUserLoggedIn();
       setLoggedIn('UDistributor', data.distId);
       setUserType('UDistributor');
