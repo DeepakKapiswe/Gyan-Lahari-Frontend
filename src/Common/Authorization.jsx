@@ -1,12 +1,15 @@
 import { useAuth } from '../Hooks/AuthHooks';
 import { isAuthorized } from '../Library/Library';
 import { useEffect } from 'react';
+import { useState } from 'react';
 
 export function Authorised (props) {
     const {userType} = useAuth();
+    const [authStatus, setAuthStatus] = useState(isAuthorized(userType, props.authUserTypes));
     useEffect (() => {
-    },[userType]);
-    if (isAuthorized(userType, props.authUserTypes)) {return props.children;}
+        setAuthStatus(isAuthorized(userType, props.authUserTypes));
+    },[userType, props.authUserTypes]);
+    if (authStatus) {return props.children;}
     return props.fallback;
 };
 

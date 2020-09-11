@@ -29,11 +29,13 @@ import {Authorised} from './Common/Authorization';
 import * as auth from './Common/Authorization';
 import LoginPrompt from './Components/LoginPrompt/LoginPrompt';
 import Home from './Components/Home/Home';
+import { useAuth } from './Hooks/AuthHooks';
 
 
 
 
 const Login = React.lazy(() => import('./Components/Login/Login.jsx'));
+const Logout = React.lazy(() => import('./Components/Logout/Logout'));
 const LoginForm = React.lazy(() => import('./Components/LoginForm/LoginForm'));
 const LoginBackdrop = React.lazy(() => import('./Components/LoginBackdrop/LoginBackdrop'));
 const LoginResult = React.lazy(() => import('./Components/LoginResult/LoginResult'));
@@ -148,6 +150,15 @@ function ListLink(props) {
   )
 }
 
+function ShowIfLoggedIn (props) {
+  const {isUserLoggedIn} = useAuth();
+    useEffect (() => {
+    },[isUserLoggedIn]);
+    if (isUserLoggedIn) {return props.showToLoggedIn}
+    return props.showToLoggedOut;
+}
+
+
 function App(props) {
   const { window } = props;
   const classes = useStyles();
@@ -220,10 +231,10 @@ function App(props) {
       <Divider />
       <Divider />
       <Divider />
-      <Router>
-        <ListLink to="/loginForm" label="Sign In" path="/*" />
-        <ListLink to="/" label="Sign Out" path="user/*" />
-      </Router>
+      <ShowIfLoggedIn
+        showToLoggedIn={<ListLink to="/logout" label="Sign Out" />}
+        showToLoggedOut={<ListLink to="/loginForm" label="Sign In"/> }
+        />
     </>
   );
   const drawer = (
@@ -322,6 +333,8 @@ function App(props) {
                 <LoginBackdrop path="/loginBackdrop" />
                 <Login path="/login" />
                 <LoginResult path="/loginResult" />
+                <Logout path="/logout" />
+
                 <Home path="/" />
                 <Authorised onlyAdmin path="/addNewSubscriber">
                   <SubscriberForm path="/" />

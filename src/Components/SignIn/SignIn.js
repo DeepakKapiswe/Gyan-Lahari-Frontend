@@ -11,8 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import './signin.css';
 import custImg from './lotus.png';
-import FlowerDiv from '../FlowerDiv/FlowerDiv';
-import { Hidden, Fab } from '@material-ui/core';
+import { Fab } from '@material-ui/core';
 import { useNavigate } from "@reach/router";
 import { useGotoRememberedLocation } from '../../Hooks/GotoRememberedLocation';
 
@@ -210,9 +209,6 @@ export default function SignIn(props) {
                         </div>
                     </Grid>
                 </Grid>
-                <Hidden mdDown>
-                    <FlowerDiv />
-                </Hidden>
             </Grid>
         </>
     );

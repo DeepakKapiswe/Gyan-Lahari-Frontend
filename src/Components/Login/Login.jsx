@@ -10,7 +10,7 @@ import { useDistributorLogin } from '../../Hooks/LoginHooks';
 
 export default function Login(props) {
   const {movetoLastLocation, movetoNextLocation} = useGotoRememberedLocation();
-  const {setUserType} = useAuth();
+  const {setUserType, setUserLoggedIn} = useAuth();
   const {setDistributorDetails} = useDistributorLogin();
   const url = props.payload.userRole === 'Distributor' ? url_distLogin : url_login;
   const fetcher = (...args) => fetch(url, {
@@ -25,19 +25,26 @@ export default function Login(props) {
 
   const { data, error} = useSWR(url, fetcher, { suspense: true, refreshInterval: 99999999999999 , revalidateOnFocus: false });
   useEffect(() => {
+    if (data === null ) { movetoLastLocation(); }
     if (data.hasOwnProperty('uType')) {
+      setUserLoggedIn();
       setLoggedIn(data.uType, data.uId);
       setUserType(data.uType);
       movetoNextLocation ();
       }
     if (data.hasOwnProperty('distId')) {
+      setUserLoggedIn();
       setLoggedIn('UDistributor', data.distId);
       setUserType('UDistributor');
       setDistributorDetails(data);
       movetoNextLocation();
       }
-    if (data === null ) { movetoLastLocation(); }
-  },[data, movetoLastLocation, movetoNextLocation, setUserType, setDistributorDetails] );
+  },[ data, 
+      movetoLastLocation,
+      movetoNextLocation,
+      setUserType,
+      setDistributorDetails,
+      setUserLoggedIn ] );
   
   if (props.payload.userId === '') { return <h1>MSG : Props is null in Login User</h1>; }
   if (error) return <div>Failed to Load in Login User</div>

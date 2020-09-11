@@ -1,14 +1,19 @@
 import React from 'react'
-import { getUserTypeLS, setUserTypeLS, getDistributorLS, setDistributorLS } from '../Library/Library'
+import { getUserTypeLS, setUserTypeLS, getDistributorLS, setDistributorLS, setLoggedOut, isLoggedIn } from '../Library/Library'
 const AppStateContext = React.createContext()
 const AppDispatchContext = React.createContext()
 
 function appReducer(state, action) {
   switch (action.cmd) {
+    case 'clearContext': {
+      state = initAppState;
+      return state;
+    }
     case 'setUserLoggedIn': {
       return {...state, isUserLoggedIn : true}
     }
     case 'unsetUserLoggedIn': {
+      setLoggedOut();
       return {...state, isUserLoggedIn : false} 
     }
     case 'setGotoLastLocation': {
@@ -40,7 +45,7 @@ function appReducer(state, action) {
 }
 
 const initAppState = {
-    isUserLoggedIn: false,
+    isUserLoggedIn: isLoggedIn(),
     gotoLastLocation: false,
     userType: getUserTypeLS(),
     distributorDetails: getDistributorLS(), 
