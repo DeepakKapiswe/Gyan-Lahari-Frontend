@@ -55,8 +55,8 @@ export default function ExpiryListForm(props) {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const {distributorDetails} = useAppState();
-  const distId = distributorDetails.distId || props.location.state.distributor.distId;
-  const dD = distributorDetails || props.location.state.distributor;
+  const distId = distributorDetails !== null ? distributorDetails.distId : props.location.state.distributor.distId;
+  const dD = distributorDetails !== null ? distributorDetails : props.location.state.distributor;
   const onSubmit = data => {
     data.eldExpiryVol          = data.eldExpiryVol*1
     data.eldExpiryYearDuration = data.eldExpiryYearDuration*1
