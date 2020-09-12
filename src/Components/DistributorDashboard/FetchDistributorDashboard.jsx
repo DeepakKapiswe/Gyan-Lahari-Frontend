@@ -2,30 +2,14 @@ import React from 'react';
 import useSWR from 'swr';
 import Cookies from 'js-cookie';
 
-import { makeStyles} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import { url_distViewDistributor } from '../../apiEndpoints/api';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
 import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
 import DistributorDetails from '../DistributorDetails/DistributorDetails';
 
-const useStyles = makeStyles(({ breakpoints, spacing }) => ({
-  heading: {
-    color: '#aaaaaa',
-    [breakpoints.down('md')]: {
-      fontSize: '3rem',
-    },
-    [breakpoints.down('sm')]: {
-      fontSize: '2rem',
-    },
-  },
-}));
-
-
 let url = url_distViewDistributor;
 
 export default function FetchDistributorDashboard (props) {
-  const styles = useStyles();
   const saveLastLocation = useSaveLastLocation();
   const saveNextLocation = useSaveNextLocation();
   const fetcher = (...args) => fetch(url, {
@@ -49,10 +33,6 @@ export default function FetchDistributorDashboard (props) {
   const distData = data[0];
   return (
     <>
-      <Typography variant="h2" component="h3"
-          className={styles.heading}>
-            Distributor Dashboard
-      </Typography>
       {distData && <DistributorDetails distributor={distData} />}
     </> );
 }
