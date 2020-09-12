@@ -58,8 +58,8 @@ export default function DistributionListForm(props) {
   
   const { register, handleSubmit } = useForm();
   const {distributorDetails} = useAppState();
-  const distId = distributorDetails.distId || props.location.state.distributor.distId;
-  const dD = distributorDetails || props.location.state.distributor;
+  const distId = distributorDetails !== null ? distributorDetails.distId : props.location.state.distributor.distId;
+  const dD = distributorDetails !== null ? distributorDetails : props.location.state.distributor;
   const onSubmit = data => {
     data.dldCurrentVol = data.dldCurrentVol*1
     navigate("/distributionList", {state:{dldDetails:data, distDetails:dD }})
