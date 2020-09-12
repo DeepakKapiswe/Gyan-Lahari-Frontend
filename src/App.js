@@ -168,9 +168,6 @@ function App(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  useEffect(() => {
-    document.title = `ज्ञान लहरी`;
-  });
 
   const drawerItems = (
     <>
