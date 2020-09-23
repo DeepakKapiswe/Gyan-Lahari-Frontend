@@ -1,5 +1,5 @@
 import React from 'react';
-import FindSubscriberResult from '../FindSubscriber/FindSubscriber';
+import FindSubscriber from '../FindSubscriber/FindSubscriber';
 
 import BackButton from '../BackButton/BackButton';
 
@@ -13,7 +13,7 @@ export default function SearchResult (props) {
     const query = props.location.state.searchQuery;
     return (
        <>
-        <FindSubscriberResult payload={query} />
+        <FindSubscriber payload={query} />
         <BackButton label="Search Again"/>
         </>
     );

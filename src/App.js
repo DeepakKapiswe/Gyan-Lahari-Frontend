@@ -64,7 +64,8 @@ const BulkDistributionListForm = React.lazy(() => import('./Components/BulkDistr
 const BulkExpiryListForm = React.lazy(() => import('./Components/BulkExpiryListForm/BulkExpiryListForm'));
 const RecentlyAddedForm = React.lazy(() => import('./Components/RecentlyAddedForm/RecentlyAddedForm'));
 const RecentlyAddedResult = React.lazy(() => import('./Components/RecentlyAddedResult/RecentlyAddedResult'));
-
+const FilterSubscriberForm = React.lazy (() => import('./Components/FilterSubscriberForm/FilterSubscriberForm'));
+const FilterResult = React.lazy (() => import('./Components/FilterSubscriberResult/FilterSubscriberResult'));
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -183,6 +184,7 @@ function App(props) {
       <Divider />
       <Divider />
       <ListLink to="/" label="Home" />
+      <ListLink to="/filterForm" label="Filter Subscribers" />
       <Divider />
       <Divider />
       <Divider />
@@ -331,6 +333,8 @@ function App(props) {
                 <Login path="/login" />
                 <LoginResult path="/loginResult" />
                 <Logout path="/logout" />
+                <FilterSubscriberForm path="/filterForm" />
+                <FilterResult  path="/filterResult"/>
 
                 <Home path="/" />
                 <Authorised onlyAdmin path="/addNewSubscriber">
