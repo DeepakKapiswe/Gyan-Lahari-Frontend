@@ -6,7 +6,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
-import { useFieldArray, useForm, Controller } from 'react-hook-form';
+import { useFieldArray, useForm, Controller, useWatch, get } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -18,8 +18,7 @@ import FlowerDiv from '../FlowerDiv/FlowerDiv';
 import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ClearIcon from '@material-ui/icons/Clear';
-import { Fab, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { Fab, FormControl, FormControlLabel, FormHelperText, Hidden, Input, InputLabel, MenuItem, Select } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 
 import Card from '@material-ui/core/Card';
@@ -28,21 +27,16 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import SendIcon from '@material-ui/icons/Send';
 
-const useStylesList = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-        maxWidth: 360,
-        maxHeight: '35vh',
-        overflow: 'scroll',
-        border: '3px solid #B6DBCB',
-        boxShadow: theme.shadows[9],
-        backgroundColor: theme.palette.background.paper,
-    },
-}));
-
 const useStyles = makeStyles(theme => (
     {
         root: {
+            width: '100%',
+            maxWidth: 360,
+            maxHeight: '35vh',
+            overflow: 'scroll',
+            border: '3px solid #B6DBCB',
+            boxShadow: theme.shadows[9],
+            backgroundColor: theme.palette.background.paper,
         },
         paper: {
             margin: theme.spacing(0, 0, 2, 0),
@@ -92,7 +86,6 @@ const useStyles = makeStyles(theme => (
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1.4rem',
             },
-
         },
         gridCard: {
             flexGrow: 1,
@@ -107,6 +100,7 @@ const useStyles = makeStyles(theme => (
             boxShadow: theme.shadows[9],
             alignItems: 'center',
             display: 'list-item',
+            background: '#fafafa'
         },
         card: {
             width: '100%',
@@ -158,6 +152,7 @@ const useStyles = makeStyles(theme => (
         },
     }));
 
+
 function RenderHeading(props) {
     const classes = useStyles();
     return (
@@ -171,253 +166,219 @@ function RenderHeading(props) {
     )
 }
 
+function RenderOne({ control, register, fieldName }) {
+    const classes = useStyles();
+    const [expanded, setExpanded] = useState(false);
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
+    const { fields, append, remove } = useFieldArray(
+        {
+            control,
+            name: `filterOptions.${fieldName}`
+        }
+    );
+    return (
+        <>
+            <Card className={classes.card}>
+                <CardContent className={classes.content}>
+                    <Grid item>
+                        <Typography variant="h5" component="h4"
+                            className={classes.cardHeading} gutterBottom>
+                            {fieldName}
+                        </Typography>
+                    </Grid>
+                    <Divider />
+                    <Grid container
+                        spacing={1}
+                        direction="row"
+                        alignItems="flex-end"
+                    >
+                    </Grid>
+                </CardContent>
+                <CardActions disableSpacing>
+                    <Grid container
+                        justify="space-around">
+                        {fields.length > 0 && <Grid item>
+                            <Button size="small" color="primary"
+                                variant="outlined"
+                                onClick={() => {
+                                    remove([...Array(fields.length).keys()])
+                                }
+                                }
+                            >
+                                Clear Filter
+                                </Button>
+                        </Grid>}
+                        <Grid item>
+                            <Button size="small" color="primary"
+                                onClick={handleExpandClick} variant="outlined"
+                            >
+                                Show {expanded ? 'More' : 'Less'}
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </CardActions>
+                <Collapse in={!expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                        <Grid item>
+                            {fields.map((fv, index) => {
+                                const inputField = <Grid container
+                                    spacing={1}
+                                    justify="center"
+                                    alignItems="center">
+                                    <Grid item>
+                                        <TextField
+                                            inputRef={register()}
+                                            type="text"
+                                            fullWidth
+                                            name={`filterOptions.${fieldName}`}
+                                            autoComplete={`filterOptions.${fieldName}`}
+                                            defaultValue={fv.value}
+                                        />
+                                    </Grid>
+                                    <Grid item>
+                                        <Button
+                                            type="button"
+                                            onClick={() => remove(index)}
+                                            color="secondary"
+                                            size="small"
+                                            variant="contained"
+                                            endIcon={<DeleteIcon />}
+                                        >
+                                            Remove
+                                    </Button>
+                                    </Grid>
+                                </Grid>
+                                return <div key={fv.id}>
+                                    <Controller
+                                        as={inputField}
+                                        name={`filterOptions.${fieldName}[${index}]`}
+                                        control={control}
+                                        register={register}
+                                        defaultValue=""
+                                    />
+                                </div>
+                            })}
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                type="button"
+                                onClick={() => append("")}
+                                color="primary"
+                                size="small"
+                                variant="contained"
+                                startIcon={<AddIcon />}
+                            >
+                                Add More
+                                    </Button>
+                        </Grid>
+                    </CardContent>
+                </Collapse>
+            </Card>
+        </>
+    );
+}
+
+
+
+
+const fieldNames = [
+    "subId",
+    "subStartVol",
+    "subSubscriptionType",
+    "subSlipNum",
+    "subName",
+    "subAbout",
+    "subAdd1",
+    "subAdd2",
+    "subPost",
+    "subCity",
+    "subState",
+    "subPincode",
+    "subPhone",
+    "subRemark",
+    "subDistId",
+    "subEndVol",
+]
+
+const defaultValues = {
+            filterOptions: [],
+            subId: false,
+            subStartVol: false,
+            subSubscriptionType: false,
+            subSlipNum: false,
+            subName: false,
+            subAbout: false,
+            subAdd1: false,
+            subAdd2: false,
+            subPost: false,
+            subCity: false,
+            subState: false,
+            subPincode: false,
+            subPhone: false,
+            subRemark: false,
+            subDistId: false,
+            subEndVol: false,
+        }
+
+
 export default function RenderForm() {
     const navigate = useNavigate();
-    const { register, control, handleSubmit, watch } = useForm({
-        defaultValues: {
-            filterOptions: initFilterOptions
-        }
-    });
+    const { register, control, handleSubmit, reset, getValues, setValue } = useForm({ defaultValues });
+        // shouldUnregister: false
     const saveLastLocation = useSaveLastLocation();
     const saveNextLocation = useSaveNextLocation();
     saveLastLocation();
     const onSubmit = data => {
-        console.log("Top ", data);
+        // console.log("Top ", data);
+        alert(JSON.stringify(data.filterOptions));
         // saveNextLocation("/filterResult", { state: { filterOptions: data } });
         // navigate("/filterResult", { state: { filterOptions: data } })
     };
 
     const classes = useStyles();
-    const [checked, setChecked] = React.useState([]);
-    const handleToggle = (value) => () => {
-            const currentIndex = checked.indexOf(value);
-            const newChecked = [...checked];
-            if (currentIndex === -1) {
-                newChecked.push(value);
-            } else {
-                newChecked.splice(currentIndex, 1);
-            }
-            setChecked(newChecked);
-        };
-    
-    const resetFilters = () => () => {
-        const newChecked = [];
-        setChecked(newChecked);
+
+
+    const subId = useWatch({ control, name: "subId", defaultValue: false });
+    const subStartVol = useWatch({ control, name: "subStartVol", defaultValue: false });
+    const subSubscriptionType = useWatch({ control, name: "subSubscriptionType", defaultValue: false });
+    const subSlipNum = useWatch({ control, name: "subSlipNum", defaultValue: false });
+    const subName = useWatch({ control, name: "subName", defaultValue: false });
+    const subAbout = useWatch({ control, name: "subAbout", defaultValue: false });
+    const subAdd1 = useWatch({ control, name: "subAdd1", defaultValue: false });
+    const subAdd2 = useWatch({ control, name: "subAdd2", defaultValue: false });
+    const subPost = useWatch({ control, name: "subPost", defaultValue: false });
+    const subCity = useWatch({ control, name: "subCity", defaultValue: false });
+    const subState = useWatch({ control, name: "subState", defaultValue: false });
+    const subPincode = useWatch({ control, name: "subPincode", defaultValue: false });
+    const subPhone = useWatch({ control, name: "subPhone", defaultValue: false });
+    const subRemark = useWatch({ control, name: "subRemark", defaultValue: false });
+    const subDistId = useWatch({ control, name: "subDistId", defaultValue: false });
+    const subEndVol = useWatch({ control, name: "subEndVol", defaultValue: false });
+
+    var fieldObj = {
+        "subId": subId,
+        "subStartVol": subStartVol,
+        "subSubscriptionType": subSubscriptionType,
+        "subSlipNum": subSlipNum,
+        "subName": subName,
+        "subAbout": subAbout,
+        "subAdd1": subAdd1,
+        "subAdd2": subAdd2,
+        "subPost": subPost,
+        "subCity": subCity,
+        "subState": subState,
+        "subPincode": subPincode,
+        "subPhone": subPhone,
+        "subRemark": subRemark,
+        "subDistId": subDistId,
+        "subEndVol": subEndVol,
     }
 
-    const fn = [
-        "subId"
-        , "subStartVol"
-        , "subSubscriptionType"
-        , "subSlipNum"
-        , "subName"
-        , "subAbout"
-        , "subAdd1"
-        , "subAdd2"
-        , "subPost"
-        , "subCity"
-        , "subState"
-        , "subPincode"
-        , "subPhone"
-        , "subRemark"
-        , "subDistId"
-        , "subEndVol"
-    ]
 
-    var initFilterOptions = {
-        subId: ["ASSS", "AAWW"]
-        , subStartVol: []
-        , subSubscriptionType: []
-        , subSlipNum: []
-        , subName: []
-        , subAbout: []
-        , subAdd1: []
-        , subAdd2: []
-        , subPost: []
-        , subCity: []
-        , subState: []
-        , subPincode: []
-        , subPhone: []
-        , subRemark: []
-        , subDistId: []
-        , subEndVol: []
-    }
-
-    const [filterOptions, setFilterOptions] = useState(initFilterOptions);
-
-    function CheckboxList() {
-        const classes = useStylesList();
-        
-        return (
-            <List className={classes.root}>
-                {fn.map((value) => {
-                    const labelId = `checkbox-list-label-${value}`;
-                    return (
-                        <>
-                            <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
-                                <ListItemIcon>
-                                    <Checkbox
-                                        edge="start"
-                                        checked={checked.indexOf(value) !== -1}
-                                        tabIndex={-1}
-                                        disableRipple
-                                        inputProps={{ 'aria-labelledby': labelId }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText id={labelId} primary={<Typography> {value}</Typography>} />
-                            </ListItem>
-                            <Divider variant="inset" component="li" />
-                            <Divider variant="inset" component="li" />
-                            <Divider variant="inset" component="li" />
-                        </>
-                    );
-                })}
-            </List>
-        );
-    }
-
-    function RenderOne(props) {
-        const [expanded, setExpanded] = useState(false);
-        const { reset } = useForm();
-        const handleExpandClick = () => {
-            setExpanded(!expanded);
-        };
-        const fieldName = props.fieldName;
-        const { fields, append, remove } = useFieldArray(
-            {
-                control,
-                name: `filterOptions.${fieldName}`
-            }
-        );
-
-        return (
-            <>
-                <Card className={classes.card}>
-                    <CardContent className={classes.content}>
-                        <Grid item>
-                            <Typography variant="h5" component="h4"
-                                className={classes.cardHeading} gutterBottom>
-                                {fieldName}
-                            </Typography>
-                        </Grid>
-                        <Divider />
-                        <Grid container
-                            spacing={1}
-                            direction="row"
-                            alignItems="flex-end"
-                        >
-                        </Grid>
-                    </CardContent>
-                    <CardActions disableSpacing>
-                        <Grid container
-                            justify="space-around">
-                            <Grid item>
-                                <Button size="small" color="primary"
-                                    // className={classes.button}
-                                    variant="outlined"
-                                    onClick={() => {
-                                        fields.length > 0 && remove([...Array(fields.length).keys()])
-                                    }
-                                        //   reset({
-                                        //   [fieldName] : ["Jai Guru Maa"]
-                                        //   })
-                                    }
-                                >
-                                    Clear Filter
-                                </Button>
-                            </Grid>
-                            <Grid item>
-                                <Button size="small" color="primary"
-                                    // className={classes.button}
-                                    onClick={handleExpandClick} variant="outlined"
-                                >
-                                    Show {expanded ? 'More' : 'Less'}
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </CardActions>
-                    <Collapse in={!expanded} timeout="auto" unmountOnExit>
-                        <CardContent>
-                            <Grid item>
-                                {fields.map((fv, index) => {
-                                    const inputField = <Grid container
-                                        spacing={1}
-                                        justify="center"
-                                        alignItems="center">
-                                        <Grid item>
-                                            <TextField
-                                                inputRef={register()}
-                                                type="text"
-                                                fullWidth
-                                                autoComplete={`${fieldName}`}
-                                                defaultValue={fv.value}
-                                            />
-                                        </Grid>
-                                        <Grid item>
-                                            <Button
-                                                type="button"
-                                                onClick={() => remove(index)}
-                                                color="secondary"
-                                                size="small"
-                                                variant="contained"
-                                                endIcon={<DeleteIcon />}
-                                            >
-                                                Remove
-                                    </Button>
-                                        </Grid>
-                                    </Grid>
-                                    return <div key={fv.id}>
-                                        <Controller
-                                            as={inputField}
-                                            name={`filterOptions.${fieldName}[${index}]`}
-                                            control={control}
-                                            defaultValue="" // make sure to set up defaultValue
-                                        />
-                                    </div>
-                                })}
-                            </Grid>
-                            <Grid item>
-                                <Button
-                                    type="button"
-                                    onClick={() => append("")}
-                                    color="primary"
-                                    size="small"
-                                    variant="contained"
-                                    startIcon={<AddIcon />}
-                                >
-                                    Add More
-                                    </Button>
-
-                            </Grid>
-                        </CardContent>
-                    </Collapse>
-                </Card>
-            </>
-        );
-    }
-
-    function RenderFilters() {
-        return (
-                <Grid
-                    container
-                    className={classes.color}
-                    direction="column"
-                    justify="flex-start"
-                    alignItems="stretch"
-                    spacing={1}
-
-                >
-                    {checked.map(fieldName => (
-                        <Grid item key={fieldName}
-                            className={classes.gridCard}
-                        >
-                            <RenderOne fieldName={fieldName} />
-                        </Grid>
-                    ))}
-                </Grid>
-        );
-
-    }
+    const isSelected = subId || subStartVol || subSubscriptionType || subSlipNum || subName || subAbout || subAdd1 || subAdd2 || subPost || subCity || subState || subPincode || subPhone || subRemark || subDistId || subEndVol;
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -446,52 +407,112 @@ export default function RenderForm() {
                                     >
                                         <Grid item>
                                             <RenderHeading heading="Filter Options" />
-                                            <CheckboxList />
+                                            <List className={classes.root}>
+                                                {fieldNames.map((name) => <>
+                                                    <ListItem key={name} role={undefined} dense button
+                                                        onClick={() => {
+                                                            setValue(name, !fieldObj[name]);
+                                                        }}
+                                                    >
+                                                        <ListItemIcon>
+                                                            {/* <Checkbox
+                                                                edge="start"
+                                                                name={name}
+                                                                tabIndex={-1}
+                                                                disableRipple
+                                                                defaultValue={fieldObj[name]}
+                                                                inputRef={register}
+                                                                checked={fieldObj[name]}
+                                                            /> */}
+
+                                                            <Controller
+                                                              name={name}
+                                                              control={control}
+                                                              render={(props) => (
+                                                                <Checkbox
+                                                                  onChange={(e) => props.onChange(e.target.checked)}
+                                                                //   checked={props.value}
+                                                                  checked={fieldObj[name]}
+                                                                  edge="start"
+                                                                  tabIndex={-1}
+                                                                  disableRipple
+                                                                  defaultValue={fieldObj[name]}
+                                                                />
+                                                              )}
+                                                            />
+                                                        </ListItemIcon>
+                                                        <ListItemText primary={<Typography> {name}</Typography>} />
+                                                    </ListItem>
+                                                    <Divider />
+                                                </>
+                                                )}
+                                            </List>
                                         </Grid>
 
-                                        {checked.length !== 0 &&
+                                        {isSelected &&
                                             <Grid item>
                                                 <RenderHeading heading="Filter Details" />
-                                                <RenderFilters />
+                                                <List className={classes.root}>
+                                                    {subId === true && <RenderOne control={control} register={register} fieldName="subId" />}
+                                                    {subStartVol === true && <RenderOne control={control} register={register} fieldName="subStartVol" />}
+                                                    {subSubscriptionType === true && <RenderOne control={control} register={register} fieldName="subSubscriptionType" />}
+                                                    {subSlipNum === true && <RenderOne control={control} register={register} fieldName="subSlipNum" />}
+                                                    {subName === true && <RenderOne control={control} register={register} fieldName="subName" />}
+                                                    {subAbout === true && <RenderOne control={control} register={register} fieldName="subAbout" />}
+                                                    {subAdd1 === true && <RenderOne control={control} register={register} fieldName="subAdd1" />}
+                                                    {subAdd2 === true && <RenderOne control={control} register={register} fieldName="subAdd2" />}
+                                                    {subPost === true && <RenderOne control={control} register={register} fieldName="subPost" />}
+                                                    {subCity === true && <RenderOne control={control} register={register} fieldName="subCity" />}
+                                                    {subState === true && <RenderOne control={control} register={register} fieldName="subState" />}
+                                                    {subPincode === true && <RenderOne control={control} register={register} fieldName="subPincode" />}
+                                                    {subPhone === true && <RenderOne control={control} register={register} fieldName="subPhone" />}
+                                                    {subRemark === true && <RenderOne control={control} register={register} fieldName="subRemark" />}
+                                                    {subDistId === true && <RenderOne control={control} register={register} fieldName="subDistId" />}
+                                                    {subEndVol === true && <RenderOne control={control} register={register} fieldName="subEndVol" />}
+                                                </List>
                                             </Grid>
                                         }
-                                        {checked.length !== 0 && <Fab
+                                        {isSelected && <Fab
                                             size="large" color="secondary"
                                             className={classes.fab}
                                             type="submit">
                                             <SendIcon className={classes.extendedIcon} />
-                                        </Fab>}
+                                        </Fab>
+                                        }
                                     </Grid>
                                 </>
                             </CssBaseline>
                         </Grid>
                     </Grid>
                 </Grid>
-                {checked.length !== 0 && <Grid
-                        container
-                        className={classes.bgColor}
-                        direction="row-reverse"
-                        justify="space-between"
-                        alignItems="center"
-                    >
-                <Grid item>
-                    <Button type="submit" size="large"
-                        variant="contained" color="primary"
-                        endIcon={<SendIcon />} >
-                        Get Results
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button size="large"
-                        variant="contained" color="secondary"
-                        onClick={resetFilters ()}
-                        endIcon={<DeleteIcon/>} >
-                        Reset All
-                    </Button>
-                </Grid>
+
+                {isSelected && <Grid
+                    container
+                    className={classes.bgColor}
+                    direction="row-reverse"
+                    justify="space-between"
+                    alignItems="center"
+                >
+                    <Grid item>
+                        <Button type="submit" size="large"
+                            variant="contained" color="primary"
+                            endIcon={<SendIcon />} >
+                            Get Results
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        <Button size="large"
+                            variant="contained" color="secondary"
+                            onClick={() => { 
+                                reset(defaultValues);
+                                }}
+                            type="button"
+                            endIcon={<DeleteIcon />} > 
+                            Reset All
+                        </Button>
+                    </Grid>
                 </Grid>
                 }
-                
             </Grid>
         </form>
     );
