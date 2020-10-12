@@ -328,7 +328,6 @@ const defaultValues = {
             subEndVol: false,
         }
 
-
 export default function RenderForm() {
     const navigate = useNavigate();
     const { register, control, handleSubmit, reset, setValue } = useForm({ defaultValues });
@@ -336,7 +335,7 @@ export default function RenderForm() {
     const saveNextLocation = useSaveNextLocation();
     saveLastLocation();
     const onSubmit = data => {
-        if (data.filterOptions === undefined)  {alert('Please put some data in filter Options');}
+        if (data.filterOptions === undefined)  {alert('Please put some data in filter Details');}
         else {
         saveNextLocation("/filterResult", { state: { filterOptions: data.filterOptions } });
         navigate("/filterResult", { state: { filterOptions: data.filterOptions } })

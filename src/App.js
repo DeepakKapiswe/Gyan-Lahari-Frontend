@@ -184,7 +184,6 @@ function App(props) {
       <Divider />
       <Divider />
       <ListLink to="/" label="Home" />
-      <ListLink to="/filterForm" label="Filter Subscribers" />
       <Divider />
       <Divider />
       <Divider />
@@ -203,6 +202,7 @@ function App(props) {
         <Divider />
           <ListLink to="/recentlyAddedForm" label="View Recently Added" />
           <ListLink to="/searchSubscriber" label="Search Subscriber" />
+          <ListLink to="/filterForm" label="Filter Subscribers" />
         <Divider />
         <Divider />
         <Divider />
