@@ -5,12 +5,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import { useFieldArray, useForm, Controller, useWatch, get } from 'react-hook-form';
+import { useFieldArray, useForm, Controller, useWatch } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useNavigate } from "@reach/router";
@@ -18,7 +16,7 @@ import FlowerDiv from '../FlowerDiv/FlowerDiv';
 import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Fab, FormControl, FormControlLabel, FormHelperText, Hidden, Input, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { Fab } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 
 import Card from '@material-ui/core/Card';
@@ -152,6 +150,13 @@ const useStyles = makeStyles(theme => (
         },
     }));
 
+const numberFields = [
+        "subStartVol",
+        "subEndVol",
+        "subSubscriptionType",
+        "subSlipNum"
+        ]
+
 
 function RenderHeading(props) {
     const classes = useStyles();
@@ -231,7 +236,7 @@ function RenderOne({ control, register, fieldName }) {
                                     <Grid item>
                                         <TextField
                                             inputRef={register()}
-                                            type="text"
+                                            type={numberFields.includes({fieldName}) ? "number" : "text"}
                                             fullWidth
                                             name={`filterOptions.${fieldName}`}
                                             autoComplete={`filterOptions.${fieldName}`}
@@ -326,17 +331,16 @@ const defaultValues = {
 
 export default function RenderForm() {
     const navigate = useNavigate();
-    const { register, control, handleSubmit, reset, getValues, setValue } = useForm({ defaultValues });
-        // shouldUnregister: false
+    const { register, control, handleSubmit, reset, setValue } = useForm({ defaultValues });
     const saveLastLocation = useSaveLastLocation();
     const saveNextLocation = useSaveNextLocation();
     saveLastLocation();
     const onSubmit = data => {
-        // console.log("Top ", data);
-        alert(JSON.stringify(data.filterOptions));
-        // saveNextLocation("/filterResult", { state: { filterOptions: data } });
-        // navigate("/filterResult", { state: { filterOptions: data } })
-    };
+        if (data.filterOptions === undefined)  {alert('Please put some data in filter Options');}
+        else {
+        saveNextLocation("/filterResult", { state: { filterOptions: data.filterOptions } });
+        navigate("/filterResult", { state: { filterOptions: data.filterOptions } })
+    }};
 
     const classes = useStyles();
 
@@ -378,7 +382,11 @@ export default function RenderForm() {
     }
 
 
-    const isSelected = subId || subStartVol || subSubscriptionType || subSlipNum || subName || subAbout || subAdd1 || subAdd2 || subPost || subCity || subState || subPincode || subPhone || subRemark || subDistId || subEndVol;
+    const isSelected = subId 
+        || subStartVol || subSubscriptionType || subSlipNum 
+        || subName || subAbout || subAdd1 || subAdd2 || subPost 
+        || subCity || subState || subPincode || subPhone 
+        || subRemark || subDistId || subEndVol;
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -415,31 +423,15 @@ export default function RenderForm() {
                                                         }}
                                                     >
                                                         <ListItemIcon>
-                                                            {/* <Checkbox
-                                                                edge="start"
-                                                                name={name}
-                                                                tabIndex={-1}
-                                                                disableRipple
-                                                                defaultValue={fieldObj[name]}
-                                                                inputRef={register}
-                                                                checked={fieldObj[name]}
-                                                            /> */}
-
-                                                            <Controller
-                                                              name={name}
-                                                              control={control}
-                                                              render={(props) => (
                                                                 <Checkbox
-                                                                  onChange={(e) => props.onChange(e.target.checked)}
-                                                                //   checked={props.value}
+                                                                  name={name}
+                                                                  inputProps={{'ref' : register}}
                                                                   checked={fieldObj[name]}
                                                                   edge="start"
                                                                   tabIndex={-1}
                                                                   disableRipple
                                                                   defaultValue={fieldObj[name]}
                                                                 />
-                                                              )}
-                                                            />
                                                         </ListItemIcon>
                                                         <ListItemText primary={<Typography> {name}</Typography>} />
                                                     </ListItem>
@@ -503,11 +495,9 @@ export default function RenderForm() {
                     <Grid item>
                         <Button size="large"
                             variant="contained" color="secondary"
-                            onClick={() => { 
-                                reset(defaultValues);
-                                }}
+                            onClick={() => reset({ ...defaultValues })}
                             type="button"
-                            endIcon={<DeleteIcon />} > 
+                            endIcon={<DeleteIcon/>} > 
                             Reset All
                         </Button>
                     </Grid>
