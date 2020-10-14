@@ -15,8 +15,6 @@ import PdfView from './Common/PdfViewer/PdfViewer';
 import PdfDownload from './Common/PdfDownload/PdfDownload';
 import Logo from './Components/Logo/Logo';
 
-
-
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
@@ -31,9 +29,6 @@ import LoginPrompt from './Components/LoginPrompt/LoginPrompt';
 import Home from './Components/Home/Home';
 import { useAuth } from './Hooks/AuthHooks';
 
-
-
-
 const Login = React.lazy(() => import('./Components/Login/Login.jsx'));
 const Logout = React.lazy(() => import('./Components/Logout/Logout'));
 const LoginForm = React.lazy(() => import('./Components/LoginForm/LoginForm'));
@@ -43,6 +38,7 @@ const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/
 const ViewAllDistributors = React.lazy(() => import('./Components/ViewDistributor/ViewAllDistributors'));
 const ViewAddedDistributor = React.lazy(() => import('./Components/ViewDistributor/ViewDistributor'));
 
+const ViewSubscriberApplication = React.lazy(() => import('./Components/ViewSubscriberApplication/ViewSubscriberApplication'));
 const ViewSubscriber = React.lazy(() => import('./Components/ViewSubscriber/ViewSubscriber'));
 const AddResult = React.lazy(() => import('./Components/AddResult/AddResult'));
 const AddDistributorResult = React.lazy(() => import('./Components/AddDistributor/AddDistributorResult'));
@@ -193,10 +189,11 @@ function App(props) {
       <Authorised authUserTypes={auth.utd}>
         <ListLink to="/distributorDashboard" label="Distributor Dashboard" />
       </Authorised>
-      <Authorised >
-        <ListLink to="/addNewSubscriber" label="Add Subscriber" />
-      </Authorised >
       <Authorised authUserTypes={auth.ualDistributor}>
+        <Divider />
+        <Divider />
+        <Divider />
+          <ListLink to="/addNewSubscriber" label="Add Subscriber" />
         <Divider />
         <Divider />
         <Divider />
@@ -207,9 +204,9 @@ function App(props) {
         <Divider />
         <Divider />
           <ListLink to="/allSubscribers" label="All Subscribers" />
-          <Divider />
-          <Divider />
-          <Divider />
+        <Divider />
+        <Divider />
+        <Divider />
           <Authorised authUserTypes={auth.utd}>
 
           <ListLink to="/distributionListForm" label="Distribution List" />
@@ -337,19 +334,20 @@ function App(props) {
                 <FilterResult  path="/filterResult"/>
 
                 <Home path="/" />
-                <Authorised onlyAdmin path="/addNewSubscriber">
+                <Authorised authUserTypes={auth.ualDistributor} path="/addNewSubscriber">
                   <SubscriberForm path="/" />
-                </Authorised> 
+                </Authorised>
                 <Authorised authUserTypes={auth.ualManager} path="/addNewDistributor">
                     <DistributorForm path="/" />
                 </Authorised> 
                 <Authorised authUserTypes={auth.ualManager} path="/addDistributorResult">
                   <AddDistributorResult path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/addSubscriberResult">
+                <Authorised authUserTypes={auth.ualDistributor} path="/addSubscriberResult">
                   <AddResult path="/"/>
                 </Authorised>
-                <Authorised authUserTypes={auth.ualManager} path="/viewSubscriber">
+                {/* <Authorised authUserTypes={auth.ualApprover} path="/viewSubscriber"> */}
+                <Authorised authUserTypes={auth.ualDistributor} path="/viewSubscriber">
                   <ViewSubscriber path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualDistributor} path="/searchSubscriber">
@@ -415,8 +413,12 @@ function App(props) {
                 <Authorised authUserTypes={auth.utd} path="/distributorDashboard">
                   <DistributorDashboard path="/" />
                 </Authorised>
+                <Authorised authUserTypes={auth.ualDistributor} path="/viewSubscriberApplication">
+                  <ViewSubscriberApplication path="/" />
+                </Authorised>
+                     {/* To catch all unmatched urls:  */}
+                <Redirect default from="/*" to="/" noThrow />
                 </Router>
-              <Redirect default to="/" noThrow />
             </Suspense>
             <Footer />
           </ThemeProvider >

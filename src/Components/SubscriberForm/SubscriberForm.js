@@ -82,15 +82,6 @@ export default function SubscriberForm() {
     setSubscriptionType(event.target.value);
   };
 
-  // useEffect(() => {
-  //   if (user !== '') {
-  //     setUserResult(
-  //          <AddSubscriberResult payload={user} />
-  //        );
-  //     setUser('');
-  //   }
-  // }, [user]);
-
   useEffect(() => {
     if ( startVol !== 0  && subscriptionType !== 0) {
     setEndVol(startVol*1 + subscriptionType*4 - 1);
@@ -120,16 +111,7 @@ export default function SubscriberForm() {
     </Grid>
     );
   }
-  // function refreshPage() {
-  //   window.location.reload(false);
-  // }
 
-  // // var refresh = true ;
-  // // if (refresh === true)
-  // //   {
-  // //     refresh = false;
-  // //     refreshPage(); 
-  // //   }
   return (
       <Grid
       container xs

@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import {url_logout} from '../../apiEndpoints/api';
 import { setLoggedOut } from '../../Library/Library';
 import { useEffect } from 'react';
-import { navigate } from '@reach/router';
+import { navigate, Redirect } from '@reach/router';
 import { useAppDispatch } from '../../Contexts/AppContext';
 import { useGotoRememberedLocation } from '../../Hooks/GotoRememberedLocation';
 
@@ -32,5 +32,8 @@ export default function Login(props) {
     navigate("/");
   }}, [data, movetoLastLocation, appDispatch]);
   if (error) return <div>Failed to Load in Logout User</div>
-  return <h1> {data} </h1>
+  return (
+    <Redirect default from="/*" to="/" noThrow />
+    // <h1> {data} </h1>
+    );
 }

@@ -5,9 +5,11 @@ import useSWR from 'swr';
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
 import { LinearProgress } from '@material-ui/core';
 import { useNavigate } from "@reach/router"
-import { url_addUser } from '../../apiEndpoints/api';
+import { url_addUser, url_applyForNewSubscriber, url_distApplyForNewSubscriber } from '../../apiEndpoints/api';
 import Cookies from 'js-cookie';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
+import { ualApprover } from '../../Common/Authorization';
+import { useAppState } from '../../Contexts/AppContext';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   heading: {
@@ -21,8 +23,13 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   },
 }));
 
-let url = url_addUser;
+
 export default function AddSubscriberResult (props) {
+  const {userType} = useAppState();
+  const url =   ualApprover.includes(userType) ? url_addUser 
+              : userType === 'UDistributor'    ? url_distApplyForNewSubscriber
+              : url_applyForNewSubscriber;
+
   const navigate = useNavigate();
   const newSubscriberData = props.newSubscriberData;
   const styles= useStyles();
@@ -41,11 +48,13 @@ export default function AddSubscriberResult (props) {
   if (error) return <div>failed to load</div>
   // if (!data) return <LinearProgress/>
   if (data === 401) return <LoginPrompt/>
-  navigate("/viewSubscriber", {state:{subscriber:data }});  
+  if (url === url_addUser) {
+    navigate("/viewSubscriber", {state:{subscriber:data }});}
+    else
+      {navigate("/viewSubscriberApplication", {state:{subscriberApplicationData:data }});}
   
   return (
     <Suspense fallback={<LinearProgress/>}>
-
       <Typography variant="h2" component="h3"
           className={styles.heading} align="center">
             New Subscriber Added !!

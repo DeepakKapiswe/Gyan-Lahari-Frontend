@@ -24,3 +24,5 @@ export const url_updateSubscriber = 'https://gyanlahari.com/api/updateSubscriber
 export const url_getAllDistributor = 'https://gyanlahari.com/api/getAllDistributor/';
 export const url_getAllSubscribers = 'https://gyanlahari.com/api/getAllSubscribers/';
 export const url_distGetAllSubscribers = 'https://gyanlahari.com/api/dist/getAllSubscribers/';
+export const url_applyForNewSubscriber = 'https://gyanlahari.com/api/applyForNewSubscriber/';
+export const url_distApplyForNewSubscriber = 'https://gyanlahari.com/api/dist/applyForNewSubscriber/';
