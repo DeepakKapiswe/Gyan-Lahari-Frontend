@@ -21,8 +21,12 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     maxWidth: 500,
     [theme.breakpoints.up('sm')]: {
-      minWidth:500
+      minWidth:450
     },
+     backgroundColor: '#fdffe3',
+    //  backgroundImage: 'linear-gradient(45deg, #ffffff 0%, #ffecec 89%, #ffffff 99%)'
+
+
   },
   media: {
     height: 0,
@@ -39,12 +43,14 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: '#ebe5e1',
+    // backgroundColor: '#ebe5e1',
   },
 }));
 
 export default function SubscriptionApplicationCard(props) {
   const classes = useStyles();
+  const serial = props.serial || 7452123;
+  const subscriberData = props.subscriberData || sample;
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -55,7 +61,7 @@ export default function SubscriptionApplicationCard(props) {
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" variant="rounded" 
+          <Avatar aria-label="logo-awatar" variant="rounded" 
             className={classes.avatar} 
             src={logo} alt="" />
         }
@@ -64,17 +70,15 @@ export default function SubscriptionApplicationCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={"Application Serial : " + props.serial}
+        title={"Application Serial : " + serial}
         subheader="October 15, 2020"
       />
-      <CardHeader
-        subheader="Applied By: UserName"
-      />
+
       <CardContent>
-        <SubscriberCard subscriberDetails={props.subscriberData || sample} />
+        <SubscriberCard subscriberDetails={subscriberData} />
       </CardContent>
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="body1" color="textPrimary" component="p">
           Here we can write description of about the application and transaction details
         </Typography>
       </CardContent>

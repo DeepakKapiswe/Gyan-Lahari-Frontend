@@ -59,7 +59,7 @@ function CustomizedSnackbars() {
   );
 }
 
-export default function SearchResult (props) {
+export default function ViewSubscriberApplication (props) {
     const styles= useStyles();
     if (props.location.state == null) { return (
        <>

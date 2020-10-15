@@ -39,6 +39,7 @@ const ViewAllDistributors = lazy(() => import('./Components/ViewDistributor/View
 const ViewAddedDistributor = lazy(() => import('./Components/ViewDistributor/ViewDistributor'));
 
 const ViewSubscriberApplication = lazy(() => import('./Components/ViewSubscriberApplication/ViewSubscriberApplication'));
+const ViewAllSubscriberApplications = lazy(() => import('./Components/ViewSubscriberApplication/ViewAllSubscriberApplications'));
 const ViewSubscriber = lazy(() => import('./Components/ViewSubscriber/ViewSubscriber'));
 const AddResult = lazy(() => import('./Components/AddResult/AddResult'));
 const AddDistributorResult = lazy(() => import('./Components/AddDistributor/AddDistributorResult'));
@@ -62,6 +63,8 @@ const RecentlyAddedForm = lazy(() => import('./Components/RecentlyAddedForm/Rece
 const RecentlyAddedResult = lazy(() => import('./Components/RecentlyAddedResult/RecentlyAddedResult'));
 const FilterSubscriberForm = lazy (() => import('./Components/FilterSubscriberForm/FilterSubscriberForm'));
 const FilterResult = lazy (() => import('./Components/FilterSubscriberResult/FilterSubscriberResult'));
+
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -177,6 +180,7 @@ function App(props) {
       <Divider />
       <Divider />
       <ListLink to="/" label="Home" />
+      <ListLink to="/app" label="View" />
       <Divider />
       <Divider />
       <Divider />
@@ -334,6 +338,7 @@ function App(props) {
                 <FilterResult  path="/filterResult"/>
 
                 <Home path="/" />
+                <ViewAllSubscriberApplications path="/app" />
                 <Authorised authUserTypes={auth.ualDistributor} path="/addNewSubscriber">
                   <SubscriberForm path="/" />
                 </Authorised>
