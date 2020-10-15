@@ -1,29 +1,35 @@
 import React from 'react';
-import SubscriberDetails from '../SubscriberDetails/SubscriberDetails';
 import ButtonRouter from '../../Common/ButtonRouter';
 import { makeStyles} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import SubscriptionApplicationCard from '../SubscriptionApplicationCard/SubscriptionApplicationCard';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
-  root: {
+  rootSnack: {
     width: '100%',
     '& > * + *': {
       marginTop: spacing(1),
     },
   },
+  root: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    [breakpoints.up('sm')]: {
+      paddingTop: spacing(2),
+    },
+  },
+  color:{
+    backgroundColor: '#ebf5ab'
+  },
   heading: {
-    // color: '#aaaaaa',
-    // color: '#110F4C',
     [breakpoints.down('md')]: {
       fontSize: '2rem',
     },
     [breakpoints.down('sm')]: {
       fontSize: '1rem',
     },
-    backgroundColor: '#ebf5ab'
-    // background: 'linear-gradient(90deg, rgba(213,185,129,1) 0%, rgba(222,189,134,0.9682247899159664) 45%, rgba(218,188,109,0.9738270308123249) 82%)',
   },
 }));
 
@@ -43,8 +49,8 @@ function CustomizedSnackbars() {
   };
 
   return (
-    <div className={classes.root}>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+    <div className={classes.rootSnack}>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
              Successfully Applied to Add New Subscriber
         </Alert>
@@ -63,14 +69,14 @@ export default function SearchResult (props) {
     ); }
     const subApp = props.location.state.subscriberApplicationData;
     return (
-       <>
-        <Typography variant="h4" component="h4"
-          className={styles.heading} align="center" >
-              Application Serial Number : {subApp.saApplicationId}
-        </Typography>
-        <CustomizedSnackbars />
-        <SubscriberDetails subscriber={subApp.saSubscriberData} />
-        <ButtonRouter route="/addNewSubscriber" label="Add New Subscriber" />
-       </>
+       <div className={styles.color}>
+            <CustomizedSnackbars />
+        <div className={styles.root}>
+            <SubscriptionApplicationCard  subscriberData={subApp.saSubscriberData} serial={subApp.saApplicationId}/>
+        </div>
+        <div className={styles.root}>
+            <ButtonRouter route="/addNewSubscriber" label="Add New Subscriber" />
+        </div>
+       </div>
     );
 }

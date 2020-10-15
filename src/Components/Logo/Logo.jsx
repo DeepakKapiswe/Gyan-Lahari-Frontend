@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     bigger : {
       display: 'block',
-            marginLeft: 'auto',
+      marginLeft: 'auto',
       marginRight: 'auto',
       marginTop: 'auto',
       marginBottom: 'auto',

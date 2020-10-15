@@ -31,9 +31,8 @@ export default function Login(props) {
     appDispatch({ cmd: 'clearContext'});
     navigate("/");
   }}, [data, movetoLastLocation, appDispatch]);
-  if (error) return <div>Failed to Load in Logout User</div>
+  if (error) return <div> Failed to Load in Logout User </div>
   return (
     <Redirect default from="/*" to="/" noThrow />
-    // <h1> {data} </h1>
     );
 }

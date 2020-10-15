@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect} from 'react';
+import React, { lazy, Suspense, useEffect} from 'react';
 import './App.css';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -29,39 +29,39 @@ import LoginPrompt from './Components/LoginPrompt/LoginPrompt';
 import Home from './Components/Home/Home';
 import { useAuth } from './Hooks/AuthHooks';
 
-const Login = React.lazy(() => import('./Components/Login/Login.jsx'));
-const Logout = React.lazy(() => import('./Components/Logout/Logout'));
-const LoginForm = React.lazy(() => import('./Components/LoginForm/LoginForm'));
-const LoginBackdrop = React.lazy(() => import('./Components/LoginBackdrop/LoginBackdrop'));
-const LoginResult = React.lazy(() => import('./Components/LoginResult/LoginResult'));
-const ViewAllSubscribers = React.lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
-const ViewAllDistributors = React.lazy(() => import('./Components/ViewDistributor/ViewAllDistributors'));
-const ViewAddedDistributor = React.lazy(() => import('./Components/ViewDistributor/ViewDistributor'));
+const Login = lazy(() => import('./Components/Login/Login.jsx'));
+const Logout = lazy(() => import('./Components/Logout/Logout'));
+const LoginForm = lazy(() => import('./Components/LoginForm/LoginForm'));
+const LoginBackdrop = lazy(() => import('./Components/LoginBackdrop/LoginBackdrop'));
+const LoginResult = lazy(() => import('./Components/LoginResult/LoginResult'));
+const ViewAllSubscribers = lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
+const ViewAllDistributors = lazy(() => import('./Components/ViewDistributor/ViewAllDistributors'));
+const ViewAddedDistributor = lazy(() => import('./Components/ViewDistributor/ViewDistributor'));
 
-const ViewSubscriberApplication = React.lazy(() => import('./Components/ViewSubscriberApplication/ViewSubscriberApplication'));
-const ViewSubscriber = React.lazy(() => import('./Components/ViewSubscriber/ViewSubscriber'));
-const AddResult = React.lazy(() => import('./Components/AddResult/AddResult'));
-const AddDistributorResult = React.lazy(() => import('./Components/AddDistributor/AddDistributorResult'));
-const SubscriberForm = React.lazy(() => import('./Components/SubscriberForm/SubscriberForm'));
-const SubscriberDashboard = React.lazy(() => import('./Components/SubscriberDashboard/SubscriberDashboard'));
-const DistributorDashboard = React.lazy(() => import('./Components/DistributorDashboard/DistributorDashboard'));
-const SubscriberEditForm = React.lazy(() => import('./Components/SubscriberEditForm/SubscriberEditForm'));
-const DistributorEditForm = React.lazy(() => import('./Components/DistributorEditForm/DistributorEditForm'));
-const DistributorForm = React.lazy(() => import('./Components/DistributorForm/DistributorForm'));
-const SearchForm = React.lazy(() => import('./Components/SearchForm/SearchForm'));
-const SearchResult = React.lazy(() => import('./Components/SearchResult/SearchResult'));
-const DistributionList = React.lazy(() => import('./Components/DistributionList/DistributionList'));
-const ExpiryList = React.lazy(() => import('./Components/ExpiryList/ExpiryList'));
-const BulkDistributionList = React.lazy(() => import('./Components/BulkDistributionList/BulkDistributionList'));
-const BulkExpiryList = React.lazy(() => import('./Components/BulkExpiryList/BulkExpiryList'));
-const DistributionListForm = React.lazy(() => import('./Components/DistributionListForm/DistributionListForm'));
-const ExpiryListForm = React.lazy(() => import('./Components/ExpiryListForm/ExpiryListForm'));
-const BulkDistributionListForm = React.lazy(() => import('./Components/BulkDistributionListForm/BulkDistributionListForm'));
-const BulkExpiryListForm = React.lazy(() => import('./Components/BulkExpiryListForm/BulkExpiryListForm'));
-const RecentlyAddedForm = React.lazy(() => import('./Components/RecentlyAddedForm/RecentlyAddedForm'));
-const RecentlyAddedResult = React.lazy(() => import('./Components/RecentlyAddedResult/RecentlyAddedResult'));
-const FilterSubscriberForm = React.lazy (() => import('./Components/FilterSubscriberForm/FilterSubscriberForm'));
-const FilterResult = React.lazy (() => import('./Components/FilterSubscriberResult/FilterSubscriberResult'));
+const ViewSubscriberApplication = lazy(() => import('./Components/ViewSubscriberApplication/ViewSubscriberApplication'));
+const ViewSubscriber = lazy(() => import('./Components/ViewSubscriber/ViewSubscriber'));
+const AddResult = lazy(() => import('./Components/AddResult/AddResult'));
+const AddDistributorResult = lazy(() => import('./Components/AddDistributor/AddDistributorResult'));
+const SubscriberForm = lazy(() => import('./Components/SubscriberForm/SubscriberForm'));
+const SubscriberDashboard = lazy(() => import('./Components/SubscriberDashboard/SubscriberDashboard'));
+const DistributorDashboard = lazy(() => import('./Components/DistributorDashboard/DistributorDashboard'));
+const SubscriberEditForm = lazy(() => import('./Components/SubscriberEditForm/SubscriberEditForm'));
+const DistributorEditForm = lazy(() => import('./Components/DistributorEditForm/DistributorEditForm'));
+const DistributorForm = lazy(() => import('./Components/DistributorForm/DistributorForm'));
+const SearchForm = lazy(() => import('./Components/SearchForm/SearchForm'));
+const SearchResult = lazy(() => import('./Components/SearchResult/SearchResult'));
+const DistributionList = lazy(() => import('./Components/DistributionList/DistributionList'));
+const ExpiryList = lazy(() => import('./Components/ExpiryList/ExpiryList'));
+const BulkDistributionList = lazy(() => import('./Components/BulkDistributionList/BulkDistributionList'));
+const BulkExpiryList = lazy(() => import('./Components/BulkExpiryList/BulkExpiryList'));
+const DistributionListForm = lazy(() => import('./Components/DistributionListForm/DistributionListForm'));
+const ExpiryListForm = lazy(() => import('./Components/ExpiryListForm/ExpiryListForm'));
+const BulkDistributionListForm = lazy(() => import('./Components/BulkDistributionListForm/BulkDistributionListForm'));
+const BulkExpiryListForm = lazy(() => import('./Components/BulkExpiryListForm/BulkExpiryListForm'));
+const RecentlyAddedForm = lazy(() => import('./Components/RecentlyAddedForm/RecentlyAddedForm'));
+const RecentlyAddedResult = lazy(() => import('./Components/RecentlyAddedResult/RecentlyAddedResult'));
+const FilterSubscriberForm = lazy (() => import('./Components/FilterSubscriberForm/FilterSubscriberForm'));
+const FilterResult = lazy (() => import('./Components/FilterSubscriberResult/FilterSubscriberResult'));
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -129,9 +129,6 @@ const useStyles = makeStyles(theme => ({
   link: {
     color: '#defaf3'
   },
-  drawerHead: {
-
-  }
 
 }));
 
@@ -185,14 +182,17 @@ function App(props) {
       <Divider />
       <Authorised authUserTypes={auth.uts}>
         <ListLink to="/subscriberDashboard" label="Subscriber Dashboard" />
+      <Divider />
+      <Divider />
+      <Divider />
       </Authorised>
       <Authorised authUserTypes={auth.utd}>
         <ListLink to="/distributorDashboard" label="Distributor Dashboard" />
+      <Divider />
+      <Divider />
+      <Divider />
       </Authorised>
       <Authorised authUserTypes={auth.ualDistributor}>
-        <Divider />
-        <Divider />
-        <Divider />
           <ListLink to="/addNewSubscriber" label="Add Subscriber" />
         <Divider />
         <Divider />
