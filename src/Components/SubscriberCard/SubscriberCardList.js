@@ -23,7 +23,6 @@ const useStyles = makeStyles(({ breakpoints, spacing, shadows }) => ({
 
     },
     color: {
-        // 
         height: '65vh',
         overflow: 'scroll',
         border: '5px solid #B6DBCB',

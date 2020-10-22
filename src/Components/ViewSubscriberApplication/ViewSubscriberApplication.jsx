@@ -72,7 +72,7 @@ export default function ViewSubscriberApplication (props) {
        <div className={styles.color}>
             <CustomizedSnackbars />
         <div className={styles.root}>
-            <SubscriptionApplicationCard  subscriberData={subApp.saSubscriberData} serial={subApp.saApplicationId}/>
+            <SubscriptionApplicationCard  applicationData={subApp}/>
         </div>
         <div className={styles.root}>
             <ButtonRouter route="/addNewSubscriber" label="Add New Subscriber" />

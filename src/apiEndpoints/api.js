@@ -29,3 +29,4 @@ export const url_distApplyForNewSubscriber    = 'https://gyanlahari.com/api/dist
 export const url_getAllSubscriberApplications = 'https://gyanlahari.com/api/getAllSubscriberApplications/';
 export const url_distGetAllSubscriberApplications = 'https://gyanlahari.com/api/getAllSubscriberApplications/'; 
 // has to be changed ^ V ^
+export const url_approveSubscriberApplication = 'https://gyanlahari.com/api/approveSubscriberApplication/';

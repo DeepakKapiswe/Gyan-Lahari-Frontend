@@ -44,12 +44,9 @@ export default function ViewAllSubscriberApplications(props) {
   if (data === 401) return <LoginPrompt/>
   const jsonData = data;
   const items = jsonData.map((item) => <div className={classes.cardSpacing}>
-        <SubscriptionApplicationCard
-      subscriberData={item.saSubscriberData}
-      serial={item.saApplicationId}
-      />
+        <SubscriptionApplicationCard applicationData = {item} />
       </div> );
   return <div className={classes.background}>
-            <SubscriberCardList cards={items} noPdf header="All Subscription Applications" />
+            <SubscriberCardList cards={items} noPdf header="New Subscription Applications" />
       </div>;
 }
