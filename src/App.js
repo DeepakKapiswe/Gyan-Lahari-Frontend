@@ -180,7 +180,6 @@ function App(props) {
       <Divider />
       <Divider />
       <ListLink to="/" label="Home" />
-      <ListLink to="/app" label="View" />
       <Divider />
       <Divider />
       <Divider />
@@ -197,6 +196,10 @@ function App(props) {
       <Divider />
       </Authorised>
       <Authorised authUserTypes={auth.ualDistributor}>
+          <ListLink to="/viewAllSubscriberApplications" label="View Applications" />
+        <Divider />
+        <Divider />
+        <Divider />
           <ListLink to="/addNewSubscriber" label="Add Subscriber" />
         <Divider />
         <Divider />
@@ -338,7 +341,9 @@ function App(props) {
                 <FilterResult  path="/filterResult"/>
 
                 <Home path="/" />
-                <ViewAllSubscriberApplications path="/app" />
+                <Authorised authUserTypes={auth.ualDistributor} path="/viewAllSubscriberApplications">
+                  <ViewAllSubscriberApplications path="/" />
+                </Authorised>
                 <Authorised authUserTypes={auth.ualDistributor} path="/addNewSubscriber">
                   <SubscriberForm path="/" />
                 </Authorised>
@@ -351,7 +356,6 @@ function App(props) {
                 <Authorised authUserTypes={auth.ualDistributor} path="/addSubscriberResult">
                   <AddResult path="/"/>
                 </Authorised>
-                {/* <Authorised authUserTypes={auth.ualApprover} path="/viewSubscriber"> */}
                 <Authorised authUserTypes={auth.ualDistributor} path="/viewSubscriber">
                   <ViewSubscriber path="/" />
                 </Authorised>

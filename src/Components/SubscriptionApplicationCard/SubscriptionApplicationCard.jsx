@@ -1,16 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SubscriberCard from '../SubscriberCard/SubscriberCard';
 import TimerOutlinedIcon from '@material-ui/icons/TimerOutlined';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
@@ -19,12 +14,17 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Chip from '@material-ui/core/Chip';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import logo from '../../assets/img/logo_small.png';
-import { useSaveNextLocation } from '../../Hooks/SaveLocation';
-import { useNavigate } from '@reach/router';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
-import useSWR from 'swr';
-import {url_approveSubscriberApplication} from '../../apiEndpoints/api';
+import {url_rejectSubscriberApplication, url_approveSubscriberApplication} from '../../apiEndpoints/api';
+import { ualApprover } from '../../Common/Authorization';
 import Cookies from 'js-cookie';
+import { useAppState } from '../../Contexts/AppContext';
+import { useSaveLastLocation } from '../../Hooks/SaveLocation';
+import BlockIcon from '@material-ui/icons/Block';
+import { Grid } from '@material-ui/core';
+
+// import IconButton from '@material-ui/core/IconButton';
+// import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,9 +34,6 @@ const useStyles = makeStyles((theme) => ({
             minWidth: 450
         },
         backgroundColor: '#fdffe3',
-        //  backgroundImage: 'linear-gradient(45deg, #ffffff 0%, #ffecec 89%, #ffffff 99%)'
-
-
     },
     media: {
         height: 0,
@@ -59,47 +56,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SubscriptionApplicationCard(props) {
     const classes = useStyles();
-    // const appData = props.applicationData;
     const [appData, setAppData] = React.useState(props.applicationData);
-    const serial = appData.saApplicationId || 625172;
-    const subscriberData = appData.saSubscriberData || sample;
-    const [expanded, setExpanded] = React.useState(false);
-    const saveNextLocation = useSaveNextLocation();
-    const navigate = useNavigate();
+    const serial = appData.saApplicationId;
+    const subscriberData = appData.saSubscriberData;
+    const {userType} = useAppState();
+    const [loginStatus, setLoginStatus] = useState(true);
+    const saveLastLocation = useSaveLastLocation();
 
-    function FetchApprovedAppication() {
-        const applicationData = {
-            arApplicationIds : [serial],
-            arProcessedBy : "SOME / USER NAME HERE"
-        } 
-        const url = url_approveSubscriberApplication;
-        const fetcher = (...args) => fetch(url, {
-            method: 'post',
-            headers: {
-            "Content-Type": "application/json",
-            'Accept':  'application/json',
-            'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
-            },
-            body: JSON.stringify(applicationData)
-        }).then(res => res.ok ? res.json() : res.status);
-
-       const { data, error} = useSWR(url, fetcher, { suspense: true, refreshInterval: 99999999999999 , revalidateOnFocus: false });
-//   if (newSubscriberData.subName === '') {return <div>Empty Query</div>}
-//  if (error) return <div>failed to load</div>
-  // if (!data) return <LinearProgress/>
-  if (data === 401) return <LoginPrompt/>
-     setAppData(data.arApplication);
-     console.log(data,"useEffect");
-     return <></>;
-
-    }
-    function fetchApprovedAppication() {
+    function fetchProcessedAppication(url) {
         const applicationData = {
             arApplicationIds : [serial],
             arProcessedBy : "SOME USER NAME HERE"
-        } 
-        const url = url_approveSubscriberApplication;
-        const data = fetch(url, {
+        }
+        saveLastLocation();
+        fetch(url, {
             method: 'post',
             headers: {
             "Content-Type": "application/json",
@@ -107,22 +77,24 @@ export default function SubscriptionApplicationCard(props) {
             'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
             },
             body: JSON.stringify(applicationData)
-        }).then(res => res.ok ? res.json() : res.status);
-//   if (data === 401) return <LoginPrompt/>
-    //  setAppData(data.arApplication);
-     console.log(data,"useEffect");
-
+        }).then(res => res.ok ? res.json() : res.status)
+        .then(data => {
+            if (data === 401) 
+                {setLoginStatus(false);}
+            else 
+               {setAppData(data);}
+            return null;
+        });
     }
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
-
     const handleApproveClick = () => {
-        // saveNextLocation("/approveApplication", {state:{appData:appData}});
-        // navigate("/approveApplication", {state:{appData:appData}});
-        console.log("button clicked");
-        fetchApprovedAppication();
+        saveLastLocation();
+        fetchProcessedAppication(url_approveSubscriberApplication);
+  };
+    
+    const handleRejectClick = () => {
+        saveLastLocation();
+        fetchProcessedAppication(url_rejectSubscriberApplication);
   };
 
     const pending = <Chip
@@ -133,13 +105,20 @@ export default function SubscriptionApplicationCard(props) {
         icon={<AssignmentTurnedInIcon />} label="Approved"
         color="Primary"
     />;
+    const rejected = <Chip
+        icon={<BlockIcon />} label="Rejected"
+        color="secondary"
+    />;
 
-    const status = appData.saAppStatus === 'Pending' ? pending :
+
+    const statusDisplay = 
+        appData.saAppStatus === 'Pending' ? pending :
         appData.saAppStatus === 'Approved' ? approved :
-            null;
-    
+        appData.saAppStatus === 'Rejected' ? rejected :
+        null;
 
     return (
+      loginStatus !== true ? <LoginPrompt/> :
         <Card className={classes.root}>
             <CardHeader
                 avatar={
@@ -147,16 +126,18 @@ export default function SubscriptionApplicationCard(props) {
                         className={classes.avatar}
                         src={logo} alt="" />
                 }
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                }
+                // this can be used for adding more functions
+                // action={
+                //     <IconButton aria-label="settings">
+                //         <MoreVertIcon />
+                //     </IconButton>
+                // }
                 title={"Application Serial : " + serial}
+                    // TODO : Application Date has to be fixed
                 subheader={<>
-                    {"October 15, 2020"} <br />
+                    {"October 15, 2020"} <br />   
                     {"Application Status : "}
-                    {status}
+                    {statusDisplay}
                 </>}
             />
 
@@ -164,55 +145,38 @@ export default function SubscriptionApplicationCard(props) {
                 <SubscriberCard subscriberDetails={subscriberData} />
             </CardContent>
             <CardContent>
-                <Typography variant="body1" color="textPrimary" component="p">
-                    Here we can write description of about the application and transaction details
-        </Typography>
+                <Typography variant="body2" color="textPrimary" component="p">
+                    This subscription application will be approved only if confirmed by authorised personnel
+                </Typography>
+                <Typography variant="body2" color="textPrimary" component="p">
+                    किसी भी जानकारी व सहायता के लिए सम्पर्क करें - 9155950505
+                </Typography>
             </CardContent>
-            <CardActions disableSpacing >
-                <Button color="primary"
-                      onClick={handleApproveClick}
-                    startIcon={<CheckCircleOutlineIcon/>}
-                    variant="contained"
-                >
-                    Approve
-                </Button>
-                <Button color="secondary"
-                    //   onClick={handleRejectClick}
-                    variant="contained"
-                    startIcon={<DeleteIcon/>}
-                >
-                    Reject
-                </Button>
-                {/* <IconButton
-                    className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                    })}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <ExpandMoreIcon />
-                </IconButton> */}
-
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                    <Typography paragraph>More Details can be provided here</Typography>
-
-                </CardContent>
-            </Collapse>
+           { ualApprover.includes(userType) && 
+             appData.saAppStatus === 'Pending' && 
+             <CardActions>
+                <Grid container justify="space-around">
+                <Grid item>
+                    <Button color="secondary"
+                        onClick={handleRejectClick}
+                        variant="contained"
+                        startIcon={<DeleteIcon/>}
+                    >
+                        Reject
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button color="primary"
+                        onClick={handleApproveClick}
+                        startIcon={<CheckCircleOutlineIcon/>} 
+                        variant="contained"
+                    >
+                        Approve
+                    </Button>
+                </Grid>
+                </Grid>
+            </CardActions>}
         </Card>
-    );
+                );
 }
 
-const sample = {
-    "subPost": "sample Post", "subAdd2": "पुरानी बाज़ार", "subSubscriptionType": 3,
-    "subPhone": "9829284949", "subDistId": "98", "subState": "बिहार", "subStartVol": 80,
-    "subSlipNum": 1232,
-    "subAdd1": "भवानीपुर टोला",
-    "subName": "Sample Name",
-    "subCity": "जमुई",
-    "subRemark": "",
-    "subEndVol": 91,
-    "subPincode": "328721", "subAbout": "Sample Address", "subId": "BDAC"
-}

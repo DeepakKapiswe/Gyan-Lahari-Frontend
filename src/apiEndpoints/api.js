@@ -6,7 +6,6 @@ export const url_viewSubscriber               = 'https://gyanlahari.com/api/view
 export const url_viewDistributor              = 'https://gyanlahari.com/api/viewDistributor/';
 export const url_distViewDistributor          = 'https://gyanlahari.com/api/dist/viewDistributor/';
 export const url_addDistributor               = 'https://gyanlahari.com/api/addDistributor/';
-export const url_addUser                      = 'https://gyanlahari.com/api/addUser/';
 export const url_bulkDistributionList         = 'https://gyanlahari.com/api/bulkDistributionList/';
 export const url_bulkExpiryList               = 'https://gyanlahari.com/api/bulkExpiryList/';
 export const url_distributionList             = 'https://gyanlahari.com/api/distributionList/';
@@ -27,6 +26,6 @@ export const url_distGetAllSubscribers        = 'https://gyanlahari.com/api/dist
 export const url_applyForNewSubscriber        = 'https://gyanlahari.com/api/applyForNewSubscriber/';
 export const url_distApplyForNewSubscriber    = 'https://gyanlahari.com/api/dist/applyForNewSubscriber/';
 export const url_getAllSubscriberApplications = 'https://gyanlahari.com/api/getAllSubscriberApplications/';
-export const url_distGetAllSubscriberApplications = 'https://gyanlahari.com/api/getAllSubscriberApplications/'; 
-// has to be changed ^ V ^
+export const url_distGetAllSubscriberApplications = 'https://gyanlahari.com/api/dist/getAllSubscriberApplications/'; 
 export const url_approveSubscriberApplication = 'https://gyanlahari.com/api/approveSubscriberApplication/';
+export const url_rejectSubscriberApplication = 'https://gyanlahari.com/api/rejectSubscriberApplication/';

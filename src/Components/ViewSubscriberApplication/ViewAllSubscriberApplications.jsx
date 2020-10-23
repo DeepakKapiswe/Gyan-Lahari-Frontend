@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import useSWR from 'swr'
 import Cookies from 'js-cookie';
 
@@ -10,14 +10,12 @@ import { useLocation } from '@reach/router';
 import { useAppState } from '../../Contexts/AppContext';
 import SubscriptionApplicationCard from '../SubscriptionApplicationCard/SubscriptionApplicationCard';
 import { makeStyles } from '@material-ui/core';
+import LinearProgressBar from '../Progress/LinearProgressBar';
 
 const useStyles = makeStyles(({ spacing }) => ({
   cardSpacing: {
       margin: spacing(1),
   },
-  background: {
-    //   backgroundColor : '#e8ffff'
-  }
     }));
 
 export default function ViewAllSubscriberApplications(props) {
@@ -44,9 +42,11 @@ export default function ViewAllSubscriberApplications(props) {
   if (data === 401) return <LoginPrompt/>
   const jsonData = data;
   const items = jsonData.map((item) => <div className={classes.cardSpacing}>
+      <Suspense fallback={LinearProgressBar}>
         <SubscriptionApplicationCard applicationData = {item} />
+      </Suspense>
       </div> );
-  return <div className={classes.background}>
-            <SubscriberCardList cards={items} noPdf header="New Subscription Applications" />
-      </div>;
+  return <Suspense fallback={LinearProgressBar}>
+                <SubscriberCardList cards={items} noPdf header="New Subscription Applications" />
+        </Suspense>;
 }
