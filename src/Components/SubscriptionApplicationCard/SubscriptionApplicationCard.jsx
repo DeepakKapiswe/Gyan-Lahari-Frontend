@@ -135,7 +135,7 @@ export default function SubscriptionApplicationCard(props) {
                 title={"Application Serial : " + serial}
                     // TODO : Application Date has to be fixed
                 subheader={<>
-                    {"October 15, 2020"} <br />   
+                    {/* {"October 15, 2020"} <br />    */}
                     {"Application Status : "}
                     {statusDisplay}
                 </>}
