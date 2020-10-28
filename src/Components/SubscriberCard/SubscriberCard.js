@@ -225,16 +225,18 @@ export default function SubscriberCard(props) {
               </Grid>
             </Grid>
           </CardContent>
+          { props.noActionButtons === undefined && 
           <CardActions disableSpacing>
             <Grid container
               justify="space-around"
             >
               <Grid item>
+               
                 <Button size="small" color="primary"
-                  className={styles.button}
-                  onClick={handleEditClick}>
-                 Edit
-        </Button>
+                    className={styles.button}
+                    onClick={handleEditClick}>
+                   Edit
+                </Button>
               </Grid>
               <Grid item>
                 <Button size="small" color="primary" className={styles.button}
@@ -243,7 +245,7 @@ export default function SubscriberCard(props) {
         </Button>
               </Grid>
             </Grid>
-          </CardActions>
+          </CardActions>}
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
               <Grid item>
