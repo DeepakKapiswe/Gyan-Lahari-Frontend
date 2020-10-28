@@ -3,7 +3,7 @@ import useSWR from 'swr'
 import Cookies from 'js-cookie';
 
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
-import { url_distGetAllSubscriberApplications, url_getAllSubscriberApplications } from '../../apiEndpoints/api';
+import { url_distGetAllSubscriberApplications, url_getAllSubscriberApplications, url_subViewAllSubscriberApplications } from '../../apiEndpoints/api';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
 import { useSaveNextLocation } from '../../Hooks/SaveLocation';
 import { useLocation } from '@reach/router';
@@ -24,7 +24,9 @@ export default function ViewAllSubscriberApplications(props) {
   const location = useLocation();
   saveNextLocation(location.pathname,{state:{}})
   const {userType} = useAppState();
-  const url = userType === 'UDistributor' ? url_distGetAllSubscriberApplications : url_getAllSubscriberApplications;
+  const url = userType === 'USubscriber'  ? url_subViewAllSubscriberApplications : 
+              userType === 'UDistributor' ? url_distGetAllSubscriberApplications : 
+              url_getAllSubscriberApplications;
   const fetcher = (...args) => fetch(url, {
     method: 'GET',
     headers: {

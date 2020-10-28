@@ -15,13 +15,17 @@ import Chip from '@material-ui/core/Chip';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import logo from '../../assets/img/logo_small.png';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
-import {url_rejectSubscriberApplication, url_approveSubscriberApplication} from '../../apiEndpoints/api';
+import { url_rejectSubscriberApplication 
+       , url_approveSubscriberApplication
+       , url_getSubscriber
+       , url_distGetSubscriber, 
+       url_subViewSubscriber} from '../../apiEndpoints/api';
 import { ualApprover } from '../../Common/Authorization';
 import Cookies from 'js-cookie';
 import { useAppState } from '../../Contexts/AppContext';
 import { useSaveLastLocation } from '../../Hooks/SaveLocation';
 import BlockIcon from '@material-ui/icons/Block';
-import { Grid } from '@material-ui/core';
+import { FormControlLabel, Grid, Switch } from '@material-ui/core';
 
 // import IconButton from '@material-ui/core/IconButton';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -57,15 +61,28 @@ const useStyles = makeStyles((theme) => ({
 export default function SubscriptionApplicationCard(props) {
     const classes = useStyles();
     const [appData, setAppData] = React.useState(props.applicationData);
+    const [originalData, setOriginalData] = useState(null);
     const serial = appData.saApplicationId;
     const subscriberData = appData.saSubscriberData;
     const {userType} = useAppState();
     const [loginStatus, setLoginStatus] = useState(true);
     const saveLastLocation = useSaveLastLocation();
 
+    const [checked, setChecked] = useState(false);
+    const [isDataFetched, setIsDataFetched] = useState(false);
+
+    const toggleChecked = () => {
+      setChecked((prev) => !prev);
+      if (!isDataFetched) {
+        saveLastLocation();
+        fetchOriginalData();
+      }
+      setIsDataFetched(true);
+    };
+
     function fetchProcessedAppication(url) {
         const applicationData = {
-            arApplicationIds : [serial],
+            arApplicationId : serial,
             arProcessedBy : "SOME USER NAME HERE"
         }
         saveLastLocation();
@@ -83,6 +100,29 @@ export default function SubscriptionApplicationCard(props) {
                 {setLoginStatus(false);}
             else 
                {setAppData(data);}
+            return null;
+        });
+    }
+    
+    function fetchOriginalData() {
+        const subInfo = subscriberData.subId;
+        const url = userType === 'USubscriber' ? url_subViewSubscriber :
+                    userType === 'UDistributor' ? url_distGetSubscriber :
+                    url_getSubscriber;
+        fetch(url, {
+            method: userType === 'USubscriber' ? 'GET' : 'post',
+            headers: {
+            "Content-Type": "application/json",
+            'Accept':  'application/json',
+            'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') || "ERROR : XSRF TOKEN NOT FOUND",
+            },
+            body: userType === 'USubscriber' ? null : JSON.stringify(subInfo)
+        }).then(res => res.ok ? res.json() : res.status)
+        .then(data => {
+            if (data === 401) 
+                {setLoginStatus(false);}
+            else 
+               {setOriginalData(data);}
             return null;
         });
     }
@@ -110,11 +150,32 @@ export default function SubscriptionApplicationCard(props) {
         color="secondary"
     />;
 
+    const addNew = <Chip
+            color="default"
+            label="ADD NEW SUBSCRIBER"
+            />
+
+    const editDetails = <Chip
+            color="default"
+            label="EDIT DETAILS"
+            />
+
+    const renew = <Chip
+            color="default"
+            label="RENEW SUBSCRIPTION"
+            />
+
 
     const statusDisplay = 
         appData.saAppStatus === 'Pending' ? pending :
         appData.saAppStatus === 'Approved' ? approved :
         appData.saAppStatus === 'Rejected' ? rejected :
+        null;
+    
+    const appTypeDisplay =
+        appData.saApplicationType === 'AddNewSubscriber' ? addNew :
+        appData.saApplicationType === 'EditDetails' ? editDetails :
+        appData.saApplicationType === 'RenewSubscriber' ? renew :
         null;
 
     return (
@@ -126,23 +187,47 @@ export default function SubscriptionApplicationCard(props) {
                         className={classes.avatar}
                         src={logo} alt="" />
                 }
+                action={
+                    appData.saAppStatus === 'Pending' &&
+                    appData.saApplicationType === 'EditDetails' &&
+                     <FormControlLabel
+                      value="bottom"
+                      control={<Switch color="primary" onChange={toggleChecked}/>}
+                      label="View Original"
+                      labelPlacement="bottom"
+                    />
+                }
                 // this can be used for adding more functions
                 // action={
                 //     <IconButton aria-label="settings">
                 //         <MoreVertIcon />
                 //     </IconButton>
                 // }
+
                 title={"Application Serial : " + serial}
                     // TODO : Application Date has to be fixed
                 subheader={<>
                     {/* {"October 15, 2020"} <br />    */}
+                    {"Application Type : "}
+                    {appTypeDisplay} <br/>
                     {"Application Status : "}
                     {statusDisplay}
                 </>}
             />
 
+            {originalData !== null &&
+             checked &&
+             appData.saAppStatus === 'Pending' &&
+             appData.saApplicationType === 'EditDetails' &&
+             originalData[0] !== null &&
+              <CardContent>
+                  <p>Original: </p>
+                  <SubscriberCard noActionButtons subscriberDetails={originalData[0]} />
+                  <p>Proposed: </p>
+              </CardContent>
+            }
             <CardContent>
-                <SubscriberCard subscriberDetails={subscriberData} />
+                <SubscriberCard noActionButtons subscriberDetails={subscriberData} />
             </CardContent>
             <CardContent>
                 <Typography variant="body2" color="textPrimary" component="p">
@@ -164,6 +249,15 @@ export default function SubscriptionApplicationCard(props) {
                     >
                         Reject
                     </Button>
+                </Grid>
+                <Grid item>
+                    {/* <Button color="primary"
+                        onClick={handleViewOriginalClick}
+                        variant="contained"
+                        startIcon={<VisibilityIcon/>}
+                    >
+                        View Original
+                    </Button> */}
                 </Grid>
                 <Grid item>
                     <Button color="primary"

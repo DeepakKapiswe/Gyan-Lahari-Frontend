@@ -2,27 +2,31 @@ import React from 'react';
 import useSWR from 'swr';
 import Cookies from 'js-cookie';
 
-import { makeStyles} from '@material-ui/core/styles';
+// import { makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { url_updateSubscriber } from '../../apiEndpoints/api';
+import { url_applyForUpdateSubscriber, url_distApplyForUpdateSubscriber, url_subApplyForEditSubscriber} from '../../apiEndpoints/api';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
+import { useAppState } from '../../Contexts/AppContext';
 
-const useStyles = makeStyles(({ breakpoints, spacing }) => ({
-  heading: {
-    color: '#aaaaaa',
-    [breakpoints.down('md')]: {
-      fontSize: '3rem',
-    },
-    [breakpoints.down('sm')]: {
-      fontSize: '2rem',
-    },
-  },
-}));
+// const useStyles = makeStyles(({ breakpoints, spacing }) => ({
+//   heading: {
+//     color: '#aaaaaa',
+//     [breakpoints.down('md')]: {
+//       fontSize: '3rem',
+//     },
+//     [breakpoints.down('sm')]: {
+//       fontSize: '2rem',
+//     },
+//   },
+// }));
 
 
-let url = url_updateSubscriber;
 
 export default function UpdateSubscriberResult (props) {
+  const {userType} = useAppState();
+  const url =   userType === 'USubscriber' ? url_subApplyForEditSubscriber :
+                userType === 'UDistributor' ? url_distApplyForUpdateSubscriber :
+                url_applyForUpdateSubscriber ;
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {
@@ -33,7 +37,7 @@ export default function UpdateSubscriberResult (props) {
     body: JSON.stringify(props.payload)
   }).then(res => res.ok ? res.json() : res.status);
 
-  const styles= useStyles();
+  // const styles= useStyles();
   const { data, error} = useSWR(url, fetcher, { suspense: true, refreshInterval: 99999999999999 , revalidateOnFocus: false });
   if (props.payload.subName === '') {return <div>Empty Query</div>}
   if (error) return <div>failed to load</div>
@@ -42,10 +46,8 @@ export default function UpdateSubscriberResult (props) {
   
   return (
     <>
-      <Typography variant="h2" component="h3"
-          className={styles.heading}>
-            Subscriber Updated Successfully!
+      <Typography variant="h4" component="h4">
+            Successfully Applied for Updation with Serial : {data.saApplicationId}
       </Typography>
-      <h1> {data} </h1>
     </> );
 }

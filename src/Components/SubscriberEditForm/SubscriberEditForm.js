@@ -157,6 +157,7 @@ export default function SubscriberEditForm(props) {
                       autoComplete="subStartVol"
                       defaultValue={sD.subStartVol}
                       onChange={handleStartVolChange}
+                      disabled
                       />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
@@ -168,6 +169,7 @@ export default function SubscriberEditForm(props) {
                       required
                       label="Subscription Type"
                       onChange={handleSubscriptionTypeChange}
+                      disabled
                       >
                       <option value={sD.subSubscriptionType}>{sD.subSubscriptionType} Year</option>
                       <option value={1}>1 Year</option>
@@ -204,6 +206,7 @@ export default function SubscriberEditForm(props) {
                       label="Slip Number"
                       autoComplete="subSlipNum"
                       defaultValue={sD.subSlipNum}
+                      disabled
                       />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
@@ -216,6 +219,7 @@ export default function SubscriberEditForm(props) {
                       label="Distributor Id"
                       autoComplete="subDistId"
                       defaultValue={sD.subDistId}
+                      disabled
                       />
                   </Grid>
                     <Grid item xs={12} sm={4} >

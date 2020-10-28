@@ -23,6 +23,7 @@ export const uts = ['USubscriber'];
 export const utd = ['UDistributor'];
 export const utm = ['UManager'];
 export const utap = ['UApprover'];
+export const ualSubscriber = ['USubscriber','UDistributor','UManager', 'UApprover', 'UAdmin'];
 export const ualDistributor = ['UDistributor','UManager', 'UApprover', 'UAdmin'];
 export const ualManager = ['UManager', 'UApprover', 'UAdmin'];
 export const ualApprover = ['UApprover', 'UAdmin'];

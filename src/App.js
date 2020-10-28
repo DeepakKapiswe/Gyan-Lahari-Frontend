@@ -195,11 +195,13 @@ function App(props) {
       <Divider />
       <Divider />
       </Authorised>
-      <Authorised authUserTypes={auth.ualDistributor}>
+      <Authorised authUserTypes={auth.ualSubscriber}>
           <ListLink to="/viewAllSubscriberApplications" label="View Applications" />
         <Divider />
         <Divider />
         <Divider />
+      </Authorised>
+      <Authorised authUserTypes={auth.ualDistributor}>
           <ListLink to="/addNewSubscriber" label="Add Subscriber" />
         <Divider />
         <Divider />
@@ -215,7 +217,6 @@ function App(props) {
         <Divider />
         <Divider />
           <Authorised authUserTypes={auth.utd}>
-
           <ListLink to="/distributionListForm" label="Distribution List" />
           <ListLink to="/expiryListForm" label="Expiry List" />
           </Authorised>
@@ -337,11 +338,15 @@ function App(props) {
                 <Login path="/login" />
                 <LoginResult path="/loginResult" />
                 <Logout path="/logout" />
-                <FilterSubscriberForm path="/filterForm" />
-                <FilterResult  path="/filterResult"/>
+                <Authorised authUserTypes={auth.ualDistributor} path="/filterForm">
+                  <FilterSubscriberForm path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualDistributor} path="/filterResult">
+                  <FilterResult path="/" />
+                </Authorised>
 
                 <Home path="/" />
-                <Authorised authUserTypes={auth.ualDistributor} path="/viewAllSubscriberApplications">
+                <Authorised authUserTypes={auth.ualSubscriber} path="/viewAllSubscriberApplications">
                   <ViewAllSubscriberApplications path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualDistributor} path="/addNewSubscriber">
@@ -374,7 +379,7 @@ function App(props) {
                 <Authorised authUserTypes={auth.ualDistributor} path="/searchResult">
                   <SearchResult path="/" />
                 </Authorised>
-                <Authorised fallback={<LoginPrompt/>} path="/editSubscriber">
+                <Authorised fallback={<LoginPrompt/>} authUserTypes={auth.ualSubscriber} path="/editSubscriber">
                   <SubscriberEditForm path="/" />
                 </Authorised>
                 <Authorised fallback={<LoginPrompt/>} path="/editDistributor">

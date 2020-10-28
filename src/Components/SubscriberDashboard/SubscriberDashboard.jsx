@@ -2,12 +2,12 @@ import React from 'react';
 import useSWR from 'swr';
 import Cookies from 'js-cookie';
 
-import { url_viewSubscriber } from '../../apiEndpoints/api';
+import { url_subViewSubscriber } from '../../apiEndpoints/api';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
 import SubscriberDetails from '../SubscriberDetails/SubscriberDetails';
 import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
 
-let url = url_viewSubscriber;
+let url = url_subViewSubscriber;
 
 export default function SubscriberDashboard (props) {
   const saveLastLocation = useSaveLastLocation();
