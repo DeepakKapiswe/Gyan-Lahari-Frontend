@@ -155,7 +155,12 @@ export default function SubscriberCardList(props) {
                 alignContent="flex-start"
                 justifyContent="center"
             >
-                {cards.map(card => (
+                {cards.length === 0 ? 
+                        <Typography variant="h2" component="h3"
+                            className={classes.heading} align="center">
+                            No Records Found!
+                        </Typography> : 
+                  cards.map(card => (
                     <Grid item
                         md={6} lg={4}
                         className={classes.gridCard}
