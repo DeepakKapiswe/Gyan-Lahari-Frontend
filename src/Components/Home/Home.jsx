@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
 import Logo from '../Logo/Logo';
 import { useNavigate } from '@reach/router';
-import { Grid } from '@material-ui/core';
+import { CssBaseline, Grid } from '@material-ui/core';
 import { isLoggedIn, getUserTypeLS } from '../../Library/Library';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
@@ -19,25 +19,24 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     },
   },
   root:{
-      padding:20
+      padding:20,
+      minHeight: '100vh',
+    // backgroundImage: `url(${process.env.PUBLIC_URL + '/assets/tmpbg.jpg'})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
   }
 }));
 
 export default function Home (props) {
-  const navigate = useNavigate();
   const styles= useStyles();
-  const saveLastLocation = useSaveLastLocation();
-  const saveNextLocation = useSaveNextLocation();
-  saveLastLocation();
-  saveNextLocation("/",{state:null});
-
   const handleClick = () => {
-        navigate("/loginForm");
+       
     };
   const userName = getUserTypeLS();
 
   return (
     <div className={styles.root}>
+      <CssBaseline/>
     <Logo/>
       <Typography variant="h2" component="h3" align="center"
           className={styles.heading}>

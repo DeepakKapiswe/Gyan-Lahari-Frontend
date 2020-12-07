@@ -12,11 +12,15 @@
     "js-cookie": "^2.2.1",
     "pdfmake": "^0.1.65",
     "react": "16.13.0",
+    "react-awesome-slider": "^4.1.0",
+    "react-coverflow": "^0.2.20",
     "react-device-detect": "^1.11.14",
     "react-dom": "16.13.0",
     "react-hook-form": "^6.0.8",
     "react-hook-form-input": "^1.1.10",
+    "react-parallax": "^3.1.2",
     "react-scripts": "^3.4.1",
+    "react-scroll": "^1.8.1",
     "react-swipeable-views": "^0.13.9",
     "swr": "^0.1.18",
     "tsutils": "^3.17.1"
@@ -41,5 +45,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }

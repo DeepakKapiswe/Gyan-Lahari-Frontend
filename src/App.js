@@ -26,8 +26,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {Authorised} from './Common/Authorization';
 import * as auth from './Common/Authorization';
 import LoginPrompt from './Components/LoginPrompt/LoginPrompt';
-import Home from './Components/Home/Home';
 import { useAuth } from './Hooks/AuthHooks';
+import HomePage from './HomePage/HomePage';
 
 const Login = lazy(() => import('./Components/Login/Login.jsx'));
 const Logout = lazy(() => import('./Components/Logout/Logout'));
@@ -345,7 +345,8 @@ function App(props) {
                   <FilterResult path="/" />
                 </Authorised>
 
-                <Home path="/" />
+                {/* <Home path="/" /> */}
+                <HomePage path="/"/>
                 <Authorised authUserTypes={auth.ualSubscriber} path="/viewAllSubscriberApplications">
                   <ViewAllSubscriberApplications path="/" />
                 </Authorised>

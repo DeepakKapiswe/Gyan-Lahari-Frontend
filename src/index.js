@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { AppProvider } from './Contexts/AppContext';
+import HomePage from './HomePage/HomePage';
+import { Router } from '@reach/router';
 
 // if you want to use concurrent mode :- uncomment this 
 // ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
@@ -12,7 +14,11 @@ const Application = () => {
     return (
         <>
             <AppProvider>
-                <App/>
+                <Router>
+
+                <HomePage path="/"/>
+                <App path="/"/>
+                </Router>
             </AppProvider>
         </>)
 }
