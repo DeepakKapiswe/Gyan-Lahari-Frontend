@@ -20,7 +20,7 @@ import { url_rejectSubscriberApplication
        , url_getSubscriber
        , url_distGetSubscriber, 
        url_subViewSubscriber} from '../../apiEndpoints/api';
-import { ualApprover } from '../../Common/Authorization';
+import { ualApprover } from '../../common/Authorization';
 import Cookies from 'js-cookie';
 import { useAppState } from '../../Contexts/AppContext';
 import { useSaveLastLocation } from '../../Hooks/SaveLocation';

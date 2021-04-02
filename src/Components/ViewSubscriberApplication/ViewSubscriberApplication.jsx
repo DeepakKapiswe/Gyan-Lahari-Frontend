@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonRouter from '../../Common/ButtonRouter';
+import ButtonRouter from '../../common/ButtonRouter';
 import { makeStyles} from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';

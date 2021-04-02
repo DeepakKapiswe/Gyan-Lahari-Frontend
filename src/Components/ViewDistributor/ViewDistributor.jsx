@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonRouter from '../../Common/ButtonRouter';
+import ButtonRouter from '../../common/ButtonRouter';
 import DistributorDetails from '../DistributorDetails/DistributorDetails';
 
 export default function SearchResult (props) {
