@@ -101,7 +101,7 @@ export default function SubscriberCardList(props) {
                         <Button size="small" color="primary"
                             className={useStyles.button}
                             variant="contained"
-                            onClick={e => navigate("/viewPdf", { state: { data: pdfData } })}
+                            onClick={e => navigate("/patrika/viewPdf", { state: { data: pdfData } })}
                         >
                             <Grid container direction="row" alignItems="center"  >
                                 <Grid item>
@@ -122,7 +122,7 @@ export default function SubscriberCardList(props) {
                     </BrowserView>
                     <Button size="small" color="secondary"
                         variant="contained"
-                        onClick={e => navigate("/downloadPdf", { state: { data: pdfData, fileName: pdfName } })}
+                        onClick={e => navigate("/patrika/downloadPdf", { state: { data: pdfData, fileName: pdfName } })}
                     >
                         <Grid container direction="row" alignItems="center">
                             <Grid item>

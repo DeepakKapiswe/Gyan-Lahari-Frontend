@@ -9,7 +9,7 @@ export default function AddDistributorResult (props) {
     if (props.location.state == null) { return (
         <>
         <h1> Oops... You Visited Wrong Place Please Click Add New Distributor!! </h1>
-        <BackButton label="Add New Distributor" path="/addNewDistributor"/>
+        <BackButton label="Add New Distributor" path="/patrika/addNewDistributor"/>
        </>
     ); }
     const newDistributorData = props.location.state.newDistributorData;
@@ -18,7 +18,7 @@ export default function AddDistributorResult (props) {
         <Suspense fallback={<LinearProgress/>}>
         <AddDistributor newDistributorData={newDistributorData}/>
         </Suspense>
-        <ButtonRouter route="/addNewDistributor" label="Add More" />
+        <ButtonRouter route="/patrika/addNewDistributor" label="Add More" />
        </>
     );
 }

@@ -21,8 +21,8 @@ export default function FetchDistributorDashboard (props) {
     },
     credentials: 'include',
   }).then(res => res.ok ? res.json() : res.status);
-  saveLastLocation("/");
-  saveNextLocation("/distributorDashboard");
+  saveLastLocation("/patrika/");
+  saveNextLocation("/patrika/distributorDashboard");
 
 
   const { data, error} = useSWR(url, fetcher, { suspense: true });

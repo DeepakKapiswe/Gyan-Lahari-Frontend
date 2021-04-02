@@ -49,8 +49,8 @@ const initAppState = {
     gotoLastLocation: false,
     userType: getUserTypeLS(),
     distributorDetails: getDistributorLS(), 
-    lastLocation:{pathname:'/', state : {}},
-    nextLocation:{pathname:'/', state : {}},
+    lastLocation:{pathname:'/patrika/', state : {}},
+    nextLocation:{pathname:'/patrika/', state : {}},
 }
 
 function AppProvider({children}) {

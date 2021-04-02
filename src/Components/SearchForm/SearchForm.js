@@ -60,8 +60,8 @@ export default function SearchForm() {
   const saveNextLocation = useSaveNextLocation();
   saveLastLocation();
   const onSubmit = data => {
-    saveNextLocation("/searchResult", {state:{searchQuery:data }});
-    navigate("/searchResult", {state:{searchQuery:data }})
+    saveNextLocation("/patrika/searchResult", {state:{searchQuery:data }});
+    navigate("/patrika/searchResult", {state:{searchQuery:data }})
   };
 
   const classes = useStyles();

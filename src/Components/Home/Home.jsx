@@ -29,10 +29,10 @@ export default function Home (props) {
   const saveLastLocation = useSaveLastLocation();
   const saveNextLocation = useSaveNextLocation();
   saveLastLocation();
-  saveNextLocation("/",{state:null});
+  saveNextLocation("/patrika/",{state:null});
 
   const handleClick = () => {
-        navigate("/loginForm");
+        navigate("/patrika/loginForm");
     };
   const userName = getUserTypeLS();
 

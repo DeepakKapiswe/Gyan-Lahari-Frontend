@@ -96,8 +96,8 @@ export default function BulkExpiryListForm(props) {
       ? allDistIds    // this could be modified in multiple requests if all distributors are selected
                       // as otherwise this call takes too much time due to excess data in same pdf
       : data.beldDistIds.map(dId => dId.toString())
-    saveNextLocation("/bulkExpiryList", {state:{beldDetails:data}})
-    navigate("/bulkExpiryList", {state:{beldDetails:data}})
+    saveNextLocation("/patrika/bulkExpiryList", {state:{beldDetails:data}})
+    navigate("/patrika/bulkExpiryList", {state:{beldDetails:data}})
   };
 
   const classes = useStyles();

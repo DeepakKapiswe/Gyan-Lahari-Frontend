@@ -90,8 +90,8 @@ export default function BulkDistributionListForm(props) {
       ? allDistIds    // this could be modified in multiple requests if all distributors are selected
                       // as otherwise this call takes too much time due to excess data in same pdf
       : data.bdldDistIds.map((dId) => dId.toString())
-    saveNextLocation("/bulkDistributionList", {state:{bdldDetails:data}})
-    navigate("/bulkDistributionList", {state:{bdldDetails:data}})
+    saveNextLocation("/patrika/bulkDistributionList", {state:{bdldDetails:data}})
+    navigate("/patrika/bulkDistributionList", {state:{bdldDetails:data}})
   };
 
   const classes = useStyles();

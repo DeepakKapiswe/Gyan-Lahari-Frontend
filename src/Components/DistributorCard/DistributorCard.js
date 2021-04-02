@@ -162,21 +162,21 @@ export default function DistributorCard(props) {
                     >
                         <Grid item>
                             <Button size="small" color="primary" className={styles.button}
-                            onClick={ e => navigate("/distributionListForm", {state:{distributor:dD}})}
+                            onClick={ e => navigate("/patrika/distributionListForm", {state:{distributor:dD}})}
                             >
                                 Distribution List
                             </Button>
                         </Grid>
                         <Grid item>
                             <Button size="small" color="primary" className={styles.button}
-                            onClick={ e => navigate("/expiryListForm", {state:{distributor:dD}})}
+                            onClick={ e => navigate("/patrika/expiryListForm", {state:{distributor:dD}})}
                             >
                                 Expiry List
                             </Button>
                         </Grid>
                         <Grid item>
                             <Button size="small" color="primary" className={styles.button}
-                            onClick={ e => navigate("/editDistributor", {state:{distributor:dD}})}
+                            onClick={ e => navigate("/patrika/editDistributor", {state:{distributor:dD}})}
                              >
                                Edit
                             </Button>

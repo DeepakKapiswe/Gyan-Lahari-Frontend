@@ -114,8 +114,8 @@ export default function SubscriberCard(props) {
   const sD = props.subscriberDetails;
 
   const handleEditClick = () => {
-    saveNextLocation("/editSubscriber", {state:{subscriber:sD}});
-    navigate("/editSubscriber", {state:{subscriber:sD}});
+    saveNextLocation("/patrika/editSubscriber", {state:{subscriber:sD}});
+    navigate("/patrika/editSubscriber", {state:{subscriber:sD}});
   };
 
     return (

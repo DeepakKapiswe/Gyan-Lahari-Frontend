@@ -62,7 +62,7 @@ export default function DistributionListForm(props) {
   const dD = distributorDetails !== null ? distributorDetails : props.location.state.distributor;
   const onSubmit = data => {
     data.dldCurrentVol = data.dldCurrentVol*1
-    navigate("/distributionList", {state:{dldDetails:data, distDetails:dD }})
+    navigate("/patrika/distributionList", {state:{dldDetails:data, distDetails:dD }})
   };
 
   const classes = useStyles();

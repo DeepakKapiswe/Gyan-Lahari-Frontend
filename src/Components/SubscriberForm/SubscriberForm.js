@@ -70,8 +70,8 @@ export default function SubscriberForm() {
     data.subEndVol = data.subEndVol*1;
     data.subSubscriptionType = data.subSubscriptionType*1; 
     data.subSlipNum = data.subSlipNum*1;
-    saveNextLocation("/addSubscriberResult", {state:{newSubscriberData:data }});
-    navigate("/addSubscriberResult", {state:{newSubscriberData:data }})
+    saveNextLocation("/patrika/addSubscriberResult", {state:{newSubscriberData:data }});
+    navigate("/patrika/addSubscriberResult", {state:{newSubscriberData:data }})
   };
 
   const handleStartVolChange = (event) => {

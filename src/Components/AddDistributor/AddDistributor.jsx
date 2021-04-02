@@ -41,7 +41,7 @@ export default function AddDistributor (props) {
   if (!data) return <div>loading...</div>
   if (data === 401) return <LoginPrompt/>
   if (payload.distName === '') {return <div>Empty Query</div>}
-  navigate("/viewAddedDistributor", {state:{distributor:data }})
+  navigate("/patrika/viewAddedDistributor", {state:{distributor:data }})
   return (
     <>
       <Typography variant="h2" component="h3"

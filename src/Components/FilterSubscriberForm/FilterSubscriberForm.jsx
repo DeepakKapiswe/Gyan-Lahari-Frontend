@@ -337,8 +337,8 @@ export default function RenderForm() {
     const onSubmit = data => {
         if (data.filterOptions === undefined)  {alert('Please put some data in filter Details');}
         else {
-        saveNextLocation("/filterResult", { state: { filterOptions: data.filterOptions } });
-        navigate("/filterResult", { state: { filterOptions: data.filterOptions } })
+        saveNextLocation("/patrika/filterResult", { state: { filterOptions: data.filterOptions } });
+        navigate("/patrika/filterResult", { state: { filterOptions: data.filterOptions } })
     }};
 
     const classes = useStyles();

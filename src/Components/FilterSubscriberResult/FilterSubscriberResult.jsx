@@ -7,7 +7,7 @@ export default function FilterResult (props) {
     if (props.location.state == null) { return (
         <>
           <h1> Oops... Bad Filter Query Please Click Filter Again !! </h1>
-          <BackButton label="Filter Again" path="filterForm"/>
+          <BackButton label="Filter Again" path="/patrika/filterForm"/>
        </>
     ); }
     const filterOptions = props.location.state.filterOptions;

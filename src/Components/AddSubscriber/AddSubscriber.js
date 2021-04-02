@@ -46,7 +46,7 @@ export default function AddSubscriberResult (props) {
   if (error) return <div>failed to load</div>
   // if (!data) return <LinearProgress/>
   if (data === 401) return <LoginPrompt/>
-  navigate("/viewSubscriberApplication", {state:{subscriberApplicationData:data }});
+  navigate("/patrika/viewSubscriberApplication", {state:{subscriberApplicationData:data }});
   
   return (
     <Suspense fallback={<LinearProgress/>}>

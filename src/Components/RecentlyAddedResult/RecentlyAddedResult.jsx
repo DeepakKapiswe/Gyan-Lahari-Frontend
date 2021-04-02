@@ -7,7 +7,7 @@ export default function RecentlyAddedResult (props) {
     if (props.location.state == null) { return (
         <>
         <h1> Oops... Bad Query Please Click View Again !! </h1>
-        <BackButton label="View Again" path="/recentlyAddedForm"/>
+        <BackButton label="View Again" path="/patrika/recentlyAddedForm"/>
        </>
     ); }
     const count = props.location.state.recentlyAddedQuery;

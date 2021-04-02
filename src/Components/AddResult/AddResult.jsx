@@ -9,7 +9,7 @@ export default function AddResult (props) {
     if (props.location.state == null) { return (
         <>
         <h1> Oops... You Visited Wrong Place Please Click Add New Subscriber!! </h1>
-        <BackButton label="Add New Subscriber" path="/addNewSubscriber"/>
+        <BackButton label="Add New Subscriber" path="/patrika/addNewSubscriber"/>
        </>
     ); }
     const newSubscriberData = props.location.state.newSubscriberData;
@@ -19,7 +19,7 @@ export default function AddResult (props) {
 
         <AddSubscriberResult newSubscriberData={newSubscriberData}/>
         </Suspense>
-        <ButtonRouter route="/addNewSubscriber" label="Add More" />
+        <ButtonRouter route="/patrika/addNewSubscriber" label="Add More" />
        </>
     );
 }

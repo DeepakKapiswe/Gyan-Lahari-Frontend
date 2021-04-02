@@ -179,65 +179,65 @@ function App(props) {
       <Divider />
       <Divider />
       <Divider />
-      <ListLink to="/" label="Home" />
+      <ListLink to="/patrika/" label="Home" />
       <Divider />
       <Divider />
       <Divider />
       <Authorised authUserTypes={auth.uts}>
-        <ListLink to="/subscriberDashboard" label="Subscriber Dashboard" />
+        <ListLink to="/patrika/subscriberDashboard" label="Subscriber Dashboard" />
       <Divider />
       <Divider />
       <Divider />
       </Authorised>
       <Authorised authUserTypes={auth.utd}>
-        <ListLink to="/distributorDashboard" label="Distributor Dashboard" />
+        <ListLink to="/patrika/distributorDashboard" label="Distributor Dashboard" />
       <Divider />
       <Divider />
       <Divider />
       </Authorised>
       <Authorised authUserTypes={auth.ualSubscriber}>
-          <ListLink to="/viewAllSubscriberApplications" label="View Applications" />
+          <ListLink to="/patrika/viewAllSubscriberApplications" label="View Applications" />
         <Divider />
         <Divider />
         <Divider />
       </Authorised>
       <Authorised authUserTypes={auth.ualDistributor}>
-          <ListLink to="/addNewSubscriber" label="Add Subscriber" />
+          <ListLink to="/patrika/addNewSubscriber" label="Add Subscriber" />
         <Divider />
         <Divider />
         <Divider />
-          <ListLink to="/recentlyAddedForm" label="View Recently Added" />
-          <ListLink to="/searchSubscriber" label="Search Subscriber" />
-          <ListLink to="/filterForm" label="Filter Subscribers" />
+          <ListLink to="/patrika/recentlyAddedForm" label="View Recently Added" />
+          <ListLink to="/patrika/searchSubscriber" label="Search Subscriber" />
+          <ListLink to="/patrika/filterForm" label="Filter Subscribers" />
         <Divider />
         <Divider />
         <Divider />
-          <ListLink to="/allSubscribers" label="All Subscribers" />
+          <ListLink to="/patrika/allSubscribers" label="All Subscribers" />
         <Divider />
         <Divider />
         <Divider />
           <Authorised authUserTypes={auth.utd}>
-          <ListLink to="/distributionListForm" label="Distribution List" />
-          <ListLink to="/expiryListForm" label="Expiry List" />
+          <ListLink to="/patrika/distributionListForm" label="Distribution List" />
+          <ListLink to="/patrika/expiryListForm" label="Expiry List" />
           </Authorised>
         <Authorised authUserTypes={auth.ualManager}>
-          <ListLink to="/allDistributors" label="All Distributors" />
+          <ListLink to="/patrika/allDistributors" label="All Distributors" />
           <Authorised onlyAdmin >
-            <ListLink to="/addNewDistributor" label="Add Distributor" />
+            <ListLink to="/patrika/addNewDistributor" label="Add Distributor" />
           </Authorised>
           <Divider />
           <Divider />
           <Divider />
-          <ListLink to="/bulkDistributionListForm" label="Print Distribution" />
-          <ListLink to="/bulkExpiryListForm" label="Print Expiry" />
+          <ListLink to="/patrika/bulkDistributionListForm" label="Print Distribution" />
+          <ListLink to="/patrika/bulkExpiryListForm" label="Print Expiry" />
         </Authorised>
       </Authorised >
       <Divider />
       <Divider />
       <Divider />
       <ShowIfLoggedIn
-        showToLoggedIn={<ListLink to="/logout" label="Sign Out" />}
-        showToLoggedOut={<ListLink to="/loginForm" label="Sign In"/> }
+        showToLoggedIn={<ListLink to="/patrika/logout" label="Sign Out" />}
+        showToLoggedOut={<ListLink to="/patrika/loginForm" label="Sign In"/> }
         />
     </>
   );
@@ -332,7 +332,8 @@ function App(props) {
           <ThemeProvider theme={theme}>
             <Suspense
               fallback={<LinearProgress />}>
-              <Router>
+              {/* <Router> */}
+              <Router basepath="/patrika" >
                 <LoginForm path="/loginForm" />
                 <LoginBackdrop path="/loginBackdrop" />
                 <Login path="/login" />
@@ -432,7 +433,7 @@ function App(props) {
                 </Authorised>
                      {/* To catch all unmatched urls:  */}
                 <Redirect default from="/*" to="/" noThrow />
-                </Router>
+              </Router>
             </Suspense>
             <Footer />
           </ThemeProvider >

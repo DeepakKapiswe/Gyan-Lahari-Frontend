@@ -67,7 +67,7 @@ export default function DistributorDetails(props) {
 const sample =
 { 
   distId: "32",
-  distName: "SriRam Bhai",
+  distName: "Sample Name",
   distAbout: "Sri Kabir Gyan Mandir",
   distAdd: "संत कबीर ज्ञान मार्ग",
   distCity: "Giridih",

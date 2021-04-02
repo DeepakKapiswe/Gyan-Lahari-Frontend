@@ -7,7 +7,7 @@ export default function SearchResult (props) {
     if (props.location.state == null) { return (
         <>
         <h1> Oops... Bad Search Query Please Click Search Again !! </h1>
-        <BackButton label="Search Again" path="searchSubscriber"/>
+        <BackButton label="Search Again" path="/patrika/searchSubscriber"/>
        </>
     ); }
     const query = props.location.state.searchQuery;

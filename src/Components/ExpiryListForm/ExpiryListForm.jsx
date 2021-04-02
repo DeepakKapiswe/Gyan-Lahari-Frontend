@@ -60,7 +60,7 @@ export default function ExpiryListForm(props) {
   const onSubmit = data => {
     data.eldExpiryVol          = data.eldExpiryVol*1
     data.eldExpiryYearDuration = data.eldExpiryYearDuration*1
-    navigate("/expiryList", {state:{eldDetails:data, distDetails:dD }})
+    navigate("/patrika/expiryList", {state:{eldDetails:data, distDetails:dD }})
   };
 
   const classes = useStyles();

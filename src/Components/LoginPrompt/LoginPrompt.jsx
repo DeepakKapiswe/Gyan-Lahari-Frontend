@@ -69,7 +69,7 @@ export default function LoginPrompt(props) {
     };
 
     const handleLogin = () => {
-        navigate("/loginBackdrop");
+        navigate("/patrika/loginBackdrop");
     };
 
     return (

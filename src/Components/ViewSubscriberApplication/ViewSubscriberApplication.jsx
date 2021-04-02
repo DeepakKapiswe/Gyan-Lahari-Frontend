@@ -64,7 +64,7 @@ export default function ViewSubscriberApplication (props) {
     if (props.location.state == null) { return (
        <>
         <h1> Oops... Something Went Wrong Please Add New Subscriber !! </h1>
-        <ButtonRouter route="/addNewSubscriber" label="Add New Subscriber" />
+        <ButtonRouter route="/patrika/addNewSubscriber" label="Add New Subscriber" />
        </>
     ); }
     const subApp = props.location.state.subscriberApplicationData;
@@ -75,7 +75,7 @@ export default function ViewSubscriberApplication (props) {
             <SubscriptionApplicationCard  applicationData={subApp}/>
         </div>
         <div className={styles.root}>
-            <ButtonRouter route="/addNewSubscriber" label="Add New Subscriber" />
+            <ButtonRouter route="/patrika/addNewSubscriber" label="Add New Subscriber" />
         </div>
        </div>
     );

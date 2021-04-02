@@ -59,8 +59,8 @@ export default function RecentlyAddedForm() {
   saveLastLocation();
   const onSubmit = data => {
     data = data.raCount*1;
-    saveNextLocation("/recentlyAddedResult", {state:{recentlyAddedQuery:data }});
-    navigate("/recentlyAddedResult", {state:{recentlyAddedQuery:data }})
+    saveNextLocation("/patrika/recentlyAddedResult", {state:{recentlyAddedQuery:data }});
+    navigate("/patrika/recentlyAddedResult", {state:{recentlyAddedQuery:data }})
     
   };
 

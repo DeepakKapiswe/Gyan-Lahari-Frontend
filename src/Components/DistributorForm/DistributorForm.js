@@ -66,8 +66,8 @@ export default function DistributorForm() {
   saveLastLocation();
 
   const onSubmit = data => {
-    saveNextLocation("/addDistributorResult", {state:{newDistributorData:data }});
-    navigate("/addDistributorResult", {state:{newDistributorData:data }});
+    saveNextLocation("/patrika/addDistributorResult", {state:{newDistributorData:data }});
+    navigate("/patrika/addDistributorResult", {state:{newDistributorData:data }});
   };
 
 

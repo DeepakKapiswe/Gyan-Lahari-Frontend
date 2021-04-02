@@ -89,7 +89,7 @@ export default function SignIn(props) {
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
         data.userRole = props.userRole || "administrativeUser" ;
-        navigate("/loginResult/", { state: { userAuthData: data } });
+        navigate("/patrika/loginResult/", { state: { userAuthData: data } });
     };
 
     const classes = useStyles();
