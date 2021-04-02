@@ -30,6 +30,7 @@ export default function ViewAllDistributors(props) {
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
   if (data === 401) return <LoginPrompt/>
-  const items = data.map((item) => <DistributorCard distributorDetails={item}/>);
+  const sortedData = data.sort((a,b) => a.distId-b.distId);
+  const items = sortedData.map((item) => <DistributorCard distributorDetails={item}/>);
   return <DistributorCardList cards={items}/>;
 }
