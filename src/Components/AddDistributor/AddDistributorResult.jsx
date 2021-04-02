@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 
 import BackButton from '../BackButton/BackButton';
 import { LinearProgress } from '@material-ui/core';
-import ButtonRouter from '../../common/ButtonRouter';
+import ButtonRouter from '../../Common/ButtonRouter';
 import AddDistributor from './AddDistributor';
 
 export default function AddDistributorResult (props) {

@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import BackButton from '../BackButton/BackButton';
 import AddSubscriberResult from '../AddSubscriber/AddSubscriber';
 import { LinearProgress } from '@material-ui/core';
-import ButtonRouter from '../../common/ButtonRouter';
+import ButtonRouter from '../../Common/ButtonRouter';
 
 export default function AddResult (props) {
     if (props.location.state == null) { return (

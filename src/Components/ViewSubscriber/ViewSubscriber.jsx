@@ -1,6 +1,6 @@
 import React from 'react';
 import SubscriberDetails from '../SubscriberDetails/SubscriberDetails';
-import ButtonRouter from '../../common/ButtonRouter';
+import ButtonRouter from '../../Common/ButtonRouter';
 
 export default function SearchResult (props) {
     if (props.location.state == null) { return (
