@@ -23,7 +23,7 @@ function Copyright() {
         </Typography>
             <Typography variant="body2" color="textSecondary" >
                 {'Copyright © '}
-                <Link href="https://gyanlahari.com/">
+                <Link href="https://kabirgyan.com/">
                     Gyan Lahari
             </Link>
                 {' '}

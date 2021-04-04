@@ -27,7 +27,7 @@ function Copyright() {
         <div className={classes.text}>
         <Typography variant="body2">
           {'Copyright © '}
-            <Link className={classes.link} href="https://gyanlahari.com">
+            <Link className={classes.link} href="https://kabirgyan.com">
                 Gyan Lahari
             </Link>
           {' '}
