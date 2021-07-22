@@ -3,6 +3,8 @@ import makeExpiryData from "./makeExpiryData";
 
 function makeSubscriberCell(subscriber, currentVol) {
     const a = subscriber
+    a.subStartVol = a.currPlan ? a.currPlan.substartvol : a.subscriptions[0].substartvol
+    a.subEndVol = a.currPlan ? a.currPlan.subendvol : a.subscriptions[0].subendvol
     a.isExpiring = a.subEndVol === currentVol
     return (
         {

@@ -2,6 +2,8 @@ import dcopy from "deep-copy";
 
 function makeSubscriberCell(subscriber) {
     const a = subscriber
+    a.subStartVol = a.currPlan ? a.currPlan.substartvol : a.subscriptions[0].substartvol
+    a.subEndVol = a.currPlan ? a.currPlan.subendvol : a.subscriptions[0].subendvol
     return (
         {
             margin: [8, 9, 0, 0], // sets gap between each row
@@ -11,7 +13,7 @@ function makeSubscriberCell(subscriber) {
             stack: [
                 'SC:' + a.subId +
                 ' DC:' + a.subDistId +
-                ' V(' + a.subStartVol + '-' + (a.subStartVol * 1 + (a.subSubscriptionType * 4 - 1)) +
+                ' V(' + a.subStartVol + '-' + a.subEndVol +
                 ')'
                 , a.subName
                 , (a.subAbout === ("" || null) ? "" : a.subAbout)

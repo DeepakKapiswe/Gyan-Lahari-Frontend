@@ -34,6 +34,7 @@ const Logout = lazy(() => import('./Components/Logout/Logout'));
 const LoginForm = lazy(() => import('./Components/LoginForm/LoginForm'));
 const LoginBackdrop = lazy(() => import('./Components/LoginBackdrop/LoginBackdrop'));
 const LoginResult = lazy(() => import('./Components/LoginResult/LoginResult'));
+const ViewCurrentVolumeNum = lazy(() => import('./Components/ViewCurrentVolumeNum/ViewCurrentVolumeNum'));
 const ViewAllSubscribers = lazy(() => import('./Components/ViewSubscriber/ViewAllSubscribers'));
 const ViewAllDistributors = lazy(() => import('./Components/ViewDistributor/ViewAllDistributors'));
 const ViewAddedDistributor = lazy(() => import('./Components/ViewDistributor/ViewDistributor'));
@@ -201,6 +202,12 @@ function App(props) {
         <Divider />
         <Divider />
       </Authorised>
+      <Authorised authUserTypes={auth.ualManager}>
+          <ListLink to="/patrika/viewUserApplications" label="My Applications" />
+        <Divider />
+        <Divider />
+        <Divider />
+      </Authorised>
       <Authorised authUserTypes={auth.ualDistributor}>
           <ListLink to="/patrika/addNewSubscriber" label="Add Subscriber" />
         <Divider />
@@ -232,6 +239,14 @@ function App(props) {
           <ListLink to="/patrika/bulkExpiryListForm" label="Print Expiry" />
         </Authorised>
       </Authorised >
+
+      <Divider />
+      <Divider />
+      <Divider />
+      <ShowIfLoggedIn
+        showToLoggedIn={<ListLink to="/patrika/viewCurrentVolumeNum" label="Current Issue Number" />}
+        showToLoggedOut={<></>}
+        />
       <Divider />
       <Divider />
       <Divider />
@@ -339,6 +354,7 @@ function App(props) {
                 <Login path="/login" />
                 <LoginResult path="/loginResult" />
                 <Logout path="/logout" />
+                <ViewCurrentVolumeNum path="/viewCurrentVolumeNum" />
                 <Authorised authUserTypes={auth.ualDistributor} path="/filterForm">
                   <FilterSubscriberForm path="/" />
                 </Authorised>
@@ -349,6 +365,9 @@ function App(props) {
                 <Home path="/" />
                 <Authorised authUserTypes={auth.ualSubscriber} path="/viewAllSubscriberApplications">
                   <ViewAllSubscriberApplications path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/viewUserApplications">
+                  <ViewAllSubscriberApplications path="/" onlyUser />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualDistributor} path="/addNewSubscriber">
                   <SubscriberForm path="/" />

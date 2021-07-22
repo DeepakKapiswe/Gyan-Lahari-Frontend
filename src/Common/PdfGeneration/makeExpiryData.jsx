@@ -4,7 +4,7 @@ function singleExpiry(subscriber) {
     const a = subscriber
     return (
         [ {text : a.subId, fontSize : 12}
-        ,  { text : a.subStartVol + '-' + a.subEndVol, fontSize : 12}
+        ,  { text : a.subscriptions[0].substartvol + '-' + a.subscriptions[0].subendvol, fontSize : 12}
         ,  {text : a.subName, fontSize : 12}
         , (a.subAbout === ("" || null) ? "" : a.subAbout + ', ')
          + (a.subAdd1 === ("" || null) ? "" : a.subAdd1 + ', ')

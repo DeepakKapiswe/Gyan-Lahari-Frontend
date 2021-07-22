@@ -20,12 +20,13 @@ import { url_rejectSubscriberApplication
        , url_getSubscriber
        , url_distGetSubscriber, 
        url_subViewSubscriber} from '../../apiEndpoints/api';
-import { ualApprover } from '../../Common/Authorization';
+import { ualApprover, ualManager } from '../../Common/Authorization';
 import Cookies from 'js-cookie';
 import { useAppState } from '../../Contexts/AppContext';
 import { useSaveLastLocation } from '../../Hooks/SaveLocation';
 import BlockIcon from '@material-ui/icons/Block';
-import { FormControlLabel, Grid, Switch } from '@material-ui/core';
+import { Divider, FormControlLabel, Grid, Switch } from '@material-ui/core';
+import formatDate from '../../Common/FormatDate';
 
 // import IconButton from '@material-ui/core/IconButton';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -60,10 +61,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SubscriptionApplicationCard(props) {
     const classes = useStyles();
-    const [appData, setAppData] = React.useState(props.applicationData);
+    const [app, setAppData] = React.useState(props.applicationData);
     const [originalData, setOriginalData] = useState(null);
-    const serial = appData.saApplicationId;
-    const subscriberData = appData.saSubscriberData;
+    const serial = app.appId;
+    // const subscriberData = app.saSubscriberData;
     const {userType} = useAppState();
     const [loginStatus, setLoginStatus] = useState(true);
     const saveLastLocation = useSaveLastLocation();
@@ -105,7 +106,7 @@ export default function SubscriptionApplicationCard(props) {
     }
     
     function fetchOriginalData() {
-        const subInfo = subscriberData.subId;
+        const subInfo = app.appData.subId;
         const url = userType === 'USubscriber' ? url_subViewSubscriber :
                     userType === 'UDistributor' ? url_distGetSubscriber :
                     url_getSubscriber;
@@ -155,9 +156,14 @@ export default function SubscriptionApplicationCard(props) {
             label="ADD NEW SUBSCRIBER"
             />
 
-    const editDetails = <Chip
+    const editSubscriberDetails = <Chip
             color="default"
-            label="EDIT DETAILS"
+            label="EDIT SUBSCRIBER DETAILS"
+            />
+
+    const editSubscriptionDetails = <Chip
+            color="default"
+            label="EDIT SUBSCRIPTION DETAILS"
             />
 
     const renew = <Chip
@@ -167,35 +173,46 @@ export default function SubscriptionApplicationCard(props) {
 
 
     const statusDisplay = 
-        appData.saAppStatus === 'Pending' ? pending :
-        appData.saAppStatus === 'Approved' ? approved :
-        appData.saAppStatus === 'Rejected' ? rejected :
+        app.appStatus === 'Pending' ? pending :
+        app.appStatus === 'Approved' ? approved :
+        app.appStatus === 'Rejected' ? rejected :
         null;
     
     const appTypeDisplay =
-        appData.saApplicationType === 'AddNewSubscriber' ? addNew :
-        appData.saApplicationType === 'EditDetails' ? editDetails :
-        appData.saApplicationType === 'RenewSubscriber' ? renew :
+        app.appType === 'AddNewSubscriber' ? addNew :
+        app.appType === 'EditSubscriberDetails' ? editSubscriberDetails :
+        app.appType === 'EditSubscriptionDetails' ? editSubscriptionDetails :
+        app.appType === 'RenewSubscription' ? renew :
         null;
+    
+   
 
     return (
       loginStatus !== true ? <LoginPrompt/> :
         <Card className={classes.root}>
             <CardHeader
-                avatar={
-                    <Avatar aria-label="logo-awatar" variant="rounded"
-                        className={classes.avatar}
-                        src={logo} alt="" />
-                }
+                // avatar={
+                //     <Avatar aria-label="logo-awatar" variant="rounded"
+                //         className={classes.avatar}
+                //         src={logo} alt="" />
+                // }
                 action={
-                    appData.saAppStatus === 'Pending' &&
-                    appData.saApplicationType === 'EditDetails' &&
-                     <FormControlLabel
-                      value="bottom"
-                      control={<Switch color="primary" onChange={toggleChecked}/>}
-                      label="View Original"
-                      labelPlacement="bottom"
-                    />
+                    app.appStatus === 'Pending' &&
+                    ( app.appType === 'EditSubscriberDetails' ?
+                         <FormControlLabel
+                          value="bottom"
+                          control={<Switch color="primary" onChange={toggleChecked}/>}
+                          label="View Original"
+                          labelPlacement="bottom"
+                        /> :
+                      app.appType === 'EditSubscriptionDetails' ?
+                         <FormControlLabel
+                          value="bottom"
+                          control={<Switch color="primary" onChange={toggleChecked}/>}
+                          label="View Original"
+                          labelPlacement="bottom"
+                       /> :
+                       null)
                 }
                 // this can be used for adding more functions
                 // action={
@@ -205,20 +222,21 @@ export default function SubscriptionApplicationCard(props) {
                 // }
 
                 title={"Application Serial : " + serial}
-                    // TODO : Application Date has to be fixed
                 subheader={<>
-                    {/* {"October 15, 2020"} <br />    */}
-                    {"Application Type : "}
-                    {appTypeDisplay} <br/>
-                    {"Application Status : "}
-                    {statusDisplay}
+                    {"Application Date : "} {formatDate(app.appSubmittedAt)} <br />   
+                    {"Application Type : "} {appTypeDisplay} <br/>
+                    {"Application Status : "} {statusDisplay} <br/>
+                    { ualManager.includes(userType) && "Submitted By : " + app.appSubmittedBy} <br/>
+                    {app.appProcessedAt && "Processed At : " + formatDate(app.appProcessedAt)} <br/>
+                    { ualManager.includes(userType) && app.appStatus !== 'Pending' && "Processed By : " + app.appProcessedBy}
+
                 </>}
             />
 
             {originalData !== null &&
              checked &&
-             appData.saAppStatus === 'Pending' &&
-             appData.saApplicationType === 'EditDetails' &&
+             app.appStatus === 'Pending' &&
+             app.applicationType === 'EditDetails' &&
              originalData[0] !== null &&
               <CardContent>
                   <p>Original: </p>
@@ -227,18 +245,29 @@ export default function SubscriptionApplicationCard(props) {
               </CardContent>
             }
             <CardContent>
-                <SubscriberCard noActionButtons subscriberDetails={subscriberData} />
+                {
+                    app.appType === 'AddNewSubscriber' ? <DisplayNewSubscriberApplication newSubData={app.appData} /> :
+                    app.appType === 'EditSubscriberDetails' ? <DisplayEditSubscriberDetailsApplication  subEditData={app.appData}  subOldData={originalData} /> :
+                    app.appType === 'EditSubscriptionDetails' ? <DisplayEditSubscriptionApplication  subEditData={app.appData} /> :
+                    app.appType === 'RenewSubscription' ? <DisplayRenewSubscriptionApplication renewSubscriptionData={app.appData} /> :
+                    null
+
+                }
+
+                {/* <SubscriberCard noActionButtons subscriberDetails={subscriberData} /> */}
             </CardContent>
             <CardContent>
+                {app.appStatus === 'Pending' && 
                 <Typography variant="body2" color="textPrimary" component="p">
                     This subscription application will be approved only if confirmed by authorised personnel
-                </Typography>
+                </Typography>}
                 <Typography variant="body2" color="textPrimary" component="p">
                     किसी भी जानकारी व सहायता के लिए सम्पर्क करें - 9155950505
                 </Typography>
             </CardContent>
+           
            { ualApprover.includes(userType) && 
-             appData.saAppStatus === 'Pending' && 
+             app.appStatus === 'Pending' && 
              <CardActions>
                 <Grid container justify="space-around">
                 <Grid item>
@@ -274,3 +303,154 @@ export default function SubscriptionApplicationCard(props) {
                 );
 }
 
+
+
+const makeColumn = (str, comp) => {
+  return <Grid container justify="space-between" alignItems="baseline" spacing={1}>
+    <Grid item>
+      <Typography variant="button" color="textSecondary" >
+        <i>{str}</i>
+      </Typography>
+    </Grid>
+    <Grid item>
+      <Typography variant="body2" align="right" >
+        <b>
+          {comp}
+        </b>
+      </Typography>
+    </Grid>
+  </Grid>
+}
+
+ function DisplayNewSubscriberApplication (props) {
+  const s = props.newSubData
+  const styles = useStyles();
+  return (
+    <Card variant="outlined" >
+      <Typography variant="button"
+        align="left" color="textSecondary"
+      >
+                        {makeColumn("Name" ,s.subName   )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "About",s.subAbout  )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "Address Line 1",s.subAdd1 )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "Address Line 2",s.subAdd2 )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "Post",s.subPost   )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "City",s.subCity   )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "State",s.subState )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "Pincode",s.subPincode)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "Mobile",s.subPhone )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Plan", <>{s.subPlan} Years</>)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Valid for Volume Number", <> {s.subStartVol} --{'>'} {s.subEndVol}</>)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Distributor Id", s.subDistId)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Slip No.", s.subSlipNum)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Subscription Type", "New")}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Subscription Medium", s.subMedium)}
+      </Typography>
+    </Card>
+  );
+}
+function DisplayEditSubscriberDetailsApplication (props) {
+  const s = props.subEditData
+  const styles = useStyles();
+  return (<>
+    <Card variant="outlined" >
+      <Typography variant="button"
+        align="left" color="textSecondary"
+      >
+                        {makeColumn("Subscriber Code (SC)", s.subId )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Name", s.subName )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "About",s.subAbout  )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "Address Line 1",s.subAdd1 )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "Address Line 2",s.subAdd2 )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "Post",s.subPost   )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "City",s.subCity   )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "State",s.subState )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "Pincode",s.subPincode)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn( "Mobile",s.subPhone )}
+      </Typography>
+    </Card>
+  </>);
+}
+
+function DisplayEditSubscriptionApplication (props) {
+  const s = props.subEditData
+  const styles = useStyles();
+  return (
+    <Card variant="outlined" >
+      <Typography variant="button"
+        align="left" color="textSecondary"
+      >
+                        
+                        {makeColumn("Subscriber Code (SC)", s.subId )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Subscription Id", s.subscriptionId)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Plan", <>{s.subPlan} Years</>)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Valid for Volume Number", <> {s.subStartVol} --{'>'} {s.subEndVol}</>)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Distributor Id", s.subDistId)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Slip No.", s.subSlipNum)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Subscription Type", "New")}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Subscription Medium", s.subMedium)}
+      </Typography>
+    </Card>
+
+  );
+}
+
+function DisplayRenewSubscriptionApplication (props) {
+  const s = props.renewSubscriptionData
+  const styles = useStyles();
+  return (
+    <Card variant="outlined" >
+      <Typography variant="button"
+        align="left" color="textSecondary"
+      >
+                        
+                        {makeColumn("Subscriber Code (SC)", s.subId )}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Last Subscription Id", s.subscriptionId)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Plan", <>{s.subPlan} Years</>)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Valid for Volume Number", <> {s.subStartVol} --{'>'} {s.subEndVol}</>)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Distributor Id", s.subDistId)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Slip No.", s.subSlipNum)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Subscription Type", s.subType)}
+                        <Divider variant="fullWidth" />
+                        {makeColumn("Subscription Medium", s.subMedium)}
+      </Typography>
+    </Card>
+
+  );
+}

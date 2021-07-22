@@ -31,7 +31,10 @@ function FetchBulkExpiryList(props) {
     , meta: 'BulkExpiryList' 
     };
   return (
-    <SubscriberCardList cards={[]} header="Bulk Expiry List" pdfData={pdfData}/> );
+    <>
+    <h4> Msg : No option for rendering expired Subscribers here, Please View / Download Pdf</h4>
+    <SubscriberCardList cards={[]} header="Bulk Expiry List" pdfData={pdfData}/>
+    </> );
 }
 
 export default function BulkExpiryList (props) {
