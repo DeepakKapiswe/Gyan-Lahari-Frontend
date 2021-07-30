@@ -15,6 +15,10 @@ export function isLoggedIn () {
     return false;
 }
 
+export function getUserIdLS () {
+    return (localStorage.getItem('uId'));
+}
+
 export function getUserTypeLS () {
     return (localStorage.getItem('uType'));
 }

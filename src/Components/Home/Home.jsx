@@ -6,7 +6,7 @@ import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocati
 import Logo from '../Logo/Logo';
 import { useNavigate } from '@reach/router';
 import { Grid } from '@material-ui/core';
-import { isLoggedIn, getUserTypeLS } from '../../Library/Library';
+import { isLoggedIn, getUserIdLS, getUserTypeLS } from '../../Library/Library';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   heading: {
@@ -34,14 +34,15 @@ export default function Home (props) {
   const handleClick = () => {
         navigate("/patrika/loginForm");
     };
-  const userName = getUserTypeLS();
+  const userType = getUserTypeLS();
+  const userName = userType === 'USubscriber' ? '' : getUserIdLS();
 
   return (
     <div className={styles.root}>
     <Logo/>
       <Typography variant="h2" component="h3" align="center"
           className={styles.heading}>
-            Welcome {userName !== null && userName.substring(1)}
+            Welcome {userName + '( ' + userType.substring(1) + ' )'}
       </Typography>
       <Typography variant="h2" component="h4" align="center"
           className={styles.heading}>

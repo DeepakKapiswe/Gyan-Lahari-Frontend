@@ -201,6 +201,11 @@ export default function SubscriberCard(props) {
     saveNextLocation("/patrika/editSubscriber", { state: { subscriber: sD } });
     navigate("/patrika/editSubscriber", { state: { subscriber: sD } });
   };
+  
+  const handleRenewClick = () => {
+    saveNextLocation("/patrika/renewSubscription", { state: { lastSubscription: sD } });
+    navigate("/patrika/renewSubscription", { state: { lastSubscription: sD } });
+  };
 
   return (
     <>
@@ -342,6 +347,14 @@ export default function SubscriberCard(props) {
                 </Button>
                 </Grid>
                 <Grid item>
+
+                  <Button size="small" color="primary"
+                    className={styles.button}
+                    onClick={handleRenewClick}>
+                    Renew
+                </Button>
+                </Grid>
+                <Grid item>
                   <Button size="small" color="primary" className={styles.button}
                     onClick={handleExpandClick}>
                     {expanded ? "Show Less" : "Show More"}
@@ -460,7 +473,7 @@ function Subscription(props) {
       >
         {makeColumn("Plan", <>{s.subplan} Years</>)}
         <Divider variant="fullWidth" />
-        {makeColumn("Valid for Volume Number", <>{s.substartvol} --{'>'} {s.subendvol}</>)}
+        {makeColumn("Valid for Volume Number", <> {s.substartvol} --{'>'} {s.subendvol}</>)}
         <Divider variant="fullWidth" />
         {makeColumn("Subscription Id", s.subscriptionid)}
         <Divider variant="fullWidth" />

@@ -10,6 +10,7 @@ export const url_distViewDistributor          = 'https://kabirgyan.com/api/dist/
 export const url_addDistributor               = 'https://kabirgyan.com/api/addDistributor/';
 export const url_bulkDistributionList         = 'https://kabirgyan.com/api/bulkDistributionList/';
 export const url_bulkExpiryList               = 'https://kabirgyan.com/api/bulkExpiryList/';
+
 export const url_distributionList             = 'https://kabirgyan.com/api/distributionList/';
 export const url_distDistributionList         = 'https://kabirgyan.com/api/dist/distributionList/';
 export const url_expiryList                   = 'https://kabirgyan.com/api/expiryList/';
@@ -29,9 +30,14 @@ export const url_getAllSubscribers            = 'https://kabirgyan.com/api/getAl
 export const url_distGetAllSubscribers        = 'https://kabirgyan.com/api/dist/getAllSubscribers/';
 
 export const url_applyForNewSubscriber        = 'https://kabirgyan.com/api/applyForNewSubscriber/';
-export const url_distApplyForNewSubscriber    = 'https://kabirgyan.com/api/dist/applyForNewSubscriber/';
 export const url_applyForUpdateSubscriber     = 'https://kabirgyan.com/api/applyForUpdateSubscriber/';
-export const url_distApplyForUpdateSubscriber = 'https://kabirgyan.com/api/dist/applyForUpdateSubscriber/';
+export const url_applyForRenewSubscription    = 'https://kabirgyan.com/api/applyForRenewSubscription/';
+export const url_applyForUpdateSubscription   = 'https://kabirgyan.com/api/applyForUpdateSubscription/';
+
+export const url_distApplyForNewSubscriber      = 'https://kabirgyan.com/api/dist/applyForNewSubscriber/';
+export const url_distApplyForUpdateSubscriber   = 'https://kabirgyan.com/api/dist/applyForUpdateSubscriber/';
+export const url_distApplyForRenewSubscription  = 'https://kabirgyan.com/api/dist/applyForRenewSubscription/';
+export const url_distApplyForUpdateSubscription = 'https://kabirgyan.com/api/dist/applyForUpdateSubscription/';
 
 //  have to change the occurences of variable names according to api changed target name -- 22/07/2021
 export const url_subViewAllSubscriberApplications = 'https://kabirgyan.com/api/sub/viewSubscriberApplications/';
@@ -46,5 +52,6 @@ export const url_getSubscriber                = 'https://kabirgyan.com/api/getSu
 export const url_distGetSubscriber            = 'https://kabirgyan.com/api/dist/getSubscriber/';
 
 export const url_subApplyForEditSubscriber    = 'https://kabirgyan.com/api/sub/applyForEditSubscriber/';
+export const url_subApplyForRenewSubscription = 'https://kabirgyan.com/api/sub/applyForRenewSubscription/';
 
 export const url_viewCurrentVolumeNum         = 'https://kabirgyan.com/api/viewCurrentVolumeNum/';

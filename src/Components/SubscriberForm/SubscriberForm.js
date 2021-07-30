@@ -14,6 +14,7 @@ import { useNavigate } from "@reach/router"
 
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
 import { useSaveLastLocation, useSaveNextLocation } from '../../Hooks/SaveLocation';
+import { computeExpectedCurrVol } from '../../Common/ComputeVolume';
 
 
 const useStyles = makeStyles(theme => (
@@ -56,9 +57,9 @@ const useStyles = makeStyles(theme => (
 export default function SubscriberForm() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+  const [startVol, setStartVol] = useState(computeExpectedCurrVol());
   const [endVol, setEndVol] = useState(0);
   const [subscriptionType, setSubscriptionType] = useState(0);
-  const [startVol, setStartVol] = useState(0);
   const saveLastLocation = useSaveLastLocation();
   const saveNextLocation = useSaveNextLocation();
   saveLastLocation();
@@ -68,8 +69,10 @@ export default function SubscriberForm() {
   const onSubmit = data => {
     data.subStartVol = data.subStartVol*1;
     data.subEndVol = data.subEndVol*1;
-    data.subSubscriptionType = data.subSubscriptionType*1; 
+    data.subPlan = data.subPlan*1;
     data.subSlipNum = data.subSlipNum*1;
+
+
     saveNextLocation("/patrika/addSubscriberResult", {state:{newSubscriberData:data }});
     navigate("/patrika/addSubscriberResult", {state:{newSubscriberData:data }})
   };
@@ -120,7 +123,7 @@ export default function SubscriberForm() {
       justify="center"
       alignItems="center"
     >
-      <Container maxWidth='xl' className={classes.paper}  >
+      <Container maxWidth='xl' className={classes.paper}>
         <CssBaseline>
           <>
             <RenderResult  />
@@ -143,14 +146,15 @@ export default function SubscriberForm() {
                       label="Starting Volume"
                       autoComplete="subStartVol"
                       onChange={handleStartVolChange}
+                      defaultValue={startVol}
                       />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <NativeSelect
                       native
                       inputRef={register}
-                      id="subSubscriptionType"
-                      name="subSubscriptionType"
+                      id="subPlan"
+                      name="subPlan"
                       required
                       label="Subscription Type"
                       onChange={handleSubscriptionTypeChange}
@@ -308,6 +312,18 @@ export default function SubscriberForm() {
                       label="Phone"
                       fullWidth
                       autoComplete="subPhone"
+                      />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      inputRef={register}
+                      required
+                      id="subMedium"
+                      name="subMedium"
+                      label="Subscription Medium"
+                       fullWidth
+                      autoComplete="subMedium"
+                      defaultValue={"By Hand"}
                       />
                   </Grid>
                   <Grid item xs={12} sm={6}>

@@ -37,8 +37,9 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function CustomizedSnackbars() {
+function CustomizedSnackbars(props) {
   const classes = useStyles();
+  const appType = props.appType;
   const [open, setOpen] = React.useState(true);
 
   const handleClose = (event, reason) => {
@@ -52,7 +53,13 @@ function CustomizedSnackbars() {
     <div className={classes.rootSnack}>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
-             Successfully Applied to Add New Subscriber
+             {
+              appType === 'AddNewSubscriber' ? 'Successfully Applied For Adding New Subscriber' :
+              appType === 'EditSubscriberDetails' ? 'Successfully Applied For Editing Subscriber Address Details' :
+              appType === 'EditSubscriptionDetails' ? 'Successfully Applied For Editing Subscription Details' :
+              appType === 'RenewSubscription' ? 'Successfully Applied For Subscription Renewal' :
+              null
+        }
         </Alert>
       </Snackbar>
     </div>
@@ -70,12 +77,15 @@ export default function ViewSubscriberApplication (props) {
     const subApp = props.location.state.subscriberApplicationData;
     return (
        <div className={styles.color}>
-            <CustomizedSnackbars />
+            <CustomizedSnackbars appType={subApp.appType}/>
         <div className={styles.root}>
             <SubscriptionApplicationCard  applicationData={subApp}/>
         </div>
         <div className={styles.root}>
-            <ButtonRouter route="/patrika/addNewSubscriber" label="Add New Subscriber" />
+            <ButtonRouter route="/patrika/" label="Go To Home" />
+            <ButtonRouter route="/patrika/viewAllSubscriberApplications" label="View All Applications" />
+        </div>
+        <div className={styles.root}>
         </div>
        </div>
     );

@@ -27,6 +27,7 @@ import { useSaveLastLocation } from '../../Hooks/SaveLocation';
 import BlockIcon from '@material-ui/icons/Block';
 import { Divider, FormControlLabel, Grid, Switch } from '@material-ui/core';
 import formatDate from '../../Common/FormatDate';
+import { getUserIdLS } from '../../Library/Library';
 
 // import IconButton from '@material-ui/core/IconButton';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -84,7 +85,7 @@ export default function SubscriptionApplicationCard(props) {
     function fetchProcessedAppication(url) {
         const applicationData = {
             arApplicationId : serial,
-            arProcessedBy : "SOME USER NAME HERE"
+            arProcessedBy : getUserIdLS()
         }
         saveLastLocation();
         fetch(url, {
@@ -197,7 +198,7 @@ export default function SubscriptionApplicationCard(props) {
                 //         src={logo} alt="" />
                 // }
                 action={
-                    app.appStatus === 'Pending' &&
+                    ((app.appStatus === 'Pending' &&
                     ( app.appType === 'EditSubscriberDetails' ?
                          <FormControlLabel
                           value="bottom"
@@ -212,7 +213,17 @@ export default function SubscriptionApplicationCard(props) {
                           label="View Original"
                           labelPlacement="bottom"
                        /> :
-                       null)
+                       null)) ||
+                    (app.appType === 'EditSubscriptionDetails' ||
+                     app.appType === 'RenewSubscription')) && (
+
+                     <FormControlLabel
+                          value="bottom"
+                          control={<Switch color="primary" onChange={toggleChecked}/>}
+                          label="View Address"
+                          labelPlacement="bottom"
+                        />)
+
                 }
                 // this can be used for adding more functions
                 // action={
@@ -235,8 +246,9 @@ export default function SubscriptionApplicationCard(props) {
 
             {originalData !== null &&
              checked &&
-             app.appStatus === 'Pending' &&
-             app.applicationType === 'EditDetails' &&
+             ((app.appStatus === 'Pending' && app.applicationType === 'EditDetails') || 
+             ( app.appType === 'RenewSubscription')
+             ) && 
              originalData[0] !== null &&
               <CardContent>
                   <p>Original: </p>

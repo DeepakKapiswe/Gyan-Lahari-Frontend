@@ -65,6 +65,9 @@ const RecentlyAddedResult = lazy(() => import('./Components/RecentlyAddedResult/
 const FilterSubscriberForm = lazy (() => import('./Components/FilterSubscriberForm/FilterSubscriberForm'));
 const FilterResult = lazy (() => import('./Components/FilterSubscriberResult/FilterSubscriberResult'));
 
+const RenewalForm = lazy (() => import('./Components/RenewalForm/RenewalForm'));
+const RenewResult = lazy (() => import('./Components/RenewResult/RenewResult'));
+
 
 const drawerWidth = 240;
 
@@ -197,7 +200,7 @@ function App(props) {
       <Divider />
       </Authorised>
       <Authorised authUserTypes={auth.ualSubscriber}>
-          <ListLink to="/patrika/viewAllSubscriberApplications" label="View Applications" />
+          <ListLink to="/patrika/viewAllSubscriberApplications" label="View All Applications" />
         <Divider />
         <Divider />
         <Divider />
@@ -381,6 +384,9 @@ function App(props) {
                 <Authorised authUserTypes={auth.ualDistributor} path="/addSubscriberResult">
                   <AddResult path="/"/>
                 </Authorised>
+                <Authorised authUserTypes={auth.ualSubscriber} path="/renewalResult">
+                  <RenewResult path="/"/>
+                </Authorised>
                 <Authorised authUserTypes={auth.ualDistributor} path="/viewSubscriber">
                   <ViewSubscriber path="/" />
                 </Authorised>
@@ -401,6 +407,9 @@ function App(props) {
                 </Authorised>
                 <Authorised fallback={<LoginPrompt/>} authUserTypes={auth.ualSubscriber} path="/editSubscriber">
                   <SubscriberEditForm path="/" />
+                </Authorised>
+                <Authorised fallback={<LoginPrompt/>} authUserTypes={auth.ualSubscriber} path="/renewSubscription">
+                  <RenewalForm path="/" />
                 </Authorised>
                 <Authorised fallback={<LoginPrompt/>} path="/editDistributor">
                    <DistributorEditForm path="/" />
@@ -447,7 +456,7 @@ function App(props) {
                 <Authorised authUserTypes={auth.utd} path="/distributorDashboard">
                   <DistributorDashboard path="/" />
                 </Authorised>
-                <Authorised authUserTypes={auth.ualDistributor} path="/viewSubscriberApplication">
+                <Authorised authUserTypes={auth.ualSubscriber} path="/viewSubscriberApplication">
                   <ViewSubscriberApplication path="/" />
                 </Authorised>
                      {/* To catch all unmatched urls:  */}

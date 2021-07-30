@@ -5,7 +5,10 @@ import useSWR from 'swr';
 import FlowerDiv from '../FlowerDiv/FlowerDiv';
 import { LinearProgress } from '@material-ui/core';
 import { useNavigate } from "@reach/router"
-import { url_applyForNewSubscriber, url_distApplyForNewSubscriber } from '../../apiEndpoints/api';
+import { url_distApplyForRenewSubscription
+       , url_subApplyForRenewSubscription
+       , url_applyForRenewSubscription
+        } from '../../apiEndpoints/api';
 import Cookies from 'js-cookie';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
 import { useAppState } from '../../Contexts/AppContext';
@@ -24,17 +27,19 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
 }));
 
 
-export default function AddSubscriberResult (props) {
+export default function RenewSubscriptionResult (props) {
   const {userType} = useAppState();
-  const url =   userType === 'UDistributor' ? url_distApplyForNewSubscriber
-              : url_applyForNewSubscriber;
+  
+  const url = userType === 'USubscriber' ? url_subApplyForRenewSubscription :
+              userType === 'UDistributor' ? url_distApplyForRenewSubscription :
+              url_applyForRenewSubscription;
 
   const navigate = useNavigate();
   const payload = {};
-  payload.appType = "AddNewSubscriber";
+  payload.appType = "RenewSubscription";
   payload.appSubmittedBy = getUserIdLS();
-  payload.appData = props.newSubscriberData;
-  const styles= useStyles();
+  payload.appData = props.renewalData;
+  const styles = useStyles();
   const fetcher = (...args) => fetch(url, {
     method: 'post',
     headers: {
@@ -46,7 +51,7 @@ export default function AddSubscriberResult (props) {
   }).then(res => res.ok ? res.json() : res.status);
 
   const { data, error} = useSWR(url, fetcher, { suspense: true, refreshInterval: 99999999999999 , revalidateOnFocus: false });
-  if (props.newSubscriberData.subName === '') {return <div>Empty Query</div>}
+  if (payload.appData.subId === '') {return <div>Empty Query</div>}
   if (error) return <div>failed to load</div>
   // if (!data) return <LinearProgress/>
   if (data === 401) return <LoginPrompt/>
@@ -56,7 +61,7 @@ export default function AddSubscriberResult (props) {
     <Suspense fallback={<LinearProgress/>}>
       <Typography variant="h2" component="h3"
           className={styles.heading} align="center">
-            New Subscriber Added !!
+            Subscription Renewal Successfull !!
       </Typography>
       <FlowerDiv/>
     </Suspense>
