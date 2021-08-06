@@ -42,7 +42,7 @@ export default function Home (props) {
     <Logo/>
       <Typography variant="h2" component="h3" align="center"
           className={styles.heading}>
-            Welcome {userName + '( ' + userType.substring(1) + ' )'}
+            Welcome {userName && userName + '( ' + userType.substring(1) + ' )'}
       </Typography>
       <Typography variant="h2" component="h4" align="center"
           className={styles.heading}>

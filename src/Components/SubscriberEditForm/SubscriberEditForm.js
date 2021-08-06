@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {useForm} from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -63,37 +63,12 @@ export default function SubscriberEditForm(props) {
   const [sD, setSD]                = useState(oldDetails);
   const { register, handleSubmit } = useForm();
   const [userResult, setUserResult] = useState(null);
-  const [endVol, setEndVol] = useState(0);
-  const [subscriptionType, setSubscriptionType] = useState(sD.subSubscriptionType);
-  const [startVol, setStartVol] = useState(sD.subStartVol);
 
   const onSubmit = data => {
-    data.subStartVol = data.subStartVol*1;
-    data.subEndVol = data.subEndVol*1;
-    data.subSubscriptionType = data.subSubscriptionType*1;
-    data.subSlipNum = data.subSlipNum*1;
-    setUserResult(<UpdateSubscriberResult payload={{...sD, ...data }} />);
+    setUserResult(<UpdateSubscriberResult subEditData={{...sD, ...data }} />);
     // navigate(-1);
 
   };
-
-  const handleStartVolChange = (event) => {
-    setStartVol(event.target.value);
-  };
-
-  const handleSubscriptionTypeChange = (event) => {
-    setSubscriptionType(event.target.value);
-  };
-
-  useEffect(() => {
-    if ( startVol !== 0  && subscriptionType !== 0) {
-    setEndVol(startVol*1 + subscriptionType*4 - 1);
-    }
-    else {
-      setEndVol(0);
-      }
-  }, [startVol, subscriptionType]);
-
 
   const onReset = () => {
     setSD(oldDetails);
@@ -112,12 +87,12 @@ export default function SubscriberEditForm(props) {
       <Typography variant="h2" component="h3"
         
         className={classes.heading} align="center">
-        Edit Subscription Details
+        Edit Subscriber Details
             </Typography>
 
       <Typography variant="h2" component="h3"
         className={classes.heading} align="center">
-        सदस्यता विवरण सुधार
+        सदस्य विवरण सुधार
             </Typography>
             <FlowerDiv/>
     </Grid>
@@ -155,8 +130,7 @@ export default function SubscriberEditForm(props) {
                       name="subStartVol"
                       label="Starting Volume"
                       autoComplete="subStartVol"
-                      defaultValue={sD.subStartVol}
-                      onChange={handleStartVolChange}
+                      value = {sD.currPlan && sD.currPlan.substartvol}
                       disabled
                       />
                   </Grid>
@@ -164,14 +138,14 @@ export default function SubscriberEditForm(props) {
                     <NativeSelect
                       native
                       inputRef={register}
-                      id="subSubscriptionType"
-                      name="subSubscriptionType"
+                      id="subPlan"
+                      name="subPlan"
                       required
                       label="Subscription Type"
-                      onChange={handleSubscriptionTypeChange}
+                      value = {sD.currPlan && sD.currPlan.subplan}
                       disabled
                       >
-                      <option value={sD.subSubscriptionType}>{sD.subSubscriptionType} Year</option>
+                      <option value={sD.subPlan}>{sD.subPlan} Year</option>
                       <option value={1}>1 Year</option>
                       <option value={3}>3 Years</option>
                       <option value={4}>4 Years</option>
@@ -189,7 +163,7 @@ export default function SubscriberEditForm(props) {
                       required
                       type="number"
                       id="subEndVol"
-                      value = {endVol}
+                      value = {sD.currPlan && sD.currPlan.subendvol}
                       disabled
                       name="subEndVol"
                       label="Ending Volume"
@@ -205,7 +179,7 @@ export default function SubscriberEditForm(props) {
                       name="subSlipNum"
                       label="Slip Number"
                       autoComplete="subSlipNum"
-                      defaultValue={sD.subSlipNum}
+                      value = {sD.currPlan && sD.currPlan.subslipnum}
                       disabled
                       />
                   </Grid>
