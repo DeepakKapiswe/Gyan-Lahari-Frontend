@@ -23,8 +23,10 @@ export default function makePdfBulkDistributionListData(bulkDistributionListData
           , expiries     : dl.dlExpiries
           }
         const dlPdfData = makeDistributionListData(dl.dlDistributor, distributionDetails, dl.dlSubscriberList)
-        arr.push(dlPdfData)
-        arr.push(pb)
+        if (dl.dlSubscriberList.length > 0 ) {
+                arr.push(dlPdfData)
+                arr.push(pb)
+            }
         dataArr.slice()
     }
     rawPdfData.content = arr;
