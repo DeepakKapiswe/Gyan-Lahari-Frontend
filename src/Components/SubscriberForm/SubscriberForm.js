@@ -57,7 +57,11 @@ const useStyles = makeStyles(theme => (
 export default function SubscriberForm() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const [startVol, setStartVol] = useState(computeExpectedCurrVol());
+  // fixing temporarily to hardcoded value 
+        // later we have revert so that user can set default 
+        // start value as per wish
+  // const [startVol, setStartVol] = useState(computeExpectedCurrVol());
+  const [startVol, setStartVol] = useState(86*1);
   const [endVol, setEndVol] = useState(0);
   const [subscriptionType, setSubscriptionType] = useState(0);
   const saveLastLocation = useSaveLastLocation();

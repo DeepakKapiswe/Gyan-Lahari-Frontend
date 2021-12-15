@@ -97,7 +97,11 @@ export default function SubscriberEditForm(props) {
   const handleRenewalTypeChange = (event) => {
       if (event.target.value === "Extend") {setStartVol(oldDetails.subscriptions[0].subendvol+1);}
       else 
-        setStartVol(computeExpectedCurrVol());
+        // fixing temporarily to hardcoded value 
+        // later we have revert so that user can set default 
+        // start value as per wish
+        // setStartVol(computeExpectedCurrVol());
+        setStartVol(86*1);
   };
 
   useEffect(() => {
