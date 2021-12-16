@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
-import { navigate } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import { useSaveNextLocation } from '../../Hooks/SaveLocation';
 import Box from '@material-ui/core/Box';
 
@@ -206,6 +206,12 @@ export default function SubscriberCard(props) {
     saveNextLocation("/patrika/renewSubscription", { state: { lastSubscription: sD } });
     navigate("/patrika/renewSubscription", { state: { lastSubscription: sD } });
   };
+  const handleRenewEditClick = () => {
+    sessionStorage.setItem('sD', JSON.stringify(sD));
+    window.open("https://kabirgyan.com/patrika/renewSubscriptionEditSubscriber");
+    // saveNextLocation("/patrika/renewSubscriptionEditSubscriber", { state: { lastSubscription: sD } });
+    // navigate("/patrika/renewSubscriptionEditSubscriber", { state: { lastSubscription: sD } });
+  };
 
   return (
     <>
@@ -338,6 +344,15 @@ export default function SubscriberCard(props) {
               <Grid container
                 justify="space-around"
               >
+                <Grid item>
+                  <Button size="small" color="primary"
+                    // className={styles.button}
+                    style={{backgroundColor:'#00FF00',
+                      fontWeight: 700,}}
+                    onClick={handleRenewEditClick}>
+                    Edit Renew
+                </Button>  
+                </Grid>
                 <Grid item>
 
                   <Button size="small" color="primary"

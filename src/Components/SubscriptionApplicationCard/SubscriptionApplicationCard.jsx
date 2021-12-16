@@ -155,6 +155,8 @@ export default function SubscriptionApplicationCard(props) {
     const addNew = <Chip
             color="default"
             label="ADD NEW SUBSCRIBER"
+            style={{backgroundColor:'#FFFF00',
+                      fontWeight: 700,}}
             />
 
     const editSubscriberDetails = <Chip
@@ -171,6 +173,11 @@ export default function SubscriptionApplicationCard(props) {
             color="default"
             label="RENEW SUBSCRIPTION"
             />
+    const editRenew = <Chip
+            style={{backgroundColor:'#00FF00',
+                      fontWeight: 700,}}
+            label="EDIT & RENEW SUBSCRIPTION"
+            />
 
 
     const statusDisplay = 
@@ -184,6 +191,7 @@ export default function SubscriptionApplicationCard(props) {
         app.appType === 'EditSubscriberDetails' ? editSubscriberDetails :
         app.appType === 'EditSubscriptionDetails' ? editSubscriptionDetails :
         app.appType === 'RenewSubscription' ? renew :
+        app.appType === 'RenewSubscriptionEditSubscriberDetails' ? editRenew :
         null;
     
    

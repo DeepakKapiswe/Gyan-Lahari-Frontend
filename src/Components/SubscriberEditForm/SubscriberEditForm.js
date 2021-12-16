@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -35,8 +35,9 @@ const useStyles = makeStyles(theme => (
     bgColor: {
       flexGrow: 1,
       [theme.breakpoints.up('md')]: {
-        padding:theme.spacing(15),},
-         backgroundColor: '#ebf5ab',
+        padding: theme.spacing(15),
+      },
+      backgroundColor: '#ebf5ab',
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
     },
@@ -58,14 +59,14 @@ const useStyles = makeStyles(theme => (
   }));
 
 export default function SubscriberEditForm(props) {
-  const oldDetails = 
-    (props.location.state !== null ) ? props.location.state.subscriber : null;
-  const [sD, setSD]                = useState(oldDetails);
+  const oldDetails =
+    (props.location.state !== null) ? props.location.state.subscriber : null;
+  const [sD, setSD] = useState(oldDetails);
   const { register, handleSubmit } = useForm();
   const [userResult, setUserResult] = useState(null);
 
   const onSubmit = data => {
-    setUserResult(<UpdateSubscriberResult subEditData={{...sD, ...data }} />);
+    setUserResult(<UpdateSubscriberResult subEditData={{ ...sD, ...data }} />);
     // navigate(-1);
 
   };
@@ -84,22 +85,22 @@ export default function SubscriberEditForm(props) {
     return (
       <Grid item alignItems="center" >
 
-      <Typography variant="h2" component="h3"
-        
-        className={classes.heading} align="center">
-        Edit Subscriber Details
-            </Typography>
+        <Typography variant="h2" component="h3"
 
-      <Typography variant="h2" component="h3"
-        className={classes.heading} align="center">
-        सदस्य विवरण सुधार
-            </Typography>
-            <FlowerDiv/>
-    </Grid>
+          className={classes.heading} align="center">
+          Edit Subscriber Details
+        </Typography>
+
+        <Typography variant="h2" component="h3"
+          className={classes.heading} align="center">
+          सदस्य विवरण सुधार
+        </Typography>
+        <FlowerDiv />
+      </Grid>
     );
   }
-  
-  if (sD == null) {return <h1>Bad Request</h1>}
+
+  if (sD == null) { return <h1>Bad Request</h1> }
   return (
     <Grid
       container xs
@@ -120,31 +121,33 @@ export default function SubscriberEditForm(props) {
                   direction="row"
                   justify="flex-start"
                   alignItems="center"
-                  >
+                >
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       type="number"
                       id="subStartVol"
                       name="subStartVol"
                       label="Starting Volume"
                       autoComplete="subStartVol"
-                      value = {sD.currPlan && sD.currPlan.substartvol}
+                      value={sD.currPlan && sD.currPlan.substartvol}
                       disabled
-                      />
+                    />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <NativeSelect
                       native
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       id="subPlan"
                       name="subPlan"
                       required
                       label="Subscription Type"
-                      value = {sD.currPlan && sD.currPlan.subplan}
+                      value={sD.currPlan && sD.currPlan.subplan}
                       disabled
-                      >
+                    >
                       <option value={sD.subPlan}>{sD.subPlan} Year</option>
                       <option value={1}>1 Year</option>
                       <option value={3}>3 Years</option>
@@ -160,32 +163,35 @@ export default function SubscriberEditForm(props) {
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       type="number"
                       id="subEndVol"
-                      value = {sD.currPlan && sD.currPlan.subendvol}
+                      value={sD.currPlan && sD.currPlan.subendvol}
                       disabled
                       name="subEndVol"
                       label="Ending Volume"
                       autoComplete="subEndVol"
-                      />
+                    />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       type="number"
                       id="subSlipNum"
                       name="subSlipNum"
                       label="Slip Number"
                       autoComplete="subSlipNum"
-                      value = {sD.currPlan && sD.currPlan.subslipnum}
+                      value={sD.currPlan && sD.currPlan.subslipnum}
                       disabled
-                      />
+                    />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       type="number"
                       id="subDistId"
@@ -194,21 +200,22 @@ export default function SubscriberEditForm(props) {
                       autoComplete="subDistId"
                       defaultValue={sD.subDistId}
                       disabled
-                      />
+                    />
                   </Grid>
-                    <Grid item xs={12} sm={4} >
-                      <TextField
-                        inputRef={register}
-                        required
-                        id="subName"
-                        name="subName"
-                        label="Name"
-                        fullWidth
-                        autoComplete="subName"
-                        defaultValue={sD.subName}
-                        />
-                    </Grid>
-                   
+                  <Grid item xs={12} sm={4} >
+                    <TextField
+                      inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
+                      required
+                      id="subName"
+                      name="subName"
+                      label="Name"
+                      fullWidth
+                      autoComplete="subName"
+                      defaultValue={sD.subName}
+                    />
+                  </Grid>
+
                   <Grid container
                     spacing={2}
                     className={classes.names}
@@ -219,6 +226,7 @@ export default function SubscriberEditForm(props) {
                     <Grid item xs={12} sm={4}>
                       <TextField
                         inputRef={register}
+                        inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                         // required
                         id="subAbout"
                         name="subAbout"
@@ -226,11 +234,12 @@ export default function SubscriberEditForm(props) {
                         fullWidth
                         autoComplete="subAbout"
                         defaultValue={sD.subAbout}
-                        />
+                      />
                     </Grid>
                     <Grid item xs={12} sm={4}>
                       <TextField
                         inputRef={register}
+                        inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                         //required
                         id="subAdd1"
                         name="subAdd1"
@@ -238,23 +247,25 @@ export default function SubscriberEditForm(props) {
                         fullWidth
                         autoComplete="subAdd1"
                         defaultValue={sD.subAdd1}
-                        />
+                      />
                     </Grid>
                     <Grid item xs={12} sm={4}>
                       <TextField
                         inputRef={register}
+                        inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                         id="subAdd2"
                         name="subAdd2"
                         label="Address line 2"
                         fullWidth
                         autoComplete="subAdd2"
                         defaultValue={sD.subAdd2}
-                        />
+                      />
                     </Grid>
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       // required
                       id="subPost"
                       name="subPost"
@@ -262,11 +273,12 @@ export default function SubscriberEditForm(props) {
                       fullWidth
                       autoComplete="subPost"
                       defaultValue={sD.subPost}
-                      />
+                    />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       // required
                       id="subCity"
                       name="subCity"
@@ -274,91 +286,95 @@ export default function SubscriberEditForm(props) {
                       fullWidth
                       autoComplete="subCity"
                       defaultValue={sD.subCity}
-                      />
+                    />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       inputRef={register}
-                     // required
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
+                      // required
                       id="subState"
                       name="subState"
                       label="State"
                       fullWidth
                       autoComplete="subState"
                       defaultValue={sD.subState}
-                      />
+                    />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       // required
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       id="subPincode"
                       name="subPincode"
                       label="Postal code"
                       fullWidth
                       autoComplete="subPincode"
                       defaultValue={sD.subPincode}
-                      />
+                    />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       id="subPhone"
                       name="subPhone"
                       label="Phone"
                       fullWidth
                       autoComplete="subPhone"
                       defaultValue={sD.subPhone}
-                      />
+                    />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       id="subRemark"
                       name="subRemark"
                       label="Remark"
                       fullWidth
                       autoComplete="subRemark"
                       defaultValue={sD.subRemark}
-                      />
+                    />
                   </Grid>
                   <Grid container
                     justify="space-between"
                     alignItems="stretch">
-                      <Grid item >
-                        <Button
-                          type="reset"
-                          name="Reset"
-                           //fullWidth
-                          variant="contained"
-                          color="secondry"
-                          onClick ={onReset}
-                          className={classes.submit}
-                          >
-                          Undo Changes
-                      </Button>
-                          </Grid>
-
-                  <Grid item >
-                    <Button
-                      type="submit"
-                      name="updateSubscriber"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
+                    <Grid item >
+                      <Button
+                        type="reset"
+                        name="Reset"
+                        //fullWidth
+                        variant="contained"
+                        color="secondry"
+                        onClick={onReset}
+                        className={classes.submit}
                       >
-                      Update Subscriber
-                  </Button>
-                      </Grid>
+                        Undo Changes
+                      </Button>
+                    </Grid>
+
+                    <Grid item >
+                      <Button
+                        type="submit"
+                        name="updateSubscriber"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                      >
+                        Update Subscriber
+                      </Button>
+                    </Grid>
                   </Grid>
                 </Grid>
               </React.Fragment>
             </form>
-                <BackButton/>
+            <BackButton />
           </>
         </CssBaseline>
       </Container>
-  </Grid>
+    </Grid>
   );
 }

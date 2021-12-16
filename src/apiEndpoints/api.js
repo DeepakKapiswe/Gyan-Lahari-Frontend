@@ -33,11 +33,13 @@ export const url_applyForNewSubscriber        = 'https://kabirgyan.com/api/apply
 export const url_applyForUpdateSubscriber     = 'https://kabirgyan.com/api/applyForUpdateSubscriber/';
 export const url_applyForRenewSubscription    = 'https://kabirgyan.com/api/applyForRenewSubscription/';
 export const url_applyForUpdateSubscription   = 'https://kabirgyan.com/api/applyForUpdateSubscription/';
+export const url_applyForRenewSubscriptionUpdateSubscriber = 'https://kabirgyan.com/api/applyForRenewSubscriptionUpdateSubscriber/';
 
 export const url_distApplyForNewSubscriber      = 'https://kabirgyan.com/api/dist/applyForNewSubscriber/';
 export const url_distApplyForUpdateSubscriber   = 'https://kabirgyan.com/api/dist/applyForUpdateSubscriber/';
 export const url_distApplyForRenewSubscription  = 'https://kabirgyan.com/api/dist/applyForRenewSubscription/';
 export const url_distApplyForUpdateSubscription = 'https://kabirgyan.com/api/dist/applyForUpdateSubscription/';
+export const url_distApplyForRenewSubscriptionUpdateSubscriber = 'https://kabirgyan.com/api/dist/applyForRenewSubscriptionUpdateSubscriber/';
 
 //  have to change the occurences of variable names according to api changed target name -- 22/07/2021
 export const url_subViewAllSubscriberApplications = 'https://kabirgyan.com/api/sub/viewSubscriberApplications/';
@@ -53,5 +55,6 @@ export const url_distGetSubscriber            = 'https://kabirgyan.com/api/dist/
 
 export const url_subApplyForEditSubscriber    = 'https://kabirgyan.com/api/sub/applyForEditSubscriber/';
 export const url_subApplyForRenewSubscription = 'https://kabirgyan.com/api/sub/applyForRenewSubscription/';
+// export const url_subApplyForRenewSubscriptionUpdateSubscriber = 'https://kabirgyan.com/api/sub/applyForRenewSubscriptionUpdateSubscriber/';
 
 export const url_viewCurrentVolumeNum         = 'https://kabirgyan.com/api/viewCurrentVolumeNum/';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +12,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import { useNavigate } from "@reach/router"
 
-import {computeExpectedCurrVol} from '../../Common/ComputeVolume';
+import { computeExpectedCurrVol } from '../../Common/ComputeVolume';
 
 import UpdateSubscriberResult from '../UpdateSubscriber/UpdateSubscriber';
 import BackButton from '../BackButton/BackButton';
@@ -37,8 +37,9 @@ const useStyles = makeStyles(theme => (
     bgColor: {
       flexGrow: 1,
       [theme.breakpoints.up('md')]: {
-        padding:theme.spacing(15),},
-         backgroundColor: '#ebf5ab',
+        padding: theme.spacing(15),
+      },
+      backgroundColor: '#ebf5ab',
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
     },
@@ -62,27 +63,27 @@ const useStyles = makeStyles(theme => (
 
 export default function SubscriberEditForm(props) {
   const navigate = useNavigate();
-  const oldDetails = 
-    (props.location.state !== null ) ? props.location.state.lastSubscription : null;
-  const [sD, setSD]                = useState(oldDetails);
+  const oldDetails =
+    (props.location.state !== null) ? props.location.state.lastSubscription : null;
+  const [sD, setSD] = useState(oldDetails);
   const { register, handleSubmit } = useForm();
   const [userResult, setUserResult] = useState(null);
   const [endVol, setEndVol] = useState(0);
   const [subPlan, setSubPlan] = useState(sD.subscriptions[0].subplan);
-  const [startVol, setStartVol] = useState(sD.subscriptions[0].subendvol+1);
+  const [startVol, setStartVol] = useState(sD.subscriptions[0].subendvol + 1);
   const saveLastLocation = useSaveLastLocation();
   const saveNextLocation = useSaveNextLocation();
   saveLastLocation();
 
   const onSubmit = data => {
-    data.subStartVol = data.subStartVol*1;
-    data.subEndVol = data.subEndVol*1;
-    data.subPlan = data.subPlan*1;
-    data.subSlipNum = data.subSlipNum*1;
+    data.subStartVol = data.subStartVol * 1;
+    data.subEndVol = data.subEndVol * 1;
+    data.subPlan = data.subPlan * 1;
+    data.subSlipNum = data.subSlipNum * 1;
     data.subId = sD.subId;
     data.subscriptionId = sD.subscriptions[0].subscriptionid;
-    saveNextLocation("/patrika/renewalResult", {state:{renewalData:data }});
-    navigate("/patrika/renewalResult", {state:{renewalData:data }});
+    saveNextLocation("/patrika/renewalResult", { state: { renewalData: data } });
+    navigate("/patrika/renewalResult", { state: { renewalData: data } });
 
   };
 
@@ -95,22 +96,22 @@ export default function SubscriberEditForm(props) {
   };
 
   const handleRenewalTypeChange = (event) => {
-      if (event.target.value === "Extend") {setStartVol(oldDetails.subscriptions[0].subendvol+1);}
-      else 
-        // fixing temporarily to hardcoded value 
-        // later we have revert so that user can set default 
-        // start value as per wish
-        // setStartVol(computeExpectedCurrVol());
-        setStartVol(86*1);
+    if (event.target.value === "Extend") { setStartVol(oldDetails.subscriptions[0].subendvol + 1); }
+    else
+      // fixing temporarily to hardcoded value 
+      // later we have revert so that user can set default 
+      // start value as per wish
+      // setStartVol(computeExpectedCurrVol());
+      setStartVol(86 * 1);
   };
 
   useEffect(() => {
-    if (startVol !== 0  && subPlan !== 0) {
-    setEndVol(startVol*1 + subPlan*4 - 1);
+    if (startVol !== 0 && subPlan !== 0) {
+      setEndVol(startVol * 1 + subPlan * 4 - 1);
     }
     else {
       setEndVol(0);
-      }
+    }
   }, [startVol, subPlan]);
 
 
@@ -128,22 +129,22 @@ export default function SubscriberEditForm(props) {
     return (
       <Grid item alignItems="center" >
 
-      <Typography variant="h2" component="h3"
-        
-        className={classes.heading} align="center">
-        Subscription Renewal Form
-            </Typography>
+        <Typography variant="h2" component="h3"
 
-      <Typography variant="h2" component="h3"
-        className={classes.heading} align="center">
-        सदस्यता नवीनीकरण
-            </Typography>
-            <FlowerDiv/>
-    </Grid>
+          className={classes.heading} align="center">
+          Subscription Renewal Form
+        </Typography>
+
+        <Typography variant="h2" component="h3"
+          className={classes.heading} align="center">
+          सदस्यता नवीनीकरण
+        </Typography>
+        <FlowerDiv />
+      </Grid>
     );
   }
-  
-  if (sD == null) {return <h1>Bad Request</h1>}
+
+  if (sD == null) { return <h1>Bad Request</h1> }
   return (<>
     <Grid
       container xs
@@ -164,17 +165,18 @@ export default function SubscriberEditForm(props) {
                   direction="row"
                   justify="flex-start"
                   alignItems="center"
-                  >
+                >
                   <Grid item xs={6} sm={4} lg={3}>
                     <NativeSelect
                       native
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       id="subType"
                       name="subType"
                       required
                       label="Renewal Type"
                       onChange={handleRenewalTypeChange}
-                      >
+                    >
                       <option value={"Extend"}>Extend Subscription</option>
                       <option value={"Restart"}>Restart Subscription</option>
                     </NativeSelect>
@@ -184,6 +186,7 @@ export default function SubscriberEditForm(props) {
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       type="number"
                       id="subStartVol"
@@ -192,18 +195,19 @@ export default function SubscriberEditForm(props) {
                       autoComplete="subStartVol"
                       value={startVol}
                       onChange={handleStartVolChange}
-                      />
+                    />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <NativeSelect
                       native
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       id="subPlan"
                       name="subPlan"
                       required
                       label="Subscription Type"
                       onChange={handleSubscriptionTypeChange}
-                      >
+                    >
                       <option value={subPlan}>{subPlan} Year</option>
                       <option value={1}>1 Year</option>
                       <option value={3}>3 Years</option>
@@ -219,30 +223,33 @@ export default function SubscriberEditForm(props) {
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       type="number"
                       id="subEndVol"
-                      value = {endVol}
+                      value={endVol}
                       name="subEndVol"
                       label="Ending Volume"
                       autoComplete="subEndVol"
                       disabled
-                      />
+                    />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       type="number"
                       id="subSlipNum"
                       name="subSlipNum"
                       label="Slip Number"
                       autoComplete="subSlipNum"
-                      />
+                    />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       type="number"
                       id="subDistId"
@@ -250,60 +257,61 @@ export default function SubscriberEditForm(props) {
                       label="Distributor Id"
                       autoComplete="subDistId"
                       defaultValue={sD.subDistId}
-                      />
+                    />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       id="subMedium"
                       name="subMedium"
                       label="Subscription Medium"
                       autoComplete="subMedium"
                       defaultValue={"By Hand"}
-                      />
+                    />
                   </Grid>
                   <Grid container
                     justify="center"
                     alignItems="stretch">
-                      
-                  <Grid item >
-                    <Button
-                      type="submit"
-                      name="renewSubscription"
-                      fullWidth
-                      variant="contained"
-                      color="secondary"
-                      className={classes.submit}
+
+                    <Grid item >
+                      <Button
+                        type="submit"
+                        name="renewSubscription"
+                        fullWidth
+                        variant="contained"
+                        color="secondary"
+                        className={classes.submit}
                       >
-                      Renew Subscription
-                  </Button>
-                      </Grid>
+                        Renew Subscription
+                      </Button>
+                    </Grid>
                   </Grid>
                 </Grid>
               </React.Fragment>
             </form>
             <Typography variant="h6" >Subscriber Details</Typography>
             <Grid container spacing={3}
-                  className={classes.form}
-                  component={Paper} elevation={6}
-                  direction="row"
-                  justify="flex-start"
-                  alignItems="flex-start"
-                  >
-                  <Grid item xs={12} sm={6} lg={4}>
-                    <DisplaySubscriberDetails subData={sD} />
-                  </Grid>
-                  <Grid item xs={12} sm={6} lg={4}>
-                    <DisplayLastSubscription lastSubscriptionData={(sD.subscriptions)[0]} />
-                  </Grid>
+              className={classes.form}
+              component={Paper} elevation={6}
+              direction="row"
+              justify="flex-start"
+              alignItems="flex-start"
+            >
+              <Grid item xs={12} sm={6} lg={4}>
+                <DisplaySubscriberDetails subData={sD} />
+              </Grid>
+              <Grid item xs={12} sm={6} lg={4}>
+                <DisplayLastSubscription lastSubscriptionData={(sD.subscriptions)[0]} />
+              </Grid>
 
-                  </Grid>
-                <BackButton/>
+            </Grid>
+            <BackButton />
           </>
         </CssBaseline>
       </Container>
-  </Grid>
+    </Grid>
   </>
   );
 }
@@ -325,7 +333,7 @@ const makeColumn = (str, comp) => {
   </Grid>
 }
 
-function DisplayLastSubscription (props) {
+function DisplayLastSubscription(props) {
   const s = props.lastSubscriptionData
   const styles = useStyles();
   return (
@@ -333,23 +341,23 @@ function DisplayLastSubscription (props) {
       <Typography variant="button"
         align="left" color="textSecondary"
       >
-                        {makeColumn(<b>Last Subscription Details</b>)}
-                        <Divider variant="fullWidth" />
-                        {makeColumn("Subscriber Code (SC)", s.subid )}
-                        <Divider variant="fullWidth" />
-                        {makeColumn("Last Subscription Id", s.subscriptionid)}
-                        <Divider variant="fullWidth" />
-                        {makeColumn("Plan", <>{s.subplan} Years</>)}
-                        <Divider variant="fullWidth" />
-                        {makeColumn("Valid for Volume Number", <> {s.substartvol} --{'>'} {s.subendvol}</>)}
-                        <Divider variant="fullWidth" />
-                        {makeColumn("Distributor Id", s.subdistid)}
-                        <Divider variant="fullWidth" />
-                        {makeColumn("Slip No.", s.subslipnum)}
-                        <Divider variant="fullWidth" />
-                        {makeColumn("Subscription Type", s.subtype)}
-                        <Divider variant="fullWidth" />
-                        {makeColumn("Subscription Medium", s.submedium)}
+        {makeColumn(<b>Last Subscription Details</b>)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Subscriber Code (SC)", s.subid)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Last Subscription Id", s.subscriptionid)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Plan", <>{s.subplan} Years</>)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Valid for Volume Number", <> {s.substartvol} --{'>'} {s.subendvol}</>)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Distributor Id", s.subdistid)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Slip No.", s.subslipnum)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Subscription Type", s.subtype)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Subscription Medium", s.submedium)}
       </Typography>
     </Card>
   );
@@ -363,25 +371,25 @@ function DisplaySubscriberDetails(props) {
       <Typography variant="button"
         align="left" color="textSecondary"
       >
-                        {makeColumn(<b>Subscriber Address Details</b>)}
-                        <Divider variant="fullWidth" />
-                        {makeColumn("Name", s.subName )}
-                        <Divider variant="fullWidth" />
-                        {makeColumn( "About",s.subAbout  )}
-                        <Divider variant="fullWidth" />
-                        {makeColumn( "Address Line 1",s.subAdd1 )}
-                        <Divider variant="fullWidth" />
-                        {makeColumn( "Address Line 2",s.subAdd2 )}
-                        <Divider variant="fullWidth" />
-                        {makeColumn( "Post",s.subPost   )}
-                        <Divider variant="fullWidth" />
-                        {makeColumn( "City",s.subCity   )}
-                        <Divider variant="fullWidth" />
-                        {makeColumn( "State",s.subState )}
-                        <Divider variant="fullWidth" />
-                        {makeColumn( "Pincode",s.subPincode)}
-                        <Divider variant="fullWidth" />
-                        {makeColumn( "Mobile",s.subPhone )}
+        {makeColumn(<b>Subscriber Address Details</b>)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Name", s.subName)}
+        <Divider variant="fullWidth" />
+        {makeColumn("About", s.subAbout)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Address Line 1", s.subAdd1)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Address Line 2", s.subAdd2)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Post", s.subPost)}
+        <Divider variant="fullWidth" />
+        {makeColumn("City", s.subCity)}
+        <Divider variant="fullWidth" />
+        {makeColumn("State", s.subState)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Pincode", s.subPincode)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Mobile", s.subPhone)}
       </Typography>
     </Card>
   </>);

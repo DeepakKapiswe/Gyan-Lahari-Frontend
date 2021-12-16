@@ -1,5 +1,5 @@
-import React, { useState, useEffect} from 'react';
-import {useForm} from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -33,9 +33,10 @@ const useStyles = makeStyles(theme => (
     bgColor: {
       flexGrow: 1,
       [theme.breakpoints.up('md')]: {
-        padding:theme.spacing(15),},
-       backgroundColor: '#ebf5ab',
-      
+        padding: theme.spacing(15),
+      },
+      backgroundColor: '#ebf5ab',
+
     },
     heading: {
       color: '#110F4C',
@@ -58,10 +59,10 @@ export default function SubscriberForm() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   // fixing temporarily to hardcoded value 
-        // later we have revert so that user can set default 
-        // start value as per wish
+  // later we have revert so that user can set default 
+  // start value as per wish
   // const [startVol, setStartVol] = useState(computeExpectedCurrVol());
-  const [startVol, setStartVol] = useState(86*1);
+  const [startVol, setStartVol] = useState(86 * 1);
   const [endVol, setEndVol] = useState(0);
   const [subscriptionType, setSubscriptionType] = useState(0);
   const saveLastLocation = useSaveLastLocation();
@@ -69,16 +70,16 @@ export default function SubscriberForm() {
   saveLastLocation();
 
 
-  
+
   const onSubmit = data => {
-    data.subStartVol = data.subStartVol*1;
-    data.subEndVol = data.subEndVol*1;
-    data.subPlan = data.subPlan*1;
-    data.subSlipNum = data.subSlipNum*1;
+    data.subStartVol = data.subStartVol * 1;
+    data.subEndVol = data.subEndVol * 1;
+    data.subPlan = data.subPlan * 1;
+    data.subSlipNum = data.subSlipNum * 1;
 
 
-    saveNextLocation("/patrika/addSubscriberResult", {state:{newSubscriberData:data }});
-    navigate("/patrika/addSubscriberResult", {state:{newSubscriberData:data }})
+    saveNextLocation("/patrika/addSubscriberResult", { state: { newSubscriberData: data } });
+    navigate("/patrika/addSubscriberResult", { state: { newSubscriberData: data } })
   };
 
   const handleStartVolChange = (event) => {
@@ -90,12 +91,12 @@ export default function SubscriberForm() {
   };
 
   useEffect(() => {
-    if ( startVol !== 0  && subscriptionType !== 0) {
-    setEndVol(startVol*1 + subscriptionType*4 - 1);
+    if (startVol !== 0 && subscriptionType !== 0) {
+      setEndVol(startVol * 1 + subscriptionType * 4 - 1);
     }
     else {
       setEndVol(0);
-      }
+    }
   }, [startVol, subscriptionType]);
 
   const classes = useStyles();
@@ -104,23 +105,23 @@ export default function SubscriberForm() {
     return (
       <Grid item >
 
-      <Typography variant="h2" component="h3"
-        
-        className={classes.heading} align="center">
-        Subscription Details
-            </Typography>
+        <Typography variant="h2" component="h3"
 
-      <Typography variant="h2" component="h3"
-        className={classes.heading} align="center">
-        सदस्यता विवरण
-            </Typography>
-            <FlowerDiv/>
-    </Grid>
+          className={classes.heading} align="center">
+          Subscription Details
+        </Typography>
+
+        <Typography variant="h2" component="h3"
+          className={classes.heading} align="center">
+          सदस्यता विवरण
+        </Typography>
+        <FlowerDiv />
+      </Grid>
     );
   }
 
   return (
-      <Grid
+    <Grid
       container xs
       className={classes.bgColor}
       direction="row-reverse"
@@ -130,7 +131,7 @@ export default function SubscriberForm() {
       <Container maxWidth='xl' className={classes.paper}>
         <CssBaseline>
           <>
-            <RenderResult  />
+            <RenderResult />
             <form onSubmit={handleSubmit(onSubmit)} >
               <React.Fragment>
                 <Grid container spacing={3}
@@ -139,10 +140,11 @@ export default function SubscriberForm() {
                   direction="row"
                   justify="flex-start"
                   alignItems="center"
-                  >
+                >
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       type="number"
                       id="subStartVol"
@@ -151,18 +153,20 @@ export default function SubscriberForm() {
                       autoComplete="subStartVol"
                       onChange={handleStartVolChange}
                       defaultValue={startVol}
-                      />
+                    />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <NativeSelect
                       native
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
+
                       id="subPlan"
                       name="subPlan"
                       required
                       label="Subscription Type"
                       onChange={handleSubscriptionTypeChange}
-                      >
+                    >
                       <option value={0} />
                       <option value={1}>1 Year</option>
                       <option value={3}>3 Years</option>
@@ -178,50 +182,54 @@ export default function SubscriberForm() {
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       type="number"
                       id="subEndVol"
-                      value = {endVol}
+                      value={endVol}
                       disabled
                       name="subEndVol"
                       label="Ending Volume"
                       autoComplete="subEndVol"
-                      />
+                    />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       type="number"
                       id="subSlipNum"
                       name="subSlipNum"
                       label="Slip Number"
                       autoComplete="subSlipNum"
-                      />
+                    />
                   </Grid>
                   <Grid item xs={6} sm={4} lg={3}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       type="number"
                       id="subDistId"
                       name="subDistId"
                       label="Distributor Id"
                       autoComplete="subDistId"
-                      />
+                    />
                   </Grid>
-                    <Grid item xs={12} sm={4} >
-                      <TextField
-                        inputRef={register}
-                        required
-                        id="subName"
-                        name="subName"
-                        label="Subscriber Name"
-                        fullWidth
-                        autoComplete="subName"
-                        />
-                    </Grid>
-                   
+                  <Grid item xs={12} sm={4} >
+                    <TextField
+                      inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
+                      required
+                      id="subName"
+                      name="subName"
+                      label="Subscriber Name"
+                      fullWidth
+                      autoComplete="subName"
+                    />
+                  </Grid>
+
                   <Grid container
                     spacing={2}
                     className={classes.names}
@@ -232,128 +240,138 @@ export default function SubscriberForm() {
                     <Grid item xs={12} sm={4}>
                       <TextField
                         inputRef={register}
+                        inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                         // required
                         id="subAbout"
                         name="subAbout"
                         label="About"
                         fullWidth
                         autoComplete="subAbout"
-                        />
+                      />
                     </Grid>
                     <Grid item xs={12} sm={4}>
                       <TextField
                         inputRef={register}
+                        inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                         // required
                         id="subAdd1"
                         name="subAdd1"
                         label="Address line 1"
                         fullWidth
                         autoComplete="subAdd1"
-                        />
+                      />
                     </Grid>
                     <Grid item xs={12} sm={4}>
                       <TextField
                         inputRef={register}
+                        inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                         id="subAdd2"
                         name="subAdd2"
                         label="Address line 2"
                         fullWidth
                         autoComplete="subAdd2"
-                        />
+                      />
                     </Grid>
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       // required
                       id="subPost"
                       name="subPost"
                       label="Post"
                       fullWidth
                       autoComplete="subPost"
-                      />
+                    />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       // required
                       id="subCity"
                       name="subCity"
                       label="City"
                       fullWidth
                       autoComplete="subCity"
-                      />
+                    />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       // required
                       id="subState"
                       name="subState"
                       label="State"
                       fullWidth
                       autoComplete="subState"
-                      />
+                    />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       // required
                       type="number"
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       id="subPincode"
                       name="subPincode"
                       label="Postal code"
                       fullWidth
                       autoComplete="subPincode"
-                      />
+                    />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       type="number"
                       id="subPhone"
                       name="subPhone"
                       label="Phone"
                       fullWidth
                       autoComplete="subPhone"
-                      />
+                    />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       required
                       id="subMedium"
                       name="subMedium"
                       label="Subscription Medium"
-                       fullWidth
+                      fullWidth
                       autoComplete="subMedium"
                       defaultValue={"By Hand"}
-                      />
+                    />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       inputRef={register}
+                      inputProps={{ style: { fontsize: 30, fontWeight: 700 } }}
                       id="subRemark"
                       name="subRemark"
                       label="Remark"
                       fullWidth
                       autoComplete="subRemark"
-                      />
+                    />
                   </Grid>
                   <Grid container justify="center">
 
-                  <Grid item xs={12} sm={6} >
-                    <Button
-                      type="submit"
-                      name="createNewCustomer"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
+                    <Grid item xs={12} sm={6} >
+                      <Button
+                        type="submit"
+                        name="createNewCustomer"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
                       >
-                      Create New Subscriber
-                  </Button>
-                      </Grid>
+                        Create New Subscriber
+                      </Button>
+                    </Grid>
                   </Grid>
                 </Grid>
               </React.Fragment>
@@ -361,6 +379,6 @@ export default function SubscriberForm() {
           </>
         </CssBaseline>
       </Container>
-  </Grid>
+    </Grid>
   );
 }
