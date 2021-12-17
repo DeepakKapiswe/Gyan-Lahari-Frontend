@@ -27,6 +27,7 @@ export const url_updateSubscriber             = 'https://kabirgyan.com/api/updat
 
 export const url_getAllDistributor            = 'https://kabirgyan.com/api/getAllDistributor/';
 export const url_getAllSubscribers            = 'https://kabirgyan.com/api/getAllSubscribers/';
+export const url_distSubscribers              = 'https://kabirgyan.com/api/getDistSubscribers/';
 export const url_distGetAllSubscribers        = 'https://kabirgyan.com/api/dist/getAllSubscribers/';
 
 export const url_applyForNewSubscriber        = 'https://kabirgyan.com/api/applyForNewSubscriber/';
@@ -42,10 +43,17 @@ export const url_distApplyForUpdateSubscription = 'https://kabirgyan.com/api/dis
 export const url_distApplyForRenewSubscriptionUpdateSubscriber = 'https://kabirgyan.com/api/dist/applyForRenewSubscriptionUpdateSubscriber/';
 
 //  have to change the occurences of variable names according to api changed target name -- 22/07/2021
-export const url_subViewAllSubscriberApplications = 'https://kabirgyan.com/api/sub/viewSubscriberApplications/';
-export const url_distGetAllSubscriberApplications = 'https://kabirgyan.com/api/dist/getUserApplications/'; 
-export const url_getUserApplications              = 'https://kabirgyan.com/api/getUserApplications/';
-export const url_getAllSubscriberApplications     = 'https://kabirgyan.com/api/getAllApplications/';
+export const url_subViewAllSubscriberApplications     = 'https://kabirgyan.com/api/sub/viewSubscriberApplications/';
+export const url_subViewPendingSubscriberApplications = 'https://kabirgyan.com/api/sub/viewPendingSubscriberApplications/';
+
+export const url_distGetAllSubscriberApplications     = 'https://kabirgyan.com/api/dist/getUserApplications/'; 
+export const url_distGetPendingSubscriberApplications = 'https://kabirgyan.com/api/dist/getPendingUserApplications/'; 
+
+export const url_getUserApplications                  = 'https://kabirgyan.com/api/getUserApplications/';
+export const url_getPendingUserApplications           = 'https://kabirgyan.com/api/getPendingUserApplications/';
+
+export const url_getAllSubscriberApplications         = 'https://kabirgyan.com/api/getAllApplications/';
+export const url_getPendingSubscriberApplications     = 'https://kabirgyan.com/api/getPendingApplications/';
 
 export const url_approveSubscriberApplication = 'https://kabirgyan.com/api/approveSubscriberApplication/';
 export const url_rejectSubscriberApplication  = 'https://kabirgyan.com/api/rejectSubscriberApplication/';

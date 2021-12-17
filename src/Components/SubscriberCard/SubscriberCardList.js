@@ -162,7 +162,7 @@ export default function SubscriberCardList(props) {
                         </Typography> : 
                   cards.map(card => (
                     <Grid item
-                        md={6} lg={4}
+                        md={6} lg={props.isLargeItem === undefined ? 4 : 6 } xl={3} 
                         className={classes.gridCard}
                     >
                         {card}

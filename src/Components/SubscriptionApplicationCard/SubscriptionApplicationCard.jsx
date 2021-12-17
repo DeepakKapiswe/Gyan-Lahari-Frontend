@@ -223,7 +223,8 @@ export default function SubscriptionApplicationCard(props) {
                        /> :
                        null)) ||
                     (app.appType === 'EditSubscriptionDetails' ||
-                     app.appType === 'RenewSubscription')) && (
+                     app.appType === 'RenewSubscription' ||
+                     app.appType === 'RenewSubscriptionEditSubscriberDetails' )) && (
 
                      <FormControlLabel
                           value="bottom"
@@ -255,7 +256,7 @@ export default function SubscriptionApplicationCard(props) {
             {originalData !== null &&
              checked &&
              ((app.appStatus === 'Pending' && app.applicationType === 'EditDetails') || 
-             ( app.appType === 'RenewSubscription')
+             ( app.appType === 'RenewSubscription' || app.appType === 'RenewSubscriptionEditSubscriberDetails')
              ) && 
              originalData[0] !== null &&
               <CardContent>
@@ -270,6 +271,7 @@ export default function SubscriptionApplicationCard(props) {
                     app.appType === 'EditSubscriberDetails' ? <DisplayEditSubscriberDetailsApplication  subEditData={app.appData}  subOldData={originalData} /> :
                     app.appType === 'EditSubscriptionDetails' ? <DisplayEditSubscriptionApplication  subEditData={app.appData} /> :
                     app.appType === 'RenewSubscription' ? <DisplayRenewSubscriptionApplication renewSubscriptionData={app.appData} /> :
+                    app.appType === 'RenewSubscriptionEditSubscriberDetails' ? <DisplayNewSubscriberApplication newSubData={app.appData} /> :
                     null
 
                 }

@@ -3,10 +3,11 @@ import useSWR from 'swr'
 import Cookies from 'js-cookie';
 
 import SubscriberCardList from '../SubscriberCard/SubscriberCardList';
-import { url_distGetAllSubscriberApplications
-       , url_getAllSubscriberApplications
-       , url_subViewAllSubscriberApplications
-       , url_getUserApplications } from '../../apiEndpoints/api';
+import { url_distGetPendingSubscriberApplications
+       , url_getPendingSubscriberApplications
+       , url_subViewPendingSubscriberApplications
+       , url_getPendingUserApplications
+       } from '../../apiEndpoints/api';
 import LoginPrompt from '../LoginPrompt/LoginPrompt';
 import { useSaveNextLocation } from '../../Hooks/SaveLocation';
 import { useLocation } from '@reach/router';
@@ -21,16 +22,16 @@ const useStyles = makeStyles(({ spacing }) => ({
   },
     }));
 
-export default function ViewAllSubscriberApplications(props) {
+export default function ViewPendingSubscriberApplications(props) {
   const classes = useStyles();
   const saveNextLocation = useSaveNextLocation();
   const location = useLocation();
   saveNextLocation(location.pathname,{state:{}})
   const {userType} = useAppState();
-  const url = userType === 'USubscriber'  ? url_subViewAllSubscriberApplications : 
-              userType === 'UDistributor' ? url_distGetAllSubscriberApplications : 
-              props.onlyUser              ? url_getUserApplications :
-              url_getAllSubscriberApplications;
+  const url = userType === 'USubscriber'  ? url_subViewPendingSubscriberApplications : 
+              userType === 'UDistributor' ? url_distGetPendingSubscriberApplications : 
+              props.onlyUser              ? url_getPendingUserApplications :
+              url_getPendingSubscriberApplications;
   const fetcher = (...args) => fetch(url, {
     method: 'GET',
     headers: {

@@ -41,6 +41,8 @@ const ViewAddedDistributor = lazy(() => import('./Components/ViewDistributor/Vie
 
 const ViewSubscriberApplication = lazy(() => import('./Components/ViewSubscriberApplication/ViewSubscriberApplication'));
 const ViewAllSubscriberApplications = lazy(() => import('./Components/ViewSubscriberApplication/ViewAllSubscriberApplications'));
+const ViewPendingSubscriberApplications = lazy(() => import('./Components/ViewSubscriberApplication/ViewPendingSubscriberApplications'));
+
 const ViewSubscriber = lazy(() => import('./Components/ViewSubscriber/ViewSubscriber'));
 const AddResult = lazy(() => import('./Components/AddResult/AddResult'));
 const AddDistributorResult = lazy(() => import('./Components/AddDistributor/AddDistributorResult'));
@@ -64,6 +66,8 @@ const RecentlyAddedForm = lazy(() => import('./Components/RecentlyAddedForm/Rece
 const RecentlyAddedResult = lazy(() => import('./Components/RecentlyAddedResult/RecentlyAddedResult'));
 const FilterSubscriberForm = lazy (() => import('./Components/FilterSubscriberForm/FilterSubscriberForm'));
 const FilterResult = lazy (() => import('./Components/FilterSubscriberResult/FilterSubscriberResult'));
+const DistSubscribersForm = lazy(() => import('./Components/DistSubscribersForm/DistSubscribersForm'));
+const DistSubscribersResult = lazy(() => import('./Components/DistSubscribersResult/DistSubscribersResult'));
 
 const RenewalForm = lazy (() => import('./Components/RenewalForm/RenewalForm'));
 const RenewResult = lazy (() => import('./Components/RenewResult/RenewResult'));
@@ -202,12 +206,14 @@ function App(props) {
       <Divider />
       </Authorised>
       <Authorised authUserTypes={auth.ualSubscriber}>
+          <ListLink to="/patrika/viewPendingSubscriberApplications" label="Pending Applications" />
           <ListLink to="/patrika/viewAllSubscriberApplications" label="View All Applications" />
         <Divider />
         <Divider />
         <Divider />
       </Authorised>
       <Authorised authUserTypes={auth.ualManager}>
+          <ListLink to="/patrika/viewPendingUserApplications" label="My Pending Applications" />
           <ListLink to="/patrika/viewUserApplications" label="My Applications" />
         <Divider />
         <Divider />
@@ -233,6 +239,7 @@ function App(props) {
           <ListLink to="/patrika/expiryListForm" label="Expiry List" />
           </Authorised>
         <Authorised authUserTypes={auth.ualManager}>
+          <ListLink to="/patrika/distSubscribersForm" label="Dist Subscribers" />
           <ListLink to="/patrika/allDistributors" label="All Distributors" />
           <Authorised onlyAdmin >
             <ListLink to="/patrika/addNewDistributor" label="Add Distributor" />
@@ -371,8 +378,14 @@ function App(props) {
                 <Authorised authUserTypes={auth.ualSubscriber} path="/viewAllSubscriberApplications">
                   <ViewAllSubscriberApplications path="/" />
                 </Authorised>
+                <Authorised authUserTypes={auth.ualSubscriber} path="/viewPendingSubscriberApplications">
+                  <ViewPendingSubscriberApplications path="/" />
+                </Authorised>
                 <Authorised authUserTypes={auth.ualManager} path="/viewUserApplications">
                   <ViewAllSubscriberApplications path="/" onlyUser />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/viewPendingUserApplications">
+                  <ViewPendingSubscriberApplications path="/" onlyUser />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualDistributor} path="/addNewSubscriber">
                   <SubscriberForm path="/" />
@@ -400,6 +413,12 @@ function App(props) {
                 </Authorised>
                 <Authorised authUserTypes={auth.ualDistributor} path="/allSubscribers">
                   <ViewAllSubscribers path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualDistributor} path="/distSubscribersForm">
+                  <DistSubscribersForm path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualDistributor} path="/distSubscribersResult">
+                  <DistSubscribersResult path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualManager} path="/allDistributors">
                   <ViewAllDistributors path="/" />
