@@ -72,7 +72,11 @@ export default function SubscriberEditForm(props) {
   const [userResult, setUserResult] = useState(null);
   const [endVol, setEndVol] = useState(0);
   const [subPlan, setSubPlan] = useState(sD.subscriptions[0].subplan);
-  const [startVol, setStartVol] = useState(sD.subscriptions[0].subendvol+1);
+  const defaultPlan = {};
+  // IMP TODO: hardcoding to 86 later we have to change it
+  defaultPlan.renewType = sD.subscriptions[0].subendvol*1 >= 85 ? "Extend" : "Restart";
+  defaultPlan.startVol = defaultPlan.renewType === "Restart" ? 86 : sD.subscriptions[0].subendvol+1;
+  const [startVol, setStartVol] = useState(defaultPlan.startVol);
   const [startVolDisabled, setStartVolDisabled] = useState(true);
   const saveLastLocation = useSaveLastLocation();
   const saveNextLocation = useSaveNextLocation();
@@ -187,6 +191,7 @@ export default function SubscriberEditForm(props) {
                       label="Renewal Type"
                       onChange={handleRenewalTypeChange}
                       >
+                      <option value={defaultPlan.renewType}>{defaultPlan.renewType + " Subscription"}</option>
                       <option value={"Extend"}>Extend Subscription</option>
                       <option value={"Restart"}>Restart Subscription</option>
                     </NativeSelect>
