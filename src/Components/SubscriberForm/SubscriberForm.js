@@ -63,8 +63,10 @@ export default function SubscriberForm() {
   // start value as per wish
   // const [startVol, setStartVol] = useState(computeExpectedCurrVol());
   const [startVol, setStartVol] = useState(86 * 1);
-  const [endVol, setEndVol] = useState(0);
-  const [subscriptionType, setSubscriptionType] = useState(0);
+
+  // TODO: FIXINg for Fast entry later we have to change it
+  const [endVol, setEndVol] = useState(106*1);
+  const [subscriptionType, setSubscriptionType] = useState(5);
   const saveLastLocation = useSaveLastLocation();
   const saveNextLocation = useSaveNextLocation();
   saveLastLocation();
@@ -167,7 +169,8 @@ export default function SubscriberForm() {
                       label="Subscription Type"
                       onChange={handleSubscriptionTypeChange}
                     >
-                      <option value={0} />
+                      {/* <option value={0} /> */}
+                      <option value={5}>5 Years</option>
                       <option value={1}>1 Year</option>
                       <option value={3}>3 Years</option>
                       <option value={4}>4 Years</option>
@@ -187,6 +190,7 @@ export default function SubscriberForm() {
                       type="number"
                       id="subEndVol"
                       value={endVol}
+                      defaultValue={endVol}
                       disabled
                       name="subEndVol"
                       label="Ending Volume"
