@@ -29,7 +29,7 @@ function DistSubscribers(props) {
   if (!data) return <div>loading...</div>
   if (data === 401) return <LoginPrompt/>
   const items = data.dlSubscriberList.map((item) => {
-     item.isExpiring = item.subEndVol === data.dlCurrentVol;
+     item.isExpiring = item.subEndVol === data.dlCurrentVol && item.upcomingPlans === null;
      return <SubscriberCard subscriberDetails={item}/>;
   });
 

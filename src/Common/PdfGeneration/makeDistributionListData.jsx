@@ -5,7 +5,7 @@ function makeSubscriberCell(subscriber, currentVol) {
     const a = subscriber
     a.subStartVol = a.currPlan ? a.currPlan.substartvol : a.subscriptions[0].substartvol
     a.subEndVol = a.currPlan ? a.currPlan.subendvol : a.subscriptions[0].subendvol
-    a.isExpiring = a.subEndVol === currentVol
+    a.isExpiring = a.subEndVol === currentVol && a.upcomingPlans === null;
     return (
         {
             margin: [8, 9, 0, 0], // sets gap between each row
@@ -21,7 +21,8 @@ function makeSubscriberCell(subscriber, currentVol) {
                                 'SC:' + a.subId +
                                 ' D'  + a.subDistId +
                                 ' V' + currentVol + '{' + a.subStartVol + '-' + a.subEndVol + '}' +
-                                (a.isExpiring ? '**' : ''),
+                                (a.isExpiring ? '**' : '') +
+                                (a.upcomingPlans !== null ? '+' : ''),
                             background: (a.isExpiring ? '#98997f' : '')
                         }
                             , a.subName
