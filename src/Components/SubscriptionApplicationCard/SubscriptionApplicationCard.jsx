@@ -261,7 +261,7 @@ export default function SubscriptionApplicationCard(props) {
              originalData[0] !== null &&
               <CardContent>
                   <p>Original: </p>
-                  <SubscriberCard noActionButtons subscriberDetails={originalData[0]} />
+                  <SubscriberCard  subscriberDetails={originalData[0]} />
                   <p>Proposed: </p>
               </CardContent>
             }
@@ -378,7 +378,7 @@ const makeColumn = (str, comp) => {
                         <Divider variant="fullWidth" />
                         {makeColumn("Slip No.", s.subSlipNum)}
                         <Divider variant="fullWidth" />
-                        {makeColumn("Subscription Type", "New")}
+                        {makeColumn("Subscription Type", s.subType)}
                         <Divider variant="fullWidth" />
                         {makeColumn("Subscription Medium", s.subMedium)}
       </Typography>
@@ -438,7 +438,7 @@ function DisplayEditSubscriptionApplication (props) {
                         <Divider variant="fullWidth" />
                         {makeColumn("Slip No.", s.subSlipNum)}
                         <Divider variant="fullWidth" />
-                        {makeColumn("Subscription Type", "New")}
+                        {makeColumn("Subscription Type", s.subType)}
                         <Divider variant="fullWidth" />
                         {makeColumn("Subscription Medium", s.subMedium)}
       </Typography>

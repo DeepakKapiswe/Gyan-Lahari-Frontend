@@ -2,6 +2,7 @@ import React from "react";
 import pdfMake from "pdfmake/build/pdfmake";
 import vfsFonts from 'pdfmake/build/vfs_fonts';
 import createPdfData from "../PdfGeneration/createPdfData";
+import { navigate } from '@reach/router';
 
 pdfMake.fonts = {
 	NotoSans: {
@@ -19,6 +20,9 @@ export default function PdfDownload(props) {
 	const {vfs} = vfsFonts.pdfMake;
 	pdfMake.vfs = vfs;
 
+	
 	pdfMake.createPdf(pdfData).download(fName);
-	return <>Pdf Downloaded</>
+
+	navigate(-1);
+	return <>Pdf Generated Successfully</>
 }

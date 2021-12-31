@@ -58,6 +58,7 @@ function CustomizedSnackbars(props) {
               appType === 'EditSubscriberDetails' ? 'Successfully Applied For Editing Subscriber Address Details' :
               appType === 'EditSubscriptionDetails' ? 'Successfully Applied For Editing Subscription Details' :
               appType === 'RenewSubscription' ? 'Successfully Applied For Subscription Renewal' :
+              appType === 'RenewSubscriptionEditSubscriberDetails' ? 'Successfully Applied For Subscription Renewal And Update Address' :
               null
         }
         </Alert>

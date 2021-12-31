@@ -66,3 +66,4 @@ export const url_subApplyForRenewSubscription = 'https://kabirgyan.com/api/sub/a
 // export const url_subApplyForRenewSubscriptionUpdateSubscriber = 'https://kabirgyan.com/api/sub/applyForRenewSubscriptionUpdateSubscriber/';
 
 export const url_viewCurrentVolumeNum         = 'https://kabirgyan.com/api/viewCurrentVolumeNum/';
+export const url_getCirculationSummary        = 'https://kabirgyan.com/api/circulationSummary/';

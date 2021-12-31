@@ -29,6 +29,7 @@ import LoginPrompt from './Components/LoginPrompt/LoginPrompt';
 import Home from './Components/Home/Home';
 import { useAuth } from './Hooks/AuthHooks';
 
+
 const Login = lazy(() => import('./Components/Login/Login.jsx'));
 const Logout = lazy(() => import('./Components/Logout/Logout'));
 const LoginForm = lazy(() => import('./Components/LoginForm/LoginForm'));
@@ -73,6 +74,9 @@ const RenewalForm = lazy (() => import('./Components/RenewalForm/RenewalForm'));
 const RenewResult = lazy (() => import('./Components/RenewResult/RenewResult'));
 const RenewalEditForm = lazy (() => import('./Components/RenewEditForm/RenewEditForm'));
 const RenewEditResult = lazy (() => import('./Components/RenewEditResult/RenewEditResult'));
+
+const CirculationSummaryForm = lazy (() => import('./Components/CirculationSummaryForm/CirculationSummaryForm'));
+const CirculationSummaryResult = lazy (() => import('./Components/CirculationSummaryResult/CirculationSummaryResult'));
 
 
 const drawerWidth = 240;
@@ -249,6 +253,7 @@ function App(props) {
           <Divider />
           <ListLink to="/patrika/bulkDistributionListForm" label="Print Distribution" />
           <ListLink to="/patrika/bulkExpiryListForm" label="Print Expiry" />
+          <ListLink to="/patrika/circulationSummaryForm" label="Circulation Summary" />
         </Authorised>
       </Authorised >
 
@@ -464,6 +469,12 @@ function App(props) {
                 </Authorised>
                 <Authorised authUserTypes={auth.ualManager} path="/bulkExpiryListForm">
                   <BulkExpiryListForm path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/circulationSummaryForm">
+                  <CirculationSummaryForm path="/" />
+                </Authorised>
+                <Authorised authUserTypes={auth.ualManager} path="/circulationSummaryResult">
+                  <CirculationSummaryResult path="/" />
                 </Authorised>
                 <Authorised authUserTypes={auth.ualDistributor} path="/viewPdf">
                   <PdfView path="/" />
