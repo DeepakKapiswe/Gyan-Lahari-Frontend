@@ -3,6 +3,7 @@ import makePdfDistributionListData from './pdfDistributionList';
 import makePdfBulkDistributionListData from './pdfBulkDistributionList';
 import makePdfExpiryListData from './pdfExpiryList';
 import makePdfBulkExpiryListData from './pdfBulkExpiryList';
+import makePdfCirculationSummaryData from './pdfCirculationSummary';
 
 
 // create pdf data for different types of result embedding particular info
@@ -30,7 +31,10 @@ export default function createPdfData(pdfInfo){
 		},
 		'SubscriberList' : function () {
 			return makePdfSubscriberListData(pdfInfo.subscriberListData);
-		}
+		},
+		'CirculationSummary' : function () {
+			return makePdfCirculationSummaryData(pdfInfo.circulationSummaryData, pdfInfo.circulationMetaData);
+		},
 	}
 	if (getPdfDataFor[meta]) {
 		fn = getPdfDataFor[meta];

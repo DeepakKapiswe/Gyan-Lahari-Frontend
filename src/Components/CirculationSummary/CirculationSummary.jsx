@@ -43,9 +43,16 @@ export default function CirculationSummary(props) {
   if (error) return <div>Failed to Load in Circulation Summary</div>
   if (!data) return <div>loading...</div>
   if (data === 401) return <LoginPrompt/>
-  // const items = data.map((item) => <SubscriberCard subscriberDetails={item} />);
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
-  const pdfData = dcopy(data.csData);
+  const totalCirculations = data.csData.map(v =>v.circulationdetails.currcirculation).reduce(reducer);
+  const totalExpiries = data.csData.map(v =>v.circulationdetails.currexpirycount).reduce(reducer);
+  const issueNum = props.payload;
+  const csDataRaw = dcopy(data);
+  const pdfData ={circulationSummaryData: csDataRaw.csData, 
+                  circulationMetaData:{ totalExpiries: totalExpiries, 
+                                        totalCirculations: totalCirculations,
+                                        circulationVolume: issueNum }, 
+                  meta : 'CirculationSummary'} 
   const pdfName = `Circulation_Summary_Vol_${props.payload}`;
 
   const pdfButtons =(
@@ -101,10 +108,10 @@ export default function CirculationSummary(props) {
         Volume : {props.payload} {'  '} 
       </span>
       <span>
-          {'  |'} Circulations : {data.csData.map(v =>v.circulationdetails.currcirculation).reduce(reducer)} 
+          {'  |'} Circulations : {totalCirculations} 
       </span>
       <span>
-          {'  |'} Expiries : {data.csData.map(v =>v.circulationdetails.currexpirycount).reduce(reducer)}
+          {'  |'} Expiries : {totalExpiries}
       </span>
     </Typography>
 

@@ -23,6 +23,5 @@ export default function PdfView(props) {
 	pdfMake.createPdf(pdfData).open();
 
 	navigate(-1);
-	alert('Pdf Generated');
 	return <>Pdf Generated</>
 }
