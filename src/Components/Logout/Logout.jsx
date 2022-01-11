@@ -29,7 +29,8 @@ export default function Login(props) {
     setLoggedOut();
     localStorage.clear();
     appDispatch({ cmd: 'clearContext'});
-    navigate("/");
+    navigate("/patrika");
+    window.location.reload(false);
   }}, [data, movetoLastLocation, appDispatch]);
   if (error) return <div> Failed to Load in Logout User </div>
   return (
