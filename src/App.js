@@ -151,8 +151,13 @@ const useStyles = makeStyles(theme => ({
 
 function ListLink(props) {
   const classes = useStyles();
+  function openInNewTab() {
+    if (props.openInNewTab !== undefined) {
+      window.open(props.to);
+      };
+  }
   return (
-    <Link to={props.to} className={classes.link}>
+    <Link to={props.to} className={classes.link} onClick={openInNewTab}>
       <ListItem button className={classes.buttonText}>
         <h3>{props.label.toUpperCase()}</h3>
         {props.icon && <ListItemIcon> {props.icon}</ListItemIcon>}
@@ -224,7 +229,8 @@ function App(props) {
         <Divider />
       </Authorised>
       <Authorised authUserTypes={auth.ualDistributor}>
-          <ListLink to="/patrika/addNewSubscriber" label="Add Subscriber" />
+          <ListLink to="/patrika/addNewSubscriber" label="Add Subscriber" 
+            openInNewTab />
         <Divider />
         <Divider />
         <Divider />
