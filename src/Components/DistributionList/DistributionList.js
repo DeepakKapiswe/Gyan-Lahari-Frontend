@@ -43,7 +43,8 @@ function DistSubscribers(props) {
       subscriberListData: data.dlSubscriberList
     , distributorData: data.dlDistributor
     , distributionDetails: distributionDetails
-    , meta: 'DistributionList' 
+    // , meta: 'DistributionList'
+    , meta: 'LabeledDistributionList'
     };
   return (
     <SubscriberCardList cards={items} header="Distribution List" pdfData={pdfData}/>

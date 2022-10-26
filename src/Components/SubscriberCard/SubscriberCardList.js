@@ -83,7 +83,6 @@ export default function SubscriberCardList(props) {
     const renderHeading = (
         <>
             <Grid item alignItems="center" >
-
                 <Typography variant="h2" component="h3"
                     className={classes.heading} align="center">
                     {header}

@@ -4,6 +4,7 @@ import makePdfBulkDistributionListData from './pdfBulkDistributionList';
 import makePdfExpiryListData from './pdfExpiryList';
 import makePdfBulkExpiryListData from './pdfBulkExpiryList';
 import makePdfCirculationSummaryData from './pdfCirculationSummary';
+import makePdfLabeledDistributionListData from './pdfLabeledDistributionList';
 
 
 // create pdf data for different types of result embedding particular info
@@ -35,6 +36,9 @@ export default function createPdfData(pdfInfo){
 		'CirculationSummary' : function () {
 			return makePdfCirculationSummaryData(pdfInfo.circulationSummaryData, pdfInfo.circulationMetaData);
 		},
+		'LabeledDistributionList' : function () {
+			return makePdfLabeledDistributionListData(pdfInfo.distributionDetails, pdfInfo.subscriberListData);
+		}
 	}
 	if (getPdfDataFor[meta]) {
 		fn = getPdfDataFor[meta];
