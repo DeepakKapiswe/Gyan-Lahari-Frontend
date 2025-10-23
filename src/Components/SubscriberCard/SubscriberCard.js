@@ -212,6 +212,10 @@ export default function SubscriberCard(props) {
     // saveNextLocation("/patrika/renewSubscriptionEditSubscriber", { state: { lastSubscription: sD } });
     // navigate("/patrika/renewSubscriptionEditSubscriber", { state: { lastSubscription: sD } });
   };
+  const handleChangeDistributorClick = () => {
+    sessionStorage.setItem('sD', JSON.stringify(sD));
+    window.open("https://kabirgyan.com/patrika/changeDistributor");
+  };
 
   return (
     <>
@@ -351,22 +355,29 @@ export default function SubscriberCard(props) {
                       fontWeight: 700,}}
                     onClick={handleRenewEditClick}>
                     Edit Renew
-                </Button>  
+                </Button>
                 </Grid>
                 <Grid item>
-
                   <Button size="small" color="primary"
                     className={styles.button}
                     onClick={handleEditClick}>
                     Edit
                 </Button>
                 </Grid>
-                <Grid item>
+                {/* <Grid item>
 
                   <Button size="small" color="primary"
                     className={styles.button}
                     onClick={handleRenewClick}>
                     Renew
+                </Button>
+                </Grid> */}
+                <Grid item>
+
+                  <Button size="small" color="primary"
+                    className={styles.button}
+                    onClick={handleChangeDistributorClick}>
+                    Change Distributor
                 </Button>
                 </Grid>
                 <Grid item>

@@ -70,6 +70,8 @@ const FilterResult = lazy (() => import('./Components/FilterSubscriberResult/Fil
 const DistSubscribersForm = lazy(() => import('./Components/DistSubscribersForm/DistSubscribersForm'));
 const DistSubscribersResult = lazy(() => import('./Components/DistSubscribersResult/DistSubscribersResult'));
 
+const ChangeDistributorForm = lazy (() => import('./Components/ChangeDistributorForm/ChangeDistributorForm'));
+const ChangeDistributorResult = lazy (() => import('./Components/ChangeDistributorResult/ChangeDistributorResult'));
 const RenewalForm = lazy (() => import('./Components/RenewalForm/RenewalForm'));
 const RenewResult = lazy (() => import('./Components/RenewResult/RenewResult'));
 const RenewalEditForm = lazy (() => import('./Components/RenewEditForm/RenewEditForm'));
@@ -448,6 +450,12 @@ function App(props) {
                 </Authorised>
                 <Authorised fallback={<LoginPrompt/>} authUserTypes={auth.ualSubscriber} path="/renewSubscriptionEditSubscriber">
                   <RenewalEditForm path="/" />
+                </Authorised>
+                <Authorised fallback={<LoginPrompt/>} authUserTypes={auth.ualSubscriber} path="/changeDistributor">
+                  <ChangeDistributorForm path="/" />
+                </Authorised>
+                <Authorised fallback={<LoginPrompt/>} authUserTypes={auth.ualSubscriber} path="/changeDistributorResult">
+                  <ChangeDistributorResult path="/" />
                 </Authorised>
                 <Authorised fallback={<LoginPrompt/>} path="/editDistributor">
                    <DistributorEditForm path="/" />
