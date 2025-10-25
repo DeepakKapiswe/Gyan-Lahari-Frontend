@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -8,13 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import { useNavigate } from "@reach/router";
-
-import { computeExpectedCurrVol } from "../../Common/ComputeVolume";
-
-import UpdateSubscriberResult from "../UpdateSubscriber/UpdateSubscriber";
 import BackButton from "../BackButton/BackButton";
 import FlowerDiv from "../FlowerDiv/FlowerDiv";
 import { Card, Divider } from "@material-ui/core";
@@ -28,8 +22,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0, 0, 2, 0),
     display: "flex",
     flexDirection: "column",
-    alignItems: "cen ter",
-    // overflowY : 'scroll'
+    alignItems: "center", // fixed typo
   },
   names: {
     margin: theme.spacing(0, 0, 0, 1),
@@ -63,10 +56,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SubscriberEditForm(props) {
   const navigate = useNavigate();
-  const oldDetails =
-    props.location.state !== null
-      ? props.location.state.lastSubscription
-      : JSON.parse(sessionStorage.sD);
+
+  // --- SAFE LOAD of oldDetails (prevents null/JSON errors) ---
+  const oldDetails = (() => {
+    if (props?.location?.state?.lastSubscription) {
+      return props.location.state.lastSubscription;
+    }
+    try {
+      const raw = sessionStorage.getItem("sD");
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  })();
+
   const [sD, setSD] = useState(oldDetails);
   const { register, handleSubmit } = useForm();
   const [userResult, setUserResult] = useState(null);
@@ -74,31 +77,35 @@ export default function SubscriberEditForm(props) {
   const saveNextLocation = useSaveNextLocation();
   saveLastLocation();
 
+  // --- BUILD plans array and FILTER out falsy entries ---
+  const plans = useMemo(() => {
+    const arr = [];
+    if (sD?.currPlan) arr.push(sD.currPlan);
+    if (Array.isArray(sD?.upcomingPlans)) arr.push(...sD.upcomingPlans);
+    return arr.filter(Boolean); // <- the critical fix
+  }, [sD]);
+
   const onSubmit = (data) => {
-    data.subDistId = data.newDistId;
-    const plansToUpdate = [sD.currPlan].concat(sD.upcomingPlans || []);
-    const changeDistributorData = { newDistId : data.newDistId, plansToUpdate: plansToUpdate};
-    console.log(changeDistributorData);
+    data.subDistId = data.newDistId; // preserving your intent
+    const changeDistributorData = {
+      newDistId: data.newDistId,
+      plansToUpdate: plans, // use already-filtered plans
+    };
     saveNextLocation("/patrika/changeDistributorResult", {
-      state: { changeDistributorData: changeDistributorData },
+      state: { changeDistributorData },
     });
     navigate("/patrika/changeDistributorResult", {
-      state: { changeDistributorData: changeDistributorData },
+      state: { changeDistributorData },
       replace: true,
     });
   };
 
-  const onReset = () => {
-    setSD(oldDetails);
-  };
+  const onReset = () => setSD(oldDetails);
 
   const classes = useStyles();
 
   function RenderResult(props) {
-    // conditionally render result
-    if (props.result !== null) {
-      return <>{userResult}</>;
-    }
+    if (props.result !== null) return <>{userResult}</>;
     return (
       <Grid item alignItems="center">
         <Typography
@@ -122,14 +129,21 @@ export default function SubscriberEditForm(props) {
       </Grid>
     );
   }
-  if (sD == null) {
-    return <h1>Bad Request</h1>;
+
+  if (!sD) {
+    return (
+      <>
+        <h1>Bad Request</h1>
+        <BackButton />
+      </>
+    );
   }
+
   return (
     <>
+      {/* Note: 'xs' prop is for items, not container. Removing it to avoid warnings. */}
       <Grid
         container
-        xs
         className={classes.bgColor}
         direction="row-reverse"
         justify="center"
@@ -155,7 +169,7 @@ export default function SubscriberEditForm(props) {
                       <TextField
                         inputRef={register}
                         inputProps={{
-                          style: { fontsize: 30, fontWeight: 700 },
+                          style: { fontSize: 30, fontWeight: 700 }, // fontSize fix
                         }}
                         type="number"
                         id="subDistId"
@@ -163,21 +177,21 @@ export default function SubscriberEditForm(props) {
                         label="Old Distributor Id"
                         autoComplete="subDistId"
                         disabled
-                        defaultValue={sD.subDistId}
+                        defaultValue={sD.subDistId ?? sD.subdistid}
                       />
                     </Grid>
                     <Grid item xs={6} sm={4} lg={3}>
                       <TextField
                         inputRef={register}
                         inputProps={{
-                          style: { fontsize: 30, fontWeight: 700 },
+                          style: { fontSize: 30, fontWeight: 700 }, // fontSize fix
                         }}
                         required
                         type="number"
                         id="newDistId"
                         name="newDistId"
                         label="New Distributor Id"
-                        defaultValue={sD.subDistId}
+                        defaultValue={sD.subDistId ?? sD.subdistid}
                       />
                     </Grid>
                     <Grid container justify="center" alignItems="stretch">
@@ -197,7 +211,11 @@ export default function SubscriberEditForm(props) {
                   </Grid>
                 </React.Fragment>
               </form>
-              <Typography variant="h6">Subscriber And Old Subscription Details</Typography>
+
+              <Typography variant="h6">
+                Subscriber And Old Subscription Details
+              </Typography>
+
               <Grid
                 container
                 spacing={3}
@@ -211,12 +229,26 @@ export default function SubscriberEditForm(props) {
                 <Grid item xs={12}>
                   <DisplaySubscriberDetails subData={sD} />
                 </Grid>
-                {[sD.currPlan].concat(sD.upcomingPlans || []).map((plan, i) => (
+
+                {plans.length === 0 ? (
                   <Grid item xs={12}>
-                    <DisplaySubscription lastSubscriptionData={plan} />
+                    <Typography variant="body2" color="textSecondary">
+                      No current or upcoming subscriptions found.
+                    </Typography>
                   </Grid>
-                ))}
+                ) : (
+                  plans.map((plan, i) => (
+                    <Grid
+                      item
+                      xs={12}
+                      key={plan?.subscriptionid ?? plan?.id ?? i} // stable key
+                    >
+                      <DisplaySubscription lastSubscriptionData={plan} />
+                    </Grid>
+                  ))
+                )}
               </Grid>
+
               <BackButton />
             </>
           </CssBaseline>
@@ -229,12 +261,12 @@ export default function SubscriberEditForm(props) {
 const makeColumn = (str, comp) => {
   return (
     <Grid container justify="space-between" alignItems="baseline" spacing={1}>
-      <Grid item >
+      <Grid item>
         <Typography variant="button" color="textSecondary">
           <i>{str}</i>
         </Typography>
       </Grid>
-      <Grid item >
+      <Grid item>
         <Typography variant="body2" align="right">
           <b>{comp}</b>
         </Typography>
@@ -245,11 +277,22 @@ const makeColumn = (str, comp) => {
 
 function DisplaySubscription(props) {
   const s = props.lastSubscriptionData;
-  const styles = useStyles();
+
+  // --- GUARD against null/undefined to prevent the crash ---
+  if (!s) {
+    return (
+      <Card variant="outlined">
+        <Typography variant="button" align="left" color="textSecondary">
+          No subscription data.
+        </Typography>
+      </Card>
+    );
+  }
+
   return (
     <Card variant="outlined">
       <Typography variant="button" align="left" color="textSecondary">
-        {makeColumn(<b>Subscription ID : {s.subscriptionid} </b>)}
+        {makeColumn(<b>Subscription ID : {s.subscriptionid}</b>)}
         <Divider variant="fullWidth" />
         {makeColumn("Subscriber Code (SC)", s.subid)}
         <Divider variant="fullWidth" />
@@ -258,12 +301,11 @@ function DisplaySubscription(props) {
         {makeColumn(
           "Valid for Volume Number",
           <>
-            {" "}
             {s.substartvol} --{">"} {s.subendvol}
           </>
         )}
         <Divider variant="fullWidth" />
-        {makeColumn("Distributor Id", s.subdistid)}
+        {makeColumn("Distributor Id", s.subdistid ?? s.subDistId)}
         <Divider variant="fullWidth" />
         {makeColumn("Slip No.", s.subslipnum)}
         <Divider variant="fullWidth" />
@@ -277,32 +319,29 @@ function DisplaySubscription(props) {
 
 function DisplaySubscriberDetails(props) {
   const s = props.subData;
-  const styles = useStyles();
   return (
-    <>
-      <Card variant="outlined">
-        <Typography variant="button" align="left" color="textSecondary">
-          {makeColumn(<b>Subscriber Address Details</b>)}
-          <Divider variant="fullWidth" />
-          {makeColumn("Name", s.subName)}
-          <Divider variant="fullWidth" />
-          {makeColumn("About", s.subAbout)}
-          <Divider variant="fullWidth" />
-          {makeColumn("Address Line 1", s.subAdd1)}
-          <Divider variant="fullWidth" />
-          {makeColumn("Address Line 2", s.subAdd2)}
-          <Divider variant="fullWidth" />
-          {makeColumn("Post", s.subPost)}
-          <Divider variant="fullWidth" />
-          {makeColumn("City", s.subCity)}
-          <Divider variant="fullWidth" />
-          {makeColumn("State", s.subState)}
-          <Divider variant="fullWidth" />
-          {makeColumn("Pincode", s.subPincode)}
-          <Divider variant="fullWidth" />
-          {makeColumn("Mobile", s.subPhone)}
-        </Typography>
-      </Card>
-    </>
+    <Card variant="outlined">
+      <Typography variant="button" align="left" color="textSecondary">
+        {makeColumn(<b>Subscriber Address Details</b>)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Name", s.subName)}
+        <Divider variant="fullWidth" />
+        {makeColumn("About", s.subAbout)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Address Line 1", s.subAdd1)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Address Line 2", s.subAdd2)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Post", s.subPost)}
+        <Divider variant="fullWidth" />
+        {makeColumn("City", s.subCity)}
+        <Divider variant="fullWidth" />
+        {makeColumn("State", s.subState)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Pincode", s.subPincode)}
+        <Divider variant="fullWidth" />
+        {makeColumn("Mobile", s.subPhone)}
+      </Typography>
+    </Card>
   );
 }
